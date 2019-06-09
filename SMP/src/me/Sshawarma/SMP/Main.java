@@ -9,6 +9,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin{
 	
+	//First real plugin woooo! ALso a test to see how GitHub updates projects.
 	@Override
 	public void onEnable(){
 		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "\nSMP has been enabled!\n");
