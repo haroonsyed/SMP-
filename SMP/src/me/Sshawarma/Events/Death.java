@@ -1,6 +1,5 @@
 package me.Sshawarma.Events;
 
-import java.util.Collection;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -15,8 +14,8 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Death implements Listener{
 	
-	//Keep track of active beacons
-	private HashMap<Location, Boolean> beacons = new HashMap<Location, Boolean>();
+	//Keep track of active chests with location and whether to delete
+	private HashMap<Location, Boolean> dChests = new HashMap<Location, Boolean>();
 	
 	@EventHandler
 	public void placeBeacon(PlayerDeathEvent event) {
@@ -24,7 +23,9 @@ public class Death implements Listener{
 			
 			//Variables
 			Player player = event.getEntity();
-			Location dLoc = event.getEntity().getLocation();
+			Location chestLoc = event.getEntity().getLocation();
+			
+			dChests.put(chestLoc, false);
 			
 			//Moves standard death message to before coordinate message
 			for (Player onlinePlayers : Bukkit.getOnlinePlayers()){
@@ -38,7 +39,7 @@ public class Death implements Listener{
 			Bukkit.getServer().broadcastMessage(ChatColor.BOLD + "" + ChatColor.WHITE + player.getDisplayName() + "'s death coordinates are: " + ChatColor.LIGHT_PURPLE + event.getEntity().getLocation().getBlockX() + 
 				ChatColor.GREEN + " " + event.getEntity().getLocation().getBlockY() +ChatColor.BLUE + " " + event.getEntity().getLocation().getBlockZ() + ChatColor.WHITE + " in " + event.getEntity().getWorld().getName());
 
-			//WIP Replaces death block with active beacon
+			//WIP Places player inventory into an invincible chest. Change bcs beacon is client side.
 			
 			
 		}
