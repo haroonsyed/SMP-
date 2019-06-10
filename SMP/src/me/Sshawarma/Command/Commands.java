@@ -100,7 +100,7 @@ public class Commands implements CommandExecutor{
 							
 							player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 10, 1);
 							player.sendMessage("\n" + ChatColor.DARK_GREEN + target.getName() + "'s location is: " + ChatColor.LIGHT_PURPLE + target.getLocation().getBlockX() + 
-									ChatColor.GREEN + " " + target.getLocation().getBlockY() +ChatColor.BLUE + " " + target.getLocation().getBlockZ() + " in " + target.getWorld() + "\n");
+								ChatColor.GREEN + " " + target.getLocation().getBlockY() +ChatColor.BLUE + " " + target.getLocation().getBlockZ() + " in " + ChatColor.WHITE + target.getWorld() +"\n");
 							
 							accept = false;
 							this.cancel();

@@ -27,7 +27,6 @@ public class Beds implements Listener{
 		
 		//Error will occur when it is thundering...who cares
 		if((Bukkit.getServer().getWorld("world").getTime()<12541)) {
-			player.sendMessage(Long.toString(Bukkit.getServer().getWorld("world").getTime()));
 			return;
 		}
 		else if(tag.containsKey(player.getDisplayName())==false) {
