@@ -23,6 +23,7 @@ public class Death implements Listener{
 	Plugin plugin = Main.getPlugin(Main.class);	
 	//Keep track of active chests with location and whether to delete
 	private HashMap<Location, Material> dChests = new HashMap<Location, Material>();
+	private HashMap<Location, Boolean> dChests2 = new HashMap<Location, Boolean>();
 	
 	@EventHandler
 	public void placeChest(PlayerDeathEvent event) {
@@ -30,10 +31,13 @@ public class Death implements Listener{
 			
 			//Variables
 			Player player = event.getEntity();
-			Location chestLoc = event.getEntity().getLocation();
+			Location chestLoc = new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY(),player.getLocation().getZ());
+			Location chest2Loc = new Location(chestLoc.getWorld(),chestLoc.getX(),chestLoc.getY(),chestLoc.getZ());
+			chest2Loc.add(0, 1, 0);
+			
+			Material oldChestBlock = chest2Loc.getBlock().getType();
 			
 			dChests.put(chestLoc, chestLoc.getBlock().getType());
-			player.getInventory().clear();
 			
 			//Moves standard death message to before coordinate message
 			for (Player onlinePlayers : Bukkit.getOnlinePlayers()){
@@ -50,25 +54,42 @@ public class Death implements Listener{
 			//WIP Places player inventory into an invincible chest. Change bcs beacon is client side.
 			//Player inventory of type Inventory must be converted to itemstack array to add to chests
 			ArrayList<ItemStack> inven = new ArrayList<ItemStack>();
+			ArrayList<ItemStack> inven2 = new ArrayList<ItemStack>();
 			//iterate through player inventory and add to itemstacks
 			//may have to get player armor
 			for(ItemStack i : player.getInventory().getContents()) {
-				if(i!= null) {
+				if(i== null) {
+				}
+				else if(inven.size()+1<=27) {
 					inven.add(i);
 				}
+				else {
+					inven2.add(i);
+				}
 			}
-			
 			//Makes Chest
 			chestLoc.getBlock().setType(Material.CHEST);
-			Chest chest = (Chest) chestLoc;
+			Chest chest = (Chest) chestLoc.getBlock().getState();
 			
 			//May have to make a new chest, sets chest contents to this
-			if(inven.size()<28) {
+			if(inven2.size()==0) {
 				chest.getInventory().setContents(inven.toArray(new ItemStack[inven.size()]));
+				event.getDrops().clear();
 			}
 			//Make an adjacent chest... Which means I may have to track another :(
-			else {
+			else{
+				//IF player inven is too big
+				//Makes second chest
+				chest2Loc.getBlock().setType(Material.CHEST);
+				Chest chest2 = (Chest) chest2Loc.getBlock().getState();
+				dChests2.put(chest2Loc, false);
 				
+				//set second chest to second half of player inven
+				Bukkit.getServer().broadcastMessage("Created Array 2 and second chest!" + inven.size());
+				chest2.getInventory().setContents(inven.toArray(new ItemStack[27]));
+				chest.getInventory().setContents(inven2.toArray(new ItemStack[inven2.size()]));
+				event.getDrops().clear();
+				dChests2.put(chestLoc, true);
 			}
 			
 			//runnable to remove chest
@@ -76,14 +97,20 @@ public class Death implements Listener{
 
 				@Override
 				public void run() {
+					chest.getInventory().clear();
 					chestLoc.getBlock().setType(dChests.get(chestLoc));
-					player.playSound(chestLoc, Sound.BLOCK_ANVIL_FALL, 10, 1);
+					player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 10, 1);
 					player.sendMessage(ChatColor.DARK_RED + "Your death chest has despawned :(");
 					dChests.remove(chestLoc);
+					if(dChests2.containsKey(chest2Loc)) {
+						Chest chest2 = (Chest) chest2Loc.getBlock().getState();
+						chest2.getInventory().clear();
+						chest2Loc.getBlock().setType(oldChestBlock);
+						dChests2.remove(chest2Loc);
+					}
 					
-				}
-			//THIS WILL RUN FOR 3 MINUTES, CHANGE TO 5 LATER	
-			}.runTaskLater(plugin, 3600);
+				}	
+			}.runTaskLater(plugin, 6000);
 			
 		}
 		
