@@ -30,7 +30,7 @@ public class Death implements Listener{
 	}
 	
 	public static void setdChests(Location loc, Material mat) {
-		dChests.put(loc, mat);
+		dChests.put(loc.getBlock().getLocation(), mat);
 	}
 	
 	public static HashMap<Location, Material> getdChests2(){
@@ -38,7 +38,7 @@ public class Death implements Listener{
 	}
 	
 	public static void setdChests2(Location loc, Material mat) {
-		dChests2.put(loc, mat);
+		dChests2.put(loc.getBlock().getLocation(), mat);
 	}
 	
 	@EventHandler
@@ -53,7 +53,7 @@ public class Death implements Listener{
 			
 			Material oldChestBlock = chest2Loc.getBlock().getType();
 			
-			dChests.put(chestLoc, chestLoc.getBlock().getType());
+			dChests.put(chestLoc.getBlock().getLocation(), chestLoc.getBlock().getType());
 			
 			//Moves standard death message to before coordinate message
 			for (Player onlinePlayers : Bukkit.getOnlinePlayers()){
@@ -98,14 +98,13 @@ public class Death implements Listener{
 				//Makes second chest
 				chest2Loc.getBlock().setType(Material.CHEST);
 				Chest chest2 = (Chest) chest2Loc.getBlock().getState();
-				dChests2.put(chest2Loc, oldChestBlock);
+				dChests2.put(chest2Loc.getBlock().getLocation(), oldChestBlock);
 				
 				//set second chest to second half of player inven
-				Bukkit.getServer().broadcastMessage("Created Array 2 and second chest!" + inven.size());
 				chest2.getInventory().setContents(inven.toArray(new ItemStack[27]));
 				chest.getInventory().setContents(inven2.toArray(new ItemStack[inven2.size()]));
 				event.getDrops().clear();
-				dChests2.put(chestLoc, oldChestBlock);
+				dChests2.put(chestLoc.getBlock().getLocation(), oldChestBlock);
 			}
 			
 			//runnable to remove chest
