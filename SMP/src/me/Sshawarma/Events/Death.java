@@ -22,8 +22,24 @@ import net.md_5.bungee.api.ChatColor;
 public class Death implements Listener{
 	Plugin plugin = Main.getPlugin(Main.class);	
 	//Keep track of active chests with location and whether to delete
-	private HashMap<Location, Material> dChests = new HashMap<Location, Material>();
-	private HashMap<Location, Boolean> dChests2 = new HashMap<Location, Boolean>();
+	private static HashMap<Location, Material> dChests = new HashMap<Location, Material>();
+	private static HashMap<Location, Material> dChests2 = new HashMap<Location, Material>();
+	
+	public static HashMap<Location, Material> getdChests() {
+		return dChests;
+	}
+	
+	public static void setdChests(Location loc, Material mat) {
+		dChests.put(loc, mat);
+	}
+	
+	public static HashMap<Location, Material> getdChests2(){
+		return dChests2;
+	}
+	
+	public static void setdChests2(Location loc, Material mat) {
+		dChests2.put(loc, mat);
+	}
 	
 	@EventHandler
 	public void placeChest(PlayerDeathEvent event) {
@@ -82,14 +98,14 @@ public class Death implements Listener{
 				//Makes second chest
 				chest2Loc.getBlock().setType(Material.CHEST);
 				Chest chest2 = (Chest) chest2Loc.getBlock().getState();
-				dChests2.put(chest2Loc, false);
+				dChests2.put(chest2Loc, oldChestBlock);
 				
 				//set second chest to second half of player inven
 				Bukkit.getServer().broadcastMessage("Created Array 2 and second chest!" + inven.size());
 				chest2.getInventory().setContents(inven.toArray(new ItemStack[27]));
 				chest.getInventory().setContents(inven2.toArray(new ItemStack[inven2.size()]));
 				event.getDrops().clear();
-				dChests2.put(chestLoc, true);
+				dChests2.put(chestLoc, oldChestBlock);
 			}
 			
 			//runnable to remove chest
