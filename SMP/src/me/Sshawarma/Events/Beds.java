@@ -19,12 +19,12 @@ public class Beds implements Listener{
 	
 	//Player is player. Boolean indicated if the timerStarted is active for them.
 	private HashMap<String, Boolean> tag = new HashMap<String, Boolean>();
+	private HashMap<String,Long> time = new HashMap<String,Long>();
 	
 	
 	@EventHandler
 	public void sleepNotify(PlayerBedEnterEvent event) {
 		Player player = event.getPlayer();
-		Bukkit.getServer().broadcastMessage(Boolean.toString(player.isSleeping()) + event.getBedEnterResult());
 		//Error will occur when it is thundering...who cares
 		if((Bukkit.getServer().getWorld("world").getTime()<12541)) {
 			return;
@@ -32,11 +32,11 @@ public class Beds implements Listener{
 		
 		else if(tag.containsKey(player.getDisplayName())==false && event.getBedEnterResult().toString()=="OK") {
 			tag.put(player.getDisplayName(), false);
+			
 			new BukkitRunnable() {
 
 				@Override
 				public void run() {
-					Long msgTime = null;
 					//if player is on spamTimer, then don't broadcast
 					//ISSUE HERE BECAUSE LOOP IS NOT RUNNING QUICKLY
 					if(tag.get(player.getDisplayName())==true) {
@@ -46,15 +46,15 @@ public class Beds implements Listener{
 					}
 					//if player is not on spamTimer, then broadcast
 					//Fixed so spamTimer message displays immediately
-					else if(tag.get(player.getDisplayName())==false && (msgTime == null || Bukkit.getServer().getWorld("world").getTime() == msgTime)){
+					else if(tag.get(player.getDisplayName())==false && (time.containsKey(player.getDisplayName()) == false || time.get(player.getDisplayName()) == Bukkit.getServer().getWorld("world").getTime())){
 						
 						Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + player.getDisplayName() + " is sleeping now!");
-						msgTime = Bukkit.getServer().getWorld("world").getTime() + 380;
+						time.put(player.getDisplayName(), Bukkit.getServer().getWorld("world").getTime() + 380);
 						
 					}
 					
 				}
-			}.runTaskTimerAsynchronously(plugin, 0, 2);
+			}.runTaskTimerAsynchronously(plugin, 0, 1);
 		}
 		
 		
@@ -85,6 +85,7 @@ public class Beds implements Listener{
 					public void run() {
 						player.sendMessage(ChatColor.DARK_GRAY + "You are no longer on spamTimer");
 						tag.remove(player.getDisplayName());
+						time.remove(player.getDisplayName());
 					}
 						
 					}.runTaskLaterAsynchronously(plugin, 140);
