@@ -24,31 +24,37 @@ public class Beds implements Listener{
 	@EventHandler
 	public void sleepNotify(PlayerBedEnterEvent event) {
 		Player player = event.getPlayer();
-		
+		Bukkit.getServer().broadcastMessage(Boolean.toString(player.isSleeping()) + event.getBedEnterResult());
 		//Error will occur when it is thundering...who cares
 		if((Bukkit.getServer().getWorld("world").getTime()<12541)) {
 			return;
 		}
-		else if(tag.containsKey(player.getDisplayName())==false) {
+		
+		else if(tag.containsKey(player.getDisplayName())==false && event.getBedEnterResult().toString()=="OK") {
 			tag.put(player.getDisplayName(), false);
 			new BukkitRunnable() {
 
 				@Override
 				public void run() {
+					Long msgTime = null;
 					//if player is on spamTimer, then don't broadcast
-					if(tag.get(player.getDisplayName()) == true) {
+					//ISSUE HERE BECAUSE LOOP IS NOT RUNNING QUICKLY
+					if(tag.get(player.getDisplayName())==true) {
 						this.cancel();
 						player.sendMessage(ChatColor.DARK_GRAY + "You are still on spamTimer!");
 						return;
 					}
 					//if player is not on spamTimer, then broadcast
-					else if(tag.get(player.getDisplayName()).equals(false)){
+					//Fixed so spamTimer message displays immediately
+					else if(tag.get(player.getDisplayName())==false && (msgTime == null || Bukkit.getServer().getWorld("world").getTime() == msgTime)){
+						
 						Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + player.getDisplayName() + " is sleeping now!");
-
+						msgTime = Bukkit.getServer().getWorld("world").getTime() + 380;
+						
 					}
 					
 				}
-			}.runTaskTimerAsynchronously(plugin, 0, 380);
+			}.runTaskTimerAsynchronously(plugin, 0, 2);
 		}
 		
 		
@@ -66,8 +72,7 @@ public class Beds implements Listener{
 		
 		//if Player leaves bed, put them on spamTimer
 		if(tag.get(player.getDisplayName())!=null) {
-			if(tag.get(player.getDisplayName()).equals(false)) {
-				
+			if(tag.get(player.getDisplayName())==false) {
 				//Starts timer and enables variables to stop messages
 				Bukkit.getServer().broadcastMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + player.getDisplayName() + " is no longer sleeping!");	
 				tag.put(player.getDisplayName(), true);
