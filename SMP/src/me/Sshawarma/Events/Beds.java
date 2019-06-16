@@ -36,7 +36,7 @@ public class Beds implements Listener{
 				@Override
 				public void run() {
 					//if player is on spamTimer, then don't broadcast
-					if(tag.containsKey(player.getDisplayName()) == false) {
+					if(tag.get(player.getDisplayName()) == true) {
 						this.cancel();
 						player.sendMessage(ChatColor.DARK_GRAY + "You are still on spamTimer!");
 						return;
@@ -65,21 +65,27 @@ public class Beds implements Listener{
 		
 		
 		//if Player leaves bed, put them on spamTimer
-		if(tag.get(player.getDisplayName())!=null && tag.get(player.getDisplayName()).equals(false)) {
-			Bukkit.getServer().broadcastMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + player.getDisplayName() + " is no longer sleeping!");	
-			tag.put(player.getDisplayName(), true);
-			event.getPlayer().sendMessage(ChatColor.DARK_GRAY + "spamTimer is on");
-			
-			//Starts timer and enables variables to stop messages
-			new BukkitRunnable() {
+		if(tag.get(player.getDisplayName())!=null) {
+			if(tag.get(player.getDisplayName()).equals(false)) {
 				
-				@Override
-				public void run() {
-					player.sendMessage(ChatColor.DARK_GRAY + "You are no longer on spamTimer");
-					tag.remove(player.getDisplayName());
-				}
+				//Starts timer and enables variables to stop messages
+				Bukkit.getServer().broadcastMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + player.getDisplayName() + " is no longer sleeping!");	
+				tag.put(player.getDisplayName(), true);
+				event.getPlayer().sendMessage(ChatColor.DARK_GRAY + "spamTimer is on");
+				
+				
+				new BukkitRunnable() {
 					
-				}.runTaskLaterAsynchronously(plugin, 100);
+					@Override
+					public void run() {
+						player.sendMessage(ChatColor.DARK_GRAY + "You are no longer on spamTimer");
+						tag.remove(player.getDisplayName());
+					}
+						
+					}.runTaskLaterAsynchronously(plugin, 140);
+				
+			}
+			
 		}		
 		
 		
