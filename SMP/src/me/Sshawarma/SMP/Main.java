@@ -8,6 +8,7 @@ import me.Sshawarma.Command.Commands;
 import me.Sshawarma.Events.Beds;
 import me.Sshawarma.Events.Death;
 import me.Sshawarma.Events.PreventChestBreak;
+import me.Sshawarma.Events.StopCreeper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin{
@@ -20,6 +21,7 @@ public class Main extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new ChatListener(), this);
 		getServer().getPluginManager().registerEvents(new Death(), this);
 		getServer().getPluginManager().registerEvents(new PreventChestBreak(), this);
+		getServer().getPluginManager().registerEvents(new StopCreeper(), this);
 		this.getCommand("find").setExecutor(new Commands());
 		
 	}

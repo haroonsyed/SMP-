@@ -40,8 +40,8 @@ public class Beds implements Listener{
 					//if player is on spamTimer, then don't broadcast
 					//ISSUE HERE BECAUSE LOOP IS NOT RUNNING QUICKLY
 					if(tag.get(player.getDisplayName())==true) {
-						this.cancel();
 						player.sendMessage(ChatColor.DARK_GRAY + "You are still on spamTimer!");
+						this.cancel();
 						return;
 					}
 					//if player is not on spamTimer, then broadcast
@@ -49,7 +49,7 @@ public class Beds implements Listener{
 					else if(tag.get(player.getDisplayName())==false && (time.containsKey(player.getDisplayName()) == false || time.get(player.getDisplayName()) == Bukkit.getServer().getWorld("world").getTime())){
 						
 						Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + player.getDisplayName() + " is sleeping now!");
-						time.put(player.getDisplayName(), Bukkit.getServer().getWorld("world").getTime() + 380);
+						time.put(player.getDisplayName(), Bukkit.getServer().getWorld("world").getTime() + 200);
 						
 					}
 					
