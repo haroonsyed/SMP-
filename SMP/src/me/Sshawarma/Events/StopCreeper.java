@@ -1,9 +1,9 @@
 package me.Sshawarma.Events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.Chest;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,6 +15,8 @@ import me.Sshawarma.SMP.Main;
 
 public class StopCreeper implements Listener{
 	
+	
+	//Methods ot add command to disable creeper protection
 	Plugin plugin = Main.getPlugin(Main.class);
 	
 	private static boolean protection = true;	
@@ -30,27 +32,63 @@ public class StopCreeper implements Listener{
 	@EventHandler
 	public void creeperStop(EntityExplodeEvent event) {
 		
+		//If command enables protection and entity is a creeper
 		if(event.getEntityType() == EntityType.CREEPER && protection == true) {
+			
+			//Iterates through each block and records material and location
 			for(Block b : event.blockList()) {
-				new BukkitRunnable() {
-
-					@Override
-					public void run() {
-						if(b.getType()!= Material.CHEST) {
-							Bukkit.getServer().getWorld("world").getBlockAt(b.getLocation()).setType(b.getType());
-						}
-						else {
-							Chest chest = (Chest) b;
-							Bukkit.getServer().getWorld("world").getBlockAt(b.getLocation()).setType(Material.CHEST);
-							Chest newChest = (Chest) Bukkit.getServer().getWorld("world").getBlockAt(b.getLocation());
-							newChest.getInventory().setContents(chest.getInventory().getContents());
-						}
-
-					}
+				
+				
+				Location loc = b.getLocation();
+				Material mat = b.getType();
+				
+				
+				//If non chest, it will Simply Replace that block. Runnable is for delay
+				
+				if(mat!= Material.NETHER_PORTAL) {
 					
-				}.runTaskLaterAsynchronously(plugin, 20);
+					new BukkitRunnable() {
+
+						@Override
+						public void run() {
+							
+							Bukkit.getServer().getWorld("world").getBlockAt(loc).setType(mat);
+							
+						}
+						
+					}.runTaskLater(plugin, 200);
+					
+				}
+				
+				//Else it will get the chest contents and replace them
+				
+				/*else {
+					Chest chest = (Chest) b.getState();
+					ItemStack[] inven = chest.getSnapshotInventory().getContents();
+					chest.getInventory().clear();
+					new BukkitRunnable() {
+
+						@Override
+						public void run() {
+							
+							Bukkit.getServer().getWorld("world").getBlockAt(loc).setType(Material.CHEST);
+							Chest newChest = (Chest) Bukkit.getServer().getWorld("world").getBlockAt(loc).getState();
+							newChest.getInventory().setContents(inven);
+							
+						}
+						
+					}.runTaskLater(plugin, 200);
+					
+				
+				}
+				
+				*/
+				b.setType(Material.AIR);
+				
 			}
+					
+
 		}
 	}
-	
 }
+	
