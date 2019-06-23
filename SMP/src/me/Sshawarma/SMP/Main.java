@@ -1,7 +1,6 @@
 package me.Sshawarma.SMP;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.Sshawarma.Command.ChatListener;
 import me.Sshawarma.Command.Commands;
@@ -31,10 +30,10 @@ public class Main extends JavaPlugin{
 		
 		//Removes all chests (I hope) on server disable
 		for(Location loc : Death.getdChests().keySet()) {
-			loc.getBlock().setType(Material.AIR);
+			loc.getBlock().setType(Death.getdChests().get(loc));
 		}
 		for(Location loc : Death.getdChests2().keySet()) {
-			loc.getBlock().setType(Material.AIR);
+			loc.getBlock().setType(Death.getdChests2().get(loc));
 		}
 		getServer().getConsoleSender().sendMessage(ChatColor.RED + "\n\nSMP has been disabled!\n");		
 	}

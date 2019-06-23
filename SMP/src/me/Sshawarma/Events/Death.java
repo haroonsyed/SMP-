@@ -113,7 +113,7 @@ public class Death implements Listener{
 				@Override
 				public void run() {
 					chest.getInventory().clear();
-					chestLoc.getBlock().setType(dChests.get(chestLoc));
+					chestLoc.getBlock().setType(dChests.get(chestLoc.getBlock().getLocation()));
 					player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 10, 1);
 					player.sendMessage(ChatColor.DARK_RED + "Your death chest has despawned :(");
 					dChests.remove(chestLoc);
