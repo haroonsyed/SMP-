@@ -48,7 +48,7 @@ public class Death implements Listener{
 			//Variables
 			Player player = event.getEntity();
 			Location chestLoc = new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY(),player.getLocation().getZ());
-			Location chest2Loc = new Location(chestLoc.getWorld(),chestLoc.getX(),chestLoc.getY(),chestLoc.getZ());
+			Location chest2Loc = new Location(chestLoc.getWorld(),player.getLocation().getBlockX(), player.getLocation().getBlockY(),player.getLocation().getBlockZ());
 			chest2Loc.add(0, 1, 0);
 			
 			Material oldChestBlock = chest2Loc.getBlock().getType();
