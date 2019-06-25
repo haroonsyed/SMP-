@@ -1,7 +1,6 @@
 package me.Sshawarma.Command;
 
 import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -16,7 +15,7 @@ import net.md_5.bungee.api.ChatColor;
 
 
 
-public class Commands implements CommandExecutor{
+public class FindCommand implements CommandExecutor{
 	Plugin plugin = Main.getPlugin(Main.class);
 	private static int arrayLoc=0;
 	private static ArrayList<String> senders = new ArrayList<String>();
@@ -50,22 +49,16 @@ public class Commands implements CommandExecutor{
 	
 	
 	
+	//FIRST COMMAND FOR FINDING ANOTHER PLAYER
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		/*if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "\nYou must be a player to use commands!\n");
-			return true;
-		}
-		if(cmd.getName().equalsIgnoreCase("accept") && recievers.size()!= 0) {
-			if(sender.getName() == recievers.get(arrayLoc)) {
-				accept = true;
-			}
-		}
-		if(cmd.getName().equalsIgnoreCase("deny") && recievers.size()!= 0) {
-			if(sender.getName() == recievers.get(arrayLoc)) {
-				deny= true;
-			}
-		}*/
+		
+		//Sorry no comments on this code, although it is pretty readable I think
+		
 		if(cmd.getName().equalsIgnoreCase("find")){
+			if(!(sender instanceof Player)) {
+				sender.sendMessage(ChatColor.RED + "YOU MUST BE A PLAYER TO PERFORM THIS COMMAND!");
+				return true;
+			}
 			Player player = (Player) sender;
 			if(args.length == 0) {
 				sender.sendMessage(ChatColor.RED + "\nYou must give a target player!\n");
@@ -144,4 +137,5 @@ public class Commands implements CommandExecutor{
 			
 		return false;
 	}
+
 }

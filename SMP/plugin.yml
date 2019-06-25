@@ -7,3 +7,5 @@ api-version: 1.13
 commands:
   find:
     description: asks target for coordinates
+  chatcolor:
+    description: changes chatcolor

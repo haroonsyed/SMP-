@@ -63,12 +63,6 @@ public class Beds implements Listener{
 	@EventHandler
 	public void sleepLeave(PlayerBedLeaveEvent event) {
 		Player player = event.getPlayer();
-		//if(Bukkit.getServer().getWorld("world").getTime()<=12541 || Bukkit.getServer().getWorld("world").isThundering()==false) {
-		//	player.sendMessage("not daytime");
-		//	sleeping = false;
-		//	return;
-		//}
-		
 		
 		//if Player leaves bed, put them on spamTimer
 		if(tag.get(player.getDisplayName())!=null) {

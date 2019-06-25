@@ -3,10 +3,12 @@ package me.Sshawarma.SMP;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.Sshawarma.Command.Commands;
+import me.Sshawarma.ChatColorStuff.ChatColorChanger;
+import me.Sshawarma.ChatColorStuff.JoinListener;
+import me.Sshawarma.ChatColorStuff.SetColor;
+import me.Sshawarma.Command.FindCommand;
 import me.Sshawarma.Events.Beds;
 import me.Sshawarma.Events.ChatListener;
-import me.Sshawarma.Events.ColorAssignOnJoin;
 import me.Sshawarma.Events.Death;
 import me.Sshawarma.Events.PreventChestBreak;
 import me.Sshawarma.Events.StopCreeper;
@@ -23,8 +25,10 @@ public class Main extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new Death(), this);
 		getServer().getPluginManager().registerEvents(new PreventChestBreak(), this);
 		getServer().getPluginManager().registerEvents(new StopCreeper(), this);
-		getServer().getPluginManager().registerEvents(new ColorAssignOnJoin(),this);
-		this.getCommand("find").setExecutor(new Commands());
+		getServer().getPluginManager().registerEvents(new JoinListener(), this);
+		getServer().getPluginManager().registerEvents(new ChatColorChanger(), this);
+		this.getCommand("find").setExecutor(new FindCommand());
+		this.getCommand("chatcolor").setExecutor(new SetColor());
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();

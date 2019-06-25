@@ -61,6 +61,7 @@ public class StopCreeper implements Listener{
 				}
 				
 				//Else it will get the chest contents and replace them
+				//Disabled for now because doublechests dont seem to work with this
 				
 				/*else {
 					Chest chest = (Chest) b.getState();
