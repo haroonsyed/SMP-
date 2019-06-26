@@ -1,5 +1,5 @@
 name: SMP
-version: 1.5
+version: 1.6
 author: Sshawarma
 main: me.Sshawarma.SMP.Main
 description: Simple plugin with useful SMP features.
@@ -9,3 +9,7 @@ commands:
     description: asks target for coordinates
   chatcolor:
     description: changes chatcolor
+  chrust:
+    description: trusts another player to access your deathchest
+  dischrust:
+    description: removes another player access to your deathchest

@@ -24,6 +24,8 @@ public class Death implements Listener{
 	//Keep track of active chests with location and whether to delete
 	private static HashMap<Location, Material> dChests = new HashMap<Location, Material>();
 	private static HashMap<Location, Material> dChests2 = new HashMap<Location, Material>();
+	private static HashMap<Location, String> dChestPlayers = new HashMap<Location, String>();
+	private static HashMap<Location, String> dChestPlayers2 = new HashMap<Location, String>();
 	
 	public static HashMap<Location, Material> getdChests() {
 		return dChests;
@@ -41,6 +43,14 @@ public class Death implements Listener{
 		dChests2.put(loc.getBlock().getLocation(), mat);
 	}
 	
+	public static HashMap<Location, String> getdChestPlayers(){
+		return dChestPlayers;
+	}
+	
+	public static HashMap<Location, String> getdChestPlayers2(){
+		return dChestPlayers2;
+	}
+	
 	@EventHandler
 	public void placeChest(PlayerDeathEvent event) {
 		if(event.getEntity() instanceof Player) {
@@ -54,6 +64,7 @@ public class Death implements Listener{
 			Material oldChestBlock = chest2Loc.getBlock().getType();
 			
 			dChests.put(chestLoc.getBlock().getLocation(), chestLoc.getBlock().getType());
+			dChestPlayers.put(chestLoc.getBlock().getLocation(), player.getDisplayName().toUpperCase());
 			
 			//Moves standard death message to before coordinate message
 			for (Player onlinePlayers : Bukkit.getOnlinePlayers()){
@@ -104,7 +115,7 @@ public class Death implements Listener{
 				chest2.getInventory().setContents(inven.toArray(new ItemStack[27]));
 				chest.getInventory().setContents(inven2.toArray(new ItemStack[inven2.size()]));
 				event.getDrops().clear();
-				dChests2.put(chestLoc.getBlock().getLocation(), oldChestBlock);
+				dChestPlayers2.put(chest2Loc.getBlock().getLocation(), player.getDisplayName().toUpperCase());
 			}
 			
 			//runnable to remove chest

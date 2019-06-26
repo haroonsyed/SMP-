@@ -25,12 +25,9 @@ public class Beds implements Listener{
 	@EventHandler
 	public void sleepNotify(PlayerBedEnterEvent event) {
 		Player player = event.getPlayer();
-		//Error will occur when it is thundering...who cares
-		if((Bukkit.getServer().getWorld("world").getTime()<12541)) {
-			return;
-		}
+
 		
-		else if(tag.containsKey(player.getDisplayName())==false && event.getBedEnterResult().toString()=="OK") {
+		if(tag.containsKey(player.getDisplayName())==false && event.getBedEnterResult().toString()=="OK") {
 			tag.put(player.getDisplayName(), false);
 			
 			new BukkitRunnable() {
@@ -38,7 +35,6 @@ public class Beds implements Listener{
 				@Override
 				public void run() {
 					//if player is on spamTimer, then don't broadcast
-					//ISSUE HERE BECAUSE LOOP IS NOT RUNNING QUICKLY
 					if(tag.get(player.getDisplayName())==true) {
 						player.sendMessage(ChatColor.DARK_GRAY + "You are still on spamTimer!");
 						this.cancel();
