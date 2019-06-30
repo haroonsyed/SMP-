@@ -64,8 +64,8 @@ public class ChestAccess implements Listener{
 						
 						}
 						
-						else if(trustedps.contains(player.getDisplayName())){
-							player.sendMessage(owner);
+						else if(trustedps.contains(player.getDisplayName().toUpperCase())){
+							player.sendMessage(ChatColor.AQUA + "Chest Owner: " + owner);
 							return;
 							
 						}
@@ -84,7 +84,7 @@ public class ChestAccess implements Listener{
 				
 				else if(Death.getdChests2().containsKey(chest.getBlock().getLocation())) {
 					
-					ArrayList<String> trustedps2 = ChestTrustCommand.getTrustedPlayers(owner2.toUpperCase());
+					ArrayList<String> trustedps = ChestTrustCommand.getTrustedPlayers(owner2.toUpperCase());
 					
 					try {
 						if(owner2.equalsIgnoreCase(player.getDisplayName())) {
@@ -92,7 +92,8 @@ public class ChestAccess implements Listener{
 						
 						}
 						
-						else if(trustedps2.contains(player.getDisplayName().toUpperCase())) {
+						else if(trustedps.contains(player.getDisplayName().toUpperCase())) {
+							player.sendMessage(ChatColor.AQUA + "Chest Owner: " + owner2);
 							return;
 							
 						}
