@@ -1,4 +1,4 @@
-package me.Sshawarma.ChatColorStuff;
+package me.Sshawarma.Command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,7 +17,11 @@ public class SetColor implements CommandExecutor{
 
 		if(sender instanceof Player) {
 			if(cmd.getName().equalsIgnoreCase("chatcolor")) {
-				if(args.length == 1) {
+				if(args.length != 1){
+					sender.sendMessage("Please input a color!");
+					sender.sendMessage("Choose from : dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black");
+				}
+				else if(args.length == 1) {
 					//Checks all colors
 					switch(args[0].toUpperCase()) {
 						
@@ -98,6 +102,7 @@ public class SetColor implements CommandExecutor{
 						plugin.saveConfig();
 					}*/
 
+				
 				}
 			}
 		}

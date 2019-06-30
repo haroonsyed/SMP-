@@ -2,7 +2,6 @@ package me.Sshawarma.Command;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
@@ -13,10 +12,14 @@ import org.bukkit.entity.Player;
 
 public class ChestTrustCommand implements CommandExecutor{
 	
-	private static HashMap<String, List<String>> trustedPlayers = new HashMap<String, List<String>>();
+	private static HashMap<String, ArrayList<String>> trustedPlayers = new HashMap<String, ArrayList<String>>();
 	
-	public static HashMap<String, List<String>> getTrustedPlayers() {
-		return trustedPlayers;
+	public static ArrayList<String> getTrustedPlayers(String owner) {
+		return trustedPlayers.get(owner.toUpperCase());
+	}
+	
+	public static void setTrustedPlayers(String player, ArrayList<String> players) {
+		trustedPlayers.put(player, players);
 	}
 	
 	@Override
@@ -26,9 +29,9 @@ public class ChestTrustCommand implements CommandExecutor{
 			if(sender instanceof Player) {
 				if(args.length == 1) {
 					Player player = (Player) sender;
-					List<String> trusted = new ArrayList<String>();
+					ArrayList<String> trusted = new ArrayList<String>();
 					
-					for(Entry<String, List<String>> entry : trustedPlayers.entrySet()) {
+					for(Entry<String, ArrayList<String>> entry : trustedPlayers.entrySet()) {
 						//player.sendMessage(entry.getKey() + "going through keys");
 						if(entry.getKey().equalsIgnoreCase(player.getDisplayName())) {
 							
@@ -57,6 +60,9 @@ public class ChestTrustCommand implements CommandExecutor{
 					player.sendMessage("Trusted are: " + trusted.toString());
 					
 				}
+				else {
+					sender.sendMessage(ChatColor.RED + "Please input a player name!");
+				}
 			}
 		}
 		
@@ -66,9 +72,9 @@ public class ChestTrustCommand implements CommandExecutor{
 			
 				if(args.length == 1) {
 					Player player = (Player) sender;
-					List<String> trusted = new ArrayList<String>();
+					ArrayList<String> trusted = new ArrayList<String>();
 					
-					for(Entry<String, List<String>> entry : trustedPlayers.entrySet()) {
+					for(Entry<String, ArrayList<String>> entry : trustedPlayers.entrySet()) {
 						
 						if(entry.getKey().equalsIgnoreCase(player.getDisplayName())) {
 							trusted = entry.getValue();

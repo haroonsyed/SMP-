@@ -3,14 +3,14 @@ package me.Sshawarma.SMP;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.Sshawarma.ChatColorStuff.ChatColorChanger;
-import me.Sshawarma.ChatColorStuff.JoinListener;
-import me.Sshawarma.ChatColorStuff.SetColor;
 import me.Sshawarma.Command.ChestTrustCommand;
 import me.Sshawarma.Command.FindCommand;
+import me.Sshawarma.Command.SetColor;
 import me.Sshawarma.Events.Beds;
+import me.Sshawarma.Events.ChatColorChanger;
 import me.Sshawarma.Events.ChatListener;
 import me.Sshawarma.Events.Death;
+import me.Sshawarma.Events.JoinListener;
 import me.Sshawarma.Events.ChestAccess;
 import me.Sshawarma.Events.StopCreeper;
 import net.md_5.bungee.api.ChatColor;

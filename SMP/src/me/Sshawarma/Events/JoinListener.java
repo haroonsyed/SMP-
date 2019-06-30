@@ -1,4 +1,4 @@
-package me.Sshawarma.ChatColorStuff;
+package me.Sshawarma.Events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,5 +25,22 @@ public class JoinListener implements Listener{
 			player.sendMessage(ChatColor.DARK_GREEN + "If you would like to change your chatcolor, please use /chatcolor (desired color here w/o parenthesis)");
 			
 		}
+		
+		/*
+		ArrayList<String> playersList = new ArrayList<String>();
+		playersList.add("null");
+		playersList.clear();
+		
+		try {
+			playersList = ChestTrustCommand.getTrustedPlayers(player.getDisplayName().toUpperCase());
+			player.sendMessage(ChatColor.DARK_GREEN + "Trusted players are: " + playersList.toString());
+		}
+		catch(Exception e){
+			player.sendMessage(ChatColor.DARK_GREEN + "trustedPlayers list created!. Add/remove to it with /chrust or /dischrust");
+		}
+		
+
+		ChestTrustCommand.setTrustedPlayers(player.getDisplayName().toUpperCase(), playersList);
+		*/
 	}
 }

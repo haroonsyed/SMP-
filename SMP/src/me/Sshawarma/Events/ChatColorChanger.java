@@ -1,4 +1,4 @@
-package me.Sshawarma.ChatColorStuff;
+package me.Sshawarma.Events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

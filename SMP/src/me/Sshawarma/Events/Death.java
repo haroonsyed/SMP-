@@ -57,7 +57,7 @@ public class Death implements Listener{
 			
 			//Variables
 			Player player = event.getEntity();
-			Location chestLoc = new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY(),player.getLocation().getZ());
+			Location chestLoc = new Location(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockY(),player.getLocation().getBlockZ());
 			Location chest2Loc = new Location(chestLoc.getWorld(),player.getLocation().getBlockX(), player.getLocation().getBlockY(),player.getLocation().getBlockZ());
 			chest2Loc.add(0, 1, 0);
 			
@@ -127,12 +127,14 @@ public class Death implements Listener{
 					chestLoc.getBlock().setType(dChests.get(chestLoc.getBlock().getLocation()));
 					player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 10, 1);
 					player.sendMessage(ChatColor.DARK_RED + "Your death chest has despawned :(");
-					dChests.remove(chestLoc);
+					dChests.remove(chestLoc.getBlock().getLocation());
+					dChestPlayers.remove(chestLoc.getBlock().getLocation());
 					if(dChests2.containsKey(chest2Loc)) {
 						Chest chest2 = (Chest) chest2Loc.getBlock().getState();
 						chest2.getInventory().clear();
 						chest2Loc.getBlock().setType(oldChestBlock);
-						dChests2.remove(chest2Loc);
+						dChests2.remove(chest2Loc.getBlock().getLocation());
+						dChestPlayers2.remove(chest2Loc.getBlock().getLocation());
 					}
 					
 				}	

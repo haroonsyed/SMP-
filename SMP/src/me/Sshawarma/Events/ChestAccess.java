@@ -1,6 +1,6 @@
 package me.Sshawarma.Events;
 
-import org.bukkit.Bukkit;
+import java.util.ArrayList;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
@@ -50,43 +50,63 @@ public class ChestAccess implements Listener{
 				Chest chest = (Chest) event.getClickedBlock().getState();
 				String owner = Death.getdChestPlayers().get(chest.getBlock().getLocation());
 				String owner2 = Death.getdChestPlayers2().get(chest.getBlock().getLocation());			
-				player.sendMessage("Process of checking intiated!");
+				
+
+				
+
 				
 				if(Death.getdChests().containsKey(chest.getBlock().getLocation())){
-					if(owner.equalsIgnoreCase(player.getDisplayName())) {
-						
-						return;
 					
+					ArrayList<String> trustedps = ChestTrustCommand.getTrustedPlayers(owner.toUpperCase());
+					try {
+						if(owner.equalsIgnoreCase(player.getDisplayName())) {
+							return;
+						
+						}
+						
+						else if(trustedps.contains(player.getDisplayName())){
+							player.sendMessage(owner);
+							return;
+							
+						}
+						
+						else {
+							player.sendMessage(ChatColor.RED + "You don't have permission to access this chest!");
+							event.setCancelled(true);
+						}
 					}
-					
-					else if(ChestTrustCommand.getTrustedPlayers().get(owner).contains(player.getDisplayName().toUpperCase())){
-						
-						return;
-						
-					}
-					
-					else {
-						player.sendMessage(ChatColor.RED + "You don't have permission to access this chest!");
+					catch(Exception e) {
 						event.setCancelled(true);
+						player.sendMessage(ChatColor.RED + "You don't have permisison to access this chest!");
 					}
+					
 				}
 				
 				else if(Death.getdChests2().containsKey(chest.getBlock().getLocation())) {
-					if(owner2.equalsIgnoreCase(player.getDisplayName())) {
-						
-						return;
 					
-					}
+					ArrayList<String> trustedps2 = ChestTrustCommand.getTrustedPlayers(owner2.toUpperCase());
 					
-					else if(ChestTrustCommand.getTrustedPlayers().get(owner2).contains(player.getDisplayName().toUpperCase())) {
+					try {
+						if(owner2.equalsIgnoreCase(player.getDisplayName())) {
+							return;
 						
-						return;
+						}
 						
+						else if(trustedps2.contains(player.getDisplayName().toUpperCase())) {
+							return;
+							
+						}
+						else {
+							player.sendMessage(ChatColor.RED + "You don't have permission to access this chest!");
+							event.setCancelled(true);
+						}
 					}
-					else {
-						player.sendMessage(ChatColor.RED + "You don't have permission to access this chest!");
+					catch(Exception e) {
 						event.setCancelled(true);
+						player.sendMessage(ChatColor.RED + "You don't have permission to access this chest!");
 					}
+					
+					
 				}
 			}
 			
