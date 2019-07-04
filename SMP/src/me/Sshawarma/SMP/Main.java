@@ -17,7 +17,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin{
 	
-	//SOme new code someone else uploaded to github
+	//Test to commit
 	
 	//First real plugin woooo!
 	@Override
