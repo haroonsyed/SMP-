@@ -17,7 +17,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin{
 	
-	//TEST COMMIT WHEN SYNCED(BROKEN)
+	//TEST COMMIT WHEN SYNCED(OTHERWISE SAME)
 	
 	//First real plugin woooo! ALso a test to see how GitHub updates projects.
 	@Override
