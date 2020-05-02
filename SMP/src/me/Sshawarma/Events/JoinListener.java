@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.Sshawarma.SMP.Main;
@@ -29,10 +30,11 @@ public class JoinListener implements Listener{
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void whiteListNotification(PlayerJoinEvent event) {
+	public void whiteListNotification(PlayerLoginEvent event) {
 		//If the whitelist does not contain the player...
-		if(!(Bukkit.getServer().getWhitelistedPlayers().contains(Bukkit.getServer().getOfflinePlayer(event.getPlayer().getDisplayName())))) {
+		if(!(Bukkit.getServer().getWhitelistedPlayers().contains(Bukkit.getServer().getOfflinePlayer(event.getPlayer().getName())))) {
 			//Find op players and play a sound alerting them who the player is
 			for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 				if(p.isOp()) {
