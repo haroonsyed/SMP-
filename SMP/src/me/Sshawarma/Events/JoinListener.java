@@ -1,5 +1,7 @@
 package me.Sshawarma.Events;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,22 +27,19 @@ public class JoinListener implements Listener{
 			player.sendMessage(ChatColor.DARK_GREEN + "If you would like to change your chatcolor, please use /chatcolor (desired color here w/o parenthesis)");
 			
 		}
-		
-		/*
-		ArrayList<String> playersList = new ArrayList<String>();
-		playersList.add("null");
-		playersList.clear();
-		
-		try {
-			playersList = ChestTrustCommand.getTrustedPlayers(player.getDisplayName().toUpperCase());
-			player.sendMessage(ChatColor.DARK_GREEN + "Trusted players are: " + playersList.toString());
+	}
+	
+	@EventHandler
+	public void whiteListNotification(PlayerJoinEvent event) {
+		//If the whitelist does not contain the player...
+		if(!Bukkit.getServer().getWhitelistedPlayers().contains(Bukkit.getServer().getOfflinePlayer(event.getPlayer().getUniqueId()))) {
+			//Find op players and play a sound alerting them who the player is
+			for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+				if(p.isOp()) {
+					p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 10, 1);
+					p.sendMessage(ChatColor.RED + "Non-Whitelisted player " + event.getPlayer().getName() + " is trying to join!");
+				}
+			}
 		}
-		catch(Exception e){
-			player.sendMessage(ChatColor.DARK_GREEN + "trustedPlayers list created!. Add/remove to it with /chrust or /dischrust");
-		}
-		
-
-		ChestTrustCommand.setTrustedPlayers(player.getDisplayName().toUpperCase(), playersList);
-		*/
 	}
 }
