@@ -32,7 +32,7 @@ public class JoinListener implements Listener{
 	@EventHandler
 	public void whiteListNotification(PlayerJoinEvent event) {
 		//If the whitelist does not contain the player...
-		if(!Bukkit.getServer().getWhitelistedPlayers().contains(Bukkit.getServer().getOfflinePlayer(event.getPlayer().getUniqueId()))) {
+		if(!(Bukkit.getServer().getWhitelistedPlayers().contains(Bukkit.getServer().getOfflinePlayer(event.getPlayer().getDisplayName())))) {
 			//Find op players and play a sound alerting them who the player is
 			for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 				if(p.isOp()) {
