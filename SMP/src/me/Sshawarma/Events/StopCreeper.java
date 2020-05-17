@@ -49,7 +49,6 @@ public class StopCreeper implements Listener{
 			int i=0;
 			for(Block b : new ArrayList<Block>(event.blockList())) {
 				
-				Bukkit.getServer().broadcastMessage(b.getType().name());
 				Location loc = b.getLocation();
 				Material mat = b.getType();
 
