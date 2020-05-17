@@ -61,7 +61,8 @@ public class Death implements Listener{
 			Location chest2Loc = new Location(chestLoc.getWorld(),player.getLocation().getBlockX(), player.getLocation().getBlockY(),player.getLocation().getBlockZ());
 			chest2Loc.add(0, 1, 0);
 			
-			Material oldChestBlock = chest2Loc.getBlock().getType();
+			Material oldChestBlock = chestLoc.getBlock().getType();
+			Material oldChestBlockTwo = chest2Loc.getBlock().getType();
 			
 			dChests.put(chestLoc.getBlock().getLocation(), chestLoc.getBlock().getType());
 			dChestPlayers.put(chestLoc.getBlock().getLocation(), player.getDisplayName().toUpperCase());
@@ -124,7 +125,7 @@ public class Death implements Listener{
 				@Override
 				public void run() {
 					chest.getInventory().clear();
-					chestLoc.getBlock().setType(dChests.get(chestLoc.getBlock().getLocation()));
+					chestLoc.getBlock().setType(oldChestBlock);
 					player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 10, 1);
 					player.sendMessage(ChatColor.DARK_RED + "Your death chest has despawned :(");
 					dChests.remove(chestLoc.getBlock().getLocation());
@@ -132,7 +133,7 @@ public class Death implements Listener{
 					if(dChests2.containsKey(chest2Loc)) {
 						Chest chest2 = (Chest) chest2Loc.getBlock().getState();
 						chest2.getInventory().clear();
-						chest2Loc.getBlock().setType(oldChestBlock);
+						chest2Loc.getBlock().setType(oldChestBlockTwo);
 						dChests2.remove(chest2Loc.getBlock().getLocation());
 						dChestPlayers2.remove(chest2Loc.getBlock().getLocation());
 					}
