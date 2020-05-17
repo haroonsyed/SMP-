@@ -1,5 +1,7 @@
 package me.Sshawarma.Events;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,65 +32,49 @@ public class StopCreeper implements Listener{
 	}
 	
 	@EventHandler
+	public void stopChestExplode(EntityExplodeEvent event) {
+		//THE ISSUE WITH loc IS THAT IT IS LOCATION OF PLAYERDEATH, which is adding decimal stuff, NOT BLOCK, which is perfect integer.
+		for(Block b : event.blockList()) {
+			
+		}
+	}
+	
+	@EventHandler
 	public void creeperStop(EntityExplodeEvent event) {
 		
 		//If command enables protection and entity is a creeper
 		if(event.getEntityType() == EntityType.CREEPER && protection == true) {
 			
 			//Iterates through each block and records material and location
-			for(Block b : event.blockList()) {
+			int i=0;
+			for(Block b : new ArrayList<Block>(event.blockList())) {
 				
-				
+				Bukkit.getServer().broadcastMessage(b.getType().name());
 				Location loc = b.getLocation();
 				Material mat = b.getType();
+
+				if(b.getType() == Material.CHEST) {
+					event.blockList().remove(i);
+					i--;
+				}
 				
-				
-				//If non chest, it will Simply Replace that block. Runnable is for delay
-				
-				if(mat!= Material.NETHER_PORTAL) {
+				if(mat!= Material.NETHER_PORTAL || mat != Material.CHEST) {
 					
 					new BukkitRunnable() {
 
 						@Override
 						public void run() {
-							
-							Bukkit.getServer().getWorld("world").getBlockAt(loc).setType(mat);
-							
+							Bukkit.getServer().getWorld("world").getBlockAt(loc).setType(mat);		
 						}
 						
 					}.runTaskLater(plugin, 200);
-					
 				}
 				
-				//Else it will get the chest contents and replace them
-				//Disabled for now because doublechests dont seem to work with this
-				
-				/*else {
-					Chest chest = (Chest) b.getState();
-					ItemStack[] inven = chest.getSnapshotInventory().getContents();
-					chest.getInventory().clear();
-					new BukkitRunnable() {
-
-						@Override
-						public void run() {
-							
-							Bukkit.getServer().getWorld("world").getBlockAt(loc).setType(Material.CHEST);
-							Chest newChest = (Chest) Bukkit.getServer().getWorld("world").getBlockAt(loc).getState();
-							newChest.getInventory().setContents(inven);
-							
-						}
-						
-					}.runTaskLater(plugin, 200);
-					
-				
-				}
-				
-				*/
-				b.setType(Material.AIR);
-				
+				i++;
 			}
-					
-
+			for(Block b : event.blockList()) {
+				b.setType(event.getEntity().getLocation().add(0, 1, 0).getBlock().getType());
+			}
 		}
 	}
 }
