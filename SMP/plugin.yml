@@ -1,5 +1,5 @@
 name: SMP
-version: 1.7.3
+version: 1.7.4
 author: Sshawarma
 main: me.Sshawarma.SMP.Main
 description: Simple plugin with useful SMP features.
@@ -13,3 +13,6 @@ commands:
     description: trusts another player to access your deathchest
   dischrust:
     description: removes another player access to your deathchest
+  setFaction:
+     description: sets the player's faction
+     usage: "Usage: /setFaction [factionName] [playerName]"

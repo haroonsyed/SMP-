@@ -6,10 +6,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.Sshawarma.Command.ChestTrustCommand;
 import me.Sshawarma.Command.FindCommand;
 import me.Sshawarma.Command.SetColor;
+import me.Sshawarma.Command.SetFaction;
 import me.Sshawarma.Events.Beds;
 import me.Sshawarma.Events.ChatColorChanger;
 import me.Sshawarma.Events.ChatListener;
 import me.Sshawarma.Events.Death;
+import me.Sshawarma.Events.FactionAttack;
 import me.Sshawarma.Events.JoinListener;
 import me.Sshawarma.Events.ChestAccess;
 import me.Sshawarma.Events.StopCreeper;
@@ -28,10 +30,12 @@ public class Main extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new StopCreeper(), this);
 		getServer().getPluginManager().registerEvents(new JoinListener(), this);
 		getServer().getPluginManager().registerEvents(new ChatColorChanger(), this);
+		getServer().getPluginManager().registerEvents(new FactionAttack(), this);
 		this.getCommand("find").setExecutor(new FindCommand());
 		this.getCommand("chatcolor").setExecutor(new SetColor());
 		this.getCommand("chrust").setExecutor(new ChestTrustCommand());
 		this.getCommand("dischrust").setExecutor(new ChestTrustCommand());
+		this.getCommand("setFaction").setExecutor(new SetFaction());
 		
 		
 		getConfig().options().copyDefaults(true);

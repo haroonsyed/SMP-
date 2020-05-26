@@ -26,67 +26,67 @@ public class SetColor implements CommandExecutor{
 					switch(args[0].toUpperCase()) {
 						
 						case "DARK_RED":
-							plugin.getConfig().set(sender.getName(), "&4");	
+							plugin.getConfig().set(sender.getName() + ".color", "&4");	
 							plugin.saveConfig();
 							break;
 						case "RED":
-							plugin.getConfig().set(sender.getName(), "&c");	
+							plugin.getConfig().set(sender.getName() + ".color", "&c");	
 							plugin.saveConfig();
 							break;
 						case "GOLD":
-							plugin.getConfig().set(sender.getName(), "&6");	
+							plugin.getConfig().set(sender.getName() + ".color", "&6");	
 							plugin.saveConfig();
 							break;
 						case "YELLOW":
-							plugin.getConfig().set(sender.getName(), "&e");	
+							plugin.getConfig().set(sender.getName() + ".color", "&e");	
 							plugin.saveConfig();
 							break;
 						case "DARK_GREEN":
-							plugin.getConfig().set(sender.getName(), "&2");	
+							plugin.getConfig().set(sender.getName() + ".color", "&2");	
 							plugin.saveConfig();
 							break;
 						case "GREEN":
-							plugin.getConfig().set(sender.getName(), "&a");	
+							plugin.getConfig().set(sender.getName() + ".color", "&a");	
 							plugin.saveConfig();
 							break;
 						case "AQUA":
-							plugin.getConfig().set(sender.getName(), "&b");	
+							plugin.getConfig().set(sender.getName() + ".color", "&b");	
 							plugin.saveConfig();
 							break;
 						case "DARK_AQUA":
-							plugin.getConfig().set(sender.getName(), "&3");	
+							plugin.getConfig().set(sender.getName() + ".color", "&3");	
 							plugin.saveConfig();
 							break;
 						case "DARK_BLUE":
-							plugin.getConfig().set(sender.getName(), "&1");	
+							plugin.getConfig().set(sender.getName() + ".color", "&1");	
 							plugin.saveConfig();
 							break;
 						case "BLUE":
-							plugin.getConfig().set(sender.getName(), "&9");	
+							plugin.getConfig().set(sender.getName() + ".color", "&9");	
 							plugin.saveConfig();
 							break;
 						case "LIGHT_PURPLE":
-							plugin.getConfig().set(sender.getName(), "&d");	
+							plugin.getConfig().set(sender.getName() + ".color", "&d");	
 							plugin.saveConfig();
 							break;
 						case "DARK_PURPLE":
-							plugin.getConfig().set(sender.getName(), "&5");	
+							plugin.getConfig().set(sender.getName() + ".color", "&5");	
 							plugin.saveConfig();
 							break;
 						case "WHITE":
-							plugin.getConfig().set(sender.getName(), "&f");	
+							plugin.getConfig().set(sender.getName() + ".color", "&f");	
 							plugin.saveConfig();
 							break;
 						case "GRAY":
-							plugin.getConfig().set(sender.getName(), "&7");	
+							plugin.getConfig().set(sender.getName() + ".color", "&7");	
 							plugin.saveConfig();
 							break;
 						case "DARK_GRAY":
-							plugin.getConfig().set(sender.getName(), "&8");	
+							plugin.getConfig().set(sender.getName() + ".color", "&8");	
 							plugin.saveConfig();
 							break;
 						case "BLACK":
-							plugin.getConfig().set(sender.getName(), "&0");	
+							plugin.getConfig().set(sender.getName() + ".color", "&0");	
 							plugin.saveConfig();
 							break;
 						default:
