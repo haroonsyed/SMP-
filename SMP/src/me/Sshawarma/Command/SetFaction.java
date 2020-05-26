@@ -22,17 +22,19 @@ public class SetFaction implements CommandExecutor{
 				
 				if(args.length != 2) {
 					sender.sendMessage(ChatColor.DARK_RED + "Please input a faction and Player!");
+					return false;
 				}
 				
 				else {
 					plugin.getConfig().set(args[1]+ ".faction", args[0]);
+					plugin.saveConfig();
 				}
 				
 			}
 			
 		}
 		
-		return false;
+		return true;
 	}
 	
 }

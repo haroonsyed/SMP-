@@ -18,7 +18,7 @@ public class FactionAttack implements Listener{
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 			if(plugin.getConfig().getString(event.getDamager().getName() + ".faction") != plugin.getConfig().getString(event.getEntity().getName() + ".faction")) {
 				event.setCancelled(true);
-				event.getDamager().sendMessage(ChatColor.DARK_RED + "Player is not in the same faction! DamageEvent Cancelled!");
+				event.getDamager().sendMessage(ChatColor.DARK_RED + "Player is in different faction: " + plugin.getConfig().getString(event.getEntity().getName() + ".faction") + "! Your's is: " + plugin.getConfig().getString(event.getDamager().getName() + ".faction") + ".");
 			}
 		}
 	}

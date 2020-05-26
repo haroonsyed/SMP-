@@ -13,6 +13,9 @@ import me.Sshawarma.SMP.Main;
 import net.md_5.bungee.api.ChatColor;
 
 public class JoinListener implements Listener{
+	
+	Plugin plugin = Main.getPlugin(Main.class);
+	
 	@EventHandler
 	public void giveDefaults(PlayerJoinEvent event) {
 		
@@ -21,13 +24,14 @@ public class JoinListener implements Listener{
 		
 		//If they arent already registered in config, give them the defaults
 		if(!(plugin.getConfig().contains(player.getDisplayName()))) {
-			plugin.getConfig().set(player.getDisplayName(), "&7");
-			plugin.saveConfig();
+			plugin.getConfig().set(player.getDisplayName() + ".chatcolor", "&7");
+			plugin.getConfig().set(event.getPlayer().getName() + ".faction", "default");
 			
 			player.sendMessage(ChatColor.DARK_GRAY + "---------" + ChatColor.GREEN + "Your chat color by default is: "  + ChatColor.GRAY + "GRAY" + ChatColor.DARK_GRAY + "---------");
 			player.sendMessage(ChatColor.DARK_GREEN + "If you would like to change your chatcolor, please use /chatcolor (desired color here w/o parenthesis)");
 			
 		}
+		plugin.saveConfig();
 	}
 	
 	@SuppressWarnings("deprecation")
