@@ -16,10 +16,6 @@ public class PKManager extends BukkitRunnable{
 	//Need to run this on a task timer
 	@Override
 	public void run() {
-		if(Bukkit.getServer().getPlayerExact("Sshawarma") != null) {
-			Bukkit.getServer().getPlayer("Sshawarma").sendMessage("Checking time!");
-			Bukkit.getServer().getPlayer("Sshawarma").sendMessage(lastChanged);
-		}
 		if(pm.isPluginEnabled("ProjectKorra")) {
 			if(Bukkit.getServer().getWorld("world").getTime() > 13000 && Bukkit.getServer().getWorld("world").getTime() < 23000 && !lastChanged.equals("night")) {
 				pm.getPlugin("ProjectKorra").getConfig().set("Abilities.Water.Bloodbending.Range", 15);
