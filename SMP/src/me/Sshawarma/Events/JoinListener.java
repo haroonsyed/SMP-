@@ -27,13 +27,13 @@ public class JoinListener implements Listener{
 		//If they arent already registered in config, give them the defaults
 		if(!(plugin.getConfig().contains(player.getDisplayName()))) {
 			plugin.getConfig().set(player.getDisplayName() + ".chatcolor", "&7");
-			plugin.getConfig().set(event.getPlayer().getName() + ".faction", "default");
+			plugin.getConfig().set(event.getPlayer().getDisplayName() + ".faction", "default");
+			plugin.saveConfig();
 			
 			player.sendMessage(ChatColor.DARK_GRAY + "---------" + ChatColor.GREEN + "Your chat color by default is: "  + ChatColor.GRAY + "GRAY" + ChatColor.DARK_GRAY + "---------");
 			player.sendMessage(ChatColor.DARK_GREEN + "If you would like to change your chatcolor, please use /chatcolor (desired color here w/o parenthesis)");
-			
 		}
-		plugin.saveConfig();
+		
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -61,7 +61,7 @@ public class JoinListener implements Listener{
 	}
 	@EventHandler
 	public void setFactionSpawn(PlayerJoinEvent event) {
-		if(!event.getPlayer().hasPlayedBefore() && !plugin.getConfig().getString(event.getPlayer().getName() + ".faction").equals("cousins")) {
+		if(!event.getPlayer().hasPlayedBefore() && !plugin.getConfig().contains(event.getPlayer().getDisplayName())) {
 			Location spawn = Bukkit.getServer().getWorld("world").getSpawnLocation();
 			spawn.add(2406, 0, -697);
 			spawn.setY(event.getPlayer().getWorld().getHighestBlockYAt(spawn));
