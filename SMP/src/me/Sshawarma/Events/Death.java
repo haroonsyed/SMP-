@@ -87,6 +87,7 @@ public class Death implements Listener{
 			//iterate through player inventory and add to itemstacks
 			//may have to get player armor
 			for(ItemStack i : player.getInventory().getContents()) {
+				//Optimize cpu usage here!
 				if(i== null) {
 				}
 				else if(inven.size()+1<=27) {

@@ -1,12 +1,14 @@
 package me.Sshawarma.Events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.Sshawarma.SMP.Main;
@@ -46,6 +48,24 @@ public class JoinListener implements Listener{
 					p.sendMessage(ChatColor.RED + "Non-Whitelisted player " + event.getPlayer().getName() + " is trying to join!");
 				}
 			}
+		}
+	}
+	
+	@EventHandler
+	public void setFactionSpawn(PlayerRespawnEvent event) {
+		if(!event.isBedSpawn() && !plugin.getConfig().getString(event.getPlayer().getName() + ".faction").equals("cousins")) {
+			Location spawn = event.getRespawnLocation().add(2406, 0, -697);
+			spawn.setY(event.getPlayer().getWorld().getHighestBlockYAt(spawn));
+			event.getPlayer().teleport(spawn);
+		}
+	}
+	@EventHandler
+	public void setFactionSpawn(PlayerJoinEvent event) {
+		if(!event.getPlayer().hasPlayedBefore() && !plugin.getConfig().getString(event.getPlayer().getName() + ".faction").equals("cousins")) {
+			Location spawn = Bukkit.getServer().getWorld("world").getSpawnLocation();
+			spawn.add(2406, 0, -697);
+			spawn.setY(event.getPlayer().getWorld().getHighestBlockYAt(spawn));
+			event.getPlayer().teleport(spawn);
 		}
 	}
 }
