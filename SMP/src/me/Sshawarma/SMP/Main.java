@@ -13,6 +13,7 @@ import me.Sshawarma.Events.ChatListener;
 import me.Sshawarma.Events.Death;
 import me.Sshawarma.Events.FactionAttack;
 import me.Sshawarma.Events.JoinListener;
+import me.Sshawarma.Events.PKManager;
 import me.Sshawarma.Events.ChestAccess;
 import me.Sshawarma.Events.StopCreeper;
 import net.md_5.bungee.api.ChatColor;
@@ -36,7 +37,7 @@ public class Main extends JavaPlugin{
 		this.getCommand("chrust").setExecutor(new ChestTrustCommand());
 		this.getCommand("dischrust").setExecutor(new ChestTrustCommand());
 		this.getCommand("setFaction").setExecutor(new SetFaction());
-		
+		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
