@@ -16,7 +16,7 @@ public class FactionAttack implements Listener{
 	@EventHandler
 	public void onAttack(EntityDamageByEntityEvent event) {
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
-			if(plugin.getConfig().getString(event.getDamager().getName() + ".faction").equals(plugin.getConfig().getString(event.getEntity().getName() + ".faction"))) {
+			if(!plugin.getConfig().getString(event.getDamager().getName() + ".faction").equals(plugin.getConfig().getString(event.getEntity().getName() + ".faction"))) {
 				event.setCancelled(true);
 				event.getDamager().sendMessage(ChatColor.DARK_RED + "Player is in different faction: " + plugin.getConfig().getString(event.getEntity().getName() + ".faction") + "! Your's is: " + plugin.getConfig().getString(event.getDamager().getName() + ".faction") + ".");
 			}
