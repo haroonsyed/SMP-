@@ -24,14 +24,14 @@ public class ChatListener implements Listener {
 		}
 		
 		//if deny
-		if(FindCommand.getSendersSize()!=0 && event.getMessage().equalsIgnoreCase("deny")) {
+		else if(FindCommand.getSendersSize()!=0 && event.getMessage().equalsIgnoreCase("deny")) {
 			if(event.getPlayer().getDisplayName() == FindCommand.getReciever(FindCommand.getArrayLoc())) {
 				event.setCancelled(true);
 				FindCommand.setDeny(true);
 			}
 		}
 		//If faction chat
-		if(event.getMessage().charAt(0) == '@') {
+		else if(event.getMessage().charAt(0) == '@') {
 			String msg = event.getMessage().substring(1);
 			String name = event.getPlayer().getDisplayName();
 			
@@ -41,6 +41,7 @@ public class ChatListener implements Listener {
 			
 			event.setCancelled(true);
 		}
+		
 	}
 	
 	
