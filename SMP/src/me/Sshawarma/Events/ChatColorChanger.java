@@ -22,7 +22,7 @@ public class ChatColorChanger implements Listener{
 		
 		String faction = config.getString("PlayerSettings." + player.getDisplayName() + ".faction");
 		//Factioncolor
-		if(config.getString("FactionSettings" + faction + ".color") == null) {
+		if(!config.contains("FactionSettings" + faction + ".color")) {
 			config.set("FactionSettings." + faction + ".color", "&f");
 		}
 		
