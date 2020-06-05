@@ -38,8 +38,8 @@ public class SetFaction implements CommandExecutor{
 					plugin.getConfig().set("PlayerSettings." + args[1]+ ".faction", args[0]);
 					//If the faction is being created, give it default settings
 					boolean factionExists = false;
-					for(String faction : plugin.getConfig().getConfigurationSection("FactionSettings").getKeys(false)) {
-						if(args[1].equalsIgnoreCase(faction)) {
+					for(String playerSetting : plugin.getConfig().getConfigurationSection("PlayerSettings").getKeys(false)) {
+						if(args[1].equalsIgnoreCase(plugin.getConfig().getString(playerSetting + ".faction"))) {
 							factionExists = true;
 						}
 					}
@@ -87,8 +87,14 @@ public class SetFaction implements CommandExecutor{
 						}
 					}
 					else if(args[0].equalsIgnoreCase("choose")) {
+						//Return to default
+						if(args[1].equalsIgnoreCase("default")) {
+							plugin.getConfig().set("PlayerSettings." + args[1] + ".faction", joinRequests.get(args[1]));
+							sender.sendMessage(ChatColor.GREEN + "Back to default faction!");
+							plugin.saveConfig();
+						}
 						//Spam timer
-						if(joinRequests.containsKey(((Player)sender).getDisplayName())) {
+						else if(joinRequests.containsKey(((Player)sender).getDisplayName())) {
 							if(joinRequests.get(((Player)sender).getDisplayName()).equalsIgnoreCase(args[1])) {
 								sender.sendMessage(ChatColor.RED + "Request already sent!");
 							}
@@ -97,8 +103,8 @@ public class SetFaction implements CommandExecutor{
 						else if(!args[1].equals(plugin.getConfig().get("PlayerSettings." + ((Player)sender) + ".faction"))){
 							//Check if the faction is already there
 							boolean factionExists = false;
-							for(String faction : plugin.getConfig().getConfigurationSection("FactionSettings").getKeys(false)) {
-								if(args[1].equalsIgnoreCase(faction)) {
+							for(String playerSetting : plugin.getConfig().getConfigurationSection("PlayerSettings").getKeys(false)) {
+								if(args[1].equalsIgnoreCase(plugin.getConfig().getString(playerSetting + ".faction"))) {
 									factionExists = true;
 								}
 							}
@@ -124,6 +130,7 @@ public class SetFaction implements CommandExecutor{
 									}
 									
 								}.runTaskLater(plugin, 600);
+								sender.sendMessage(ChatColor.GREEN + "Request to join faction sent!");
 							}
 							//Else create the faction and make this person a part of it
 							else {
