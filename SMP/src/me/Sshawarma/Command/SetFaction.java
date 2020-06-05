@@ -100,7 +100,7 @@ public class SetFaction implements CommandExecutor{
 							}
 						}
 						//Check that player is not already in said faction
-						else if(!args[1].equals(plugin.getConfig().get("PlayerSettings." + ((Player)sender) + ".faction"))){
+						else if(!args[1].equalsIgnoreCase(plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction"))){
 							//Check if the faction is already there
 							boolean factionExists = false;
 							for(String playerSetting : plugin.getConfig().getConfigurationSection("PlayerSettings").getKeys(false)) {
