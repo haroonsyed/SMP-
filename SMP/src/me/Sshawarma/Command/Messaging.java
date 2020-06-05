@@ -44,7 +44,7 @@ public class Messaging implements CommandExecutor{
 				}
 				
 				//MSG
-				if(cmd.getName().equalsIgnoreCase("msg")  && args.length > 2) {
+				if(cmd.getName().equalsIgnoreCase("msg")  && args.length > 1) {
 					//Get player args[0], message them, add them to sender's last messaged
 					for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 						if(p.getDisplayName().equalsIgnoreCase(args[0])) {
@@ -52,7 +52,8 @@ public class Messaging implements CommandExecutor{
 							p.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
 							sender.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
 							lastMessaged.put(((Player) sender).getDisplayName(), p.getDisplayName());
-							;
+							lastMessaged.put(p.getDisplayName(), ((Player) sender).getDisplayName());
+							
 							sentMessage = true;
 						}
 					}
@@ -62,9 +63,11 @@ public class Messaging implements CommandExecutor{
 				//Check if there is a player in the Hashmap, then perform command
 				else if(cmd.getName().equalsIgnoreCase("r") && lastMessaged.containsKey(((Player) sender).getDisplayName())){
 					
+					String senderName = ((Player) sender).getDisplayName();
+					
 					//Get last messaged from hashmap, message them, add them to sender's last messaged
 					for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-						if(p.getDisplayName().equalsIgnoreCase(args[0])) {
+						if(p.getDisplayName().equalsIgnoreCase(lastMessaged.get(senderName))) {
 							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 10, 1);
 							p.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
 							sender.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
@@ -77,13 +80,13 @@ public class Messaging implements CommandExecutor{
 				
 				//Invalid arguments
 				else {
-					sender.sendMessage(ChatColor.RED + "Invalid Message!");
+					sender.sendMessage(ChatColor.RED + "Invalid Message or player is offline!");
 				}
 				
 				//No player online with that name
-				if(sentMessage == false) {
-					sender.sendMessage(ChatColor.RED + "No player online with that name!");
-				}
+				//if(sentMessage == false) {
+				//	sender.sendMessage(ChatColor.RED + "No player online with that name!");
+				//}
 				
 				
 				
