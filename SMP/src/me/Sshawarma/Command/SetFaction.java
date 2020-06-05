@@ -155,6 +155,15 @@ public class SetFaction implements CommandExecutor{
 							sender.sendMessage(ChatColor.RED + "Already in that faction!");
 						}
 					}
+					
+					else if(args[0].equalsIgnoreCase("color")) {
+						SetColor translator = new SetColor();
+						String colorCode = translator.translateColorToCode(args[1]);
+						String faction = plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction");
+						plugin.getConfig().set("FactionSettings." + faction + ".color", colorCode);
+						plugin.saveConfig();
+					}
+					
 				}
 			}
 		}

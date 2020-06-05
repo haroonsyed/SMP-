@@ -17,98 +17,94 @@ public class SetColor implements CommandExecutor{
 
 		if(sender instanceof Player) {
 			if(cmd.getName().equalsIgnoreCase("chatcolor")) {
+				
 				if(args.length != 1){
 					sender.sendMessage("Please input a color!");
 					sender.sendMessage("Choose from : dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black");
 				}
-				else if(args.length == 1) {
-					//Checks all colors
-					switch(args[0].toUpperCase()) {
-						
-						case "DARK_RED":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&4");	
-							plugin.saveConfig();
-							break;
-						case "RED":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&c");	
-							plugin.saveConfig();
-							break;
-						case "GOLD":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&6");	
-							plugin.saveConfig();
-							break;
-						case "YELLOW":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&e");	
-							plugin.saveConfig();
-							break;
-						case "DARK_GREEN":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&2");	
-							plugin.saveConfig();
-							break;
-						case "GREEN":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&a");	
-							plugin.saveConfig();
-							break;
-						case "AQUA":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&b");	
-							plugin.saveConfig();
-							break;
-						case "DARK_AQUA":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&3");	
-							plugin.saveConfig();
-							break;
-						case "DARK_BLUE":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&1");	
-							plugin.saveConfig();
-							break;
-						case "BLUE":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&9");	
-							plugin.saveConfig();
-							break;
-						case "LIGHT_PURPLE":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&d");	
-							plugin.saveConfig();
-							break;
-						case "DARK_PURPLE":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&5");	
-							plugin.saveConfig();
-							break;
-						case "WHITE":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&f");	
-							plugin.saveConfig();
-							break;
-						case "GRAY":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&7");	
-							plugin.saveConfig();
-							break;
-						case "DARK_GRAY":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&8");	
-							plugin.saveConfig();
-							break;
-						case "BLACK":
-							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&0");	
-							plugin.saveConfig();
-							break;
-						default:
-							sender.sendMessage(ChatColor.RED + "INVALID COLOR!");
-							sender.sendMessage("Possible colors are: dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black");
-					
-					}
-						
-					
-					
-					/*if(args[0].equalsIgnoreCase("red")) {
-						plugin.getConfig().set(sender.getName(), "&c");	
-						plugin.saveConfig();
-					}*/
-
 				
+				else if(args.length == 1) {
+					
+					String colorCode = translateColorToCode(args[0]);
+					if(!args[0].equals("")) {
+						plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", colorCode);	
+						plugin.saveConfig();
+					}
+					
+					else {
+						sender.sendMessage(ChatColor.RED + "INVALID COLOR!");
+						sender.sendMessage("Possible colors are: dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black");
+					}
+					
 				}
 			}
 		}
 		
 		
 		return false;
+	}
+	
+	//Abstracted functionf or use elsewhere
+	public String translateColorToCode(String color) {
+		
+		String colorCode = "";
+		
+		switch(color.toUpperCase()) {
+		
+			case "DARK_RED":
+				colorCode = "&4";
+				break;
+			case "RED":
+				colorCode = "&c";
+				break;
+			case "GOLD":
+				colorCode = "&6";
+				break;
+			case "YELLOW":
+				colorCode = "&e";
+				break;
+			case "DARK_GREEN":
+				colorCode = "&2";
+				break;
+			case "GREEN":
+				colorCode = "&a";
+				break;
+			case "AQUA":
+				colorCode = "&b";
+				break;
+			case "DARK_AQUA":
+				colorCode = "&3";
+				break;
+			case "DARK_BLUE":
+				colorCode = "&1";
+				break;
+			case "BLUE":
+				colorCode = "&9";
+				break;
+			case "LIGHT_PURPLE":
+				colorCode = "&d";
+				break;
+			case "DARK_PURPLE":
+				colorCode = "&5";
+				break;
+			case "WHITE":
+				colorCode = "&f";
+				break;
+			case "GRAY":
+				colorCode = "&7";
+				break;
+			case "DARK_GRAY":
+				colorCode = "&8";
+				break;
+			case "BLACK":
+				colorCode = "&0";
+				break;
+			default:
+				
+		}
+		
+		return colorCode;
+		
 	}
 	
 }

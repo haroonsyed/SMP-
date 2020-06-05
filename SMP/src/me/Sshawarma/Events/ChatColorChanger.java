@@ -19,20 +19,26 @@ public class ChatColorChanger implements Listener{
 		String msg = event.getMessage();
 		Player player = event.getPlayer();
 		FileConfiguration config = plugin.getConfig();
-		//player.setDisplayName(plugin.getConfig().getString(player.getDisplayName()) + player.getDisplayName() + ChatColor.GOLD);
-		//event.setMessage(plugin.getConfig().getString(player.getDisplayName()) + msg);
 		
-		String faction = "[" + config.getString("PlayerSettings." + player.getDisplayName() + ".faction") + "] ";
+		String faction = config.getString("PlayerSettings." + player.getDisplayName() + ".faction");
+		//Factioncolor
+		if(config.getString("FactionSettings" + faction + ".color") == null) {
+			config.set("FactionSettings." + faction + ".color", "&f");
+		}
+		
+		//Makes prefix with chatcolorfrom config
+		String factionPrefix = ChatColor.translateAlternateColorCodes('&', config.getString("FactionSettings." + faction + ".color")) + "[" + faction  + "] ";
+		
 		
 		//Pretty Obvious it  grabs config and changes chat message with colors based on OP level
 		if(!(player.isOp())) {
 			event.setFormat(ChatColor.DARK_GRAY + "<" +ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + "" +ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_GRAY + ">"
-				+ ChatColor.RESET + faction + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + msg);
+				+ ChatColor.RESET + factionPrefix + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + msg);
 		}
 		
 		else {
 			event.setFormat(ChatColor.GOLD + "<" + ChatColor.RED + "" + ChatColor.BOLD +  player.getDisplayName() + ChatColor.GOLD + ">"
-					+ChatColor.RESET + "" + ChatColor.RED  + "[ADMIN]" + ChatColor.RESET + faction + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + msg);
+					+ChatColor.RESET + "" + ChatColor.RED  + "[ADMIN]" + ChatColor.RESET + factionPrefix + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + msg);
 		}
 		
 	}
