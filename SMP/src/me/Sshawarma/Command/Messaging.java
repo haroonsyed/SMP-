@@ -64,6 +64,7 @@ public class Messaging implements CommandExecutor{
 				else if(cmd.getName().equalsIgnoreCase("r") && lastMessaged.containsKey(((Player) sender).getDisplayName())){
 					
 					String senderName = ((Player) sender).getDisplayName();
+					msg = args[0] + msg;
 					
 					//Get last messaged from hashmap, message them, add them to sender's last messaged
 					for(Player p : Bukkit.getServer().getOnlinePlayers()) {
@@ -106,7 +107,7 @@ public class Messaging implements CommandExecutor{
 		//Loop through online players. If player.faction matches, then send message
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			if(config.getString("PlayerSettings." + p.getDisplayName() + ".faction").equalsIgnoreCase(senderFaction)) {
-				p.sendMessage("<" + name + ">[FACTION] " + color + msg);
+				p.sendMessage(ChatColor.YELLOW + "<" + name + ">[FACTION] " + color + msg);
 			}
 		}
 		

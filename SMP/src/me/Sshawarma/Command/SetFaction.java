@@ -65,10 +65,10 @@ public class SetFaction implements CommandExecutor{
 								plugin.getConfig().set("PlayerSettings." + args[1] + ".faction", joinRequests.get(args[1]));
 								plugin.saveConfig();
 								if(Bukkit.getPlayer(args[1]) != null) {
-									Bukkit.getPlayer(args[1]).playSound(Bukkit.getPlayer(args[1]).getLocation(), Sound.BLOCK_NOTE_BLOCK_GUITAR, 10, 1);
+									Bukkit.getPlayer(args[1]).playSound(Bukkit.getPlayer(args[1]).getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 1);
 									Bukkit.getPlayer(args[1]).sendMessage(ChatColor.GREEN + "You have joined the faction: " + joinRequests.get(args[1]));
 								}
-								((Player) sender).sendMessage("Successfully added to faction!");
+								((Player) sender).sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Successfully added to faction!");
 								joinRequests.remove(args[1]);
 							}
 						}
@@ -86,7 +86,15 @@ public class SetFaction implements CommandExecutor{
 							}
 						}
 					}
-					else if(args[0].equalsIgnoreCase("choose")) {
+					else if(args[0].equalsIgnoreCase("leave")) {
+						//Return to default
+						if(args[1].equalsIgnoreCase("default")) {
+							plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName() + ".faction", "default");
+							sender.sendMessage(ChatColor.GREEN + "Back to default faction!");
+							plugin.saveConfig();
+						}
+					}
+					else if(args[0].equalsIgnoreCase("choose") || args[0].equalsIgnoreCase("join")) {
 						//Return to default
 						if(args[1].equalsIgnoreCase("default")) {
 							plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName() + ".faction", "default");
@@ -114,9 +122,9 @@ public class SetFaction implements CommandExecutor{
 								//Goes thorugh online players in faction and asks to join new player
 								for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 									if(plugin.getConfig().getString("PlayerSettings." + p.getDisplayName() + ".faction").equalsIgnoreCase(args[1])) {
-										p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 10, 1);
+										p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 10, 1);
 										p.sendMessage(ChatColor.AQUA + "Player " + ((Player) sender).getDisplayName() + " would like to join the faction!");
-										p.sendMessage("Perform the command /faction accept playername to accept");
+										p.sendMessage(ChatColor.GOLD + ""+  ChatColor.BOLD + "Perform the command /faction accept/deny playername to accept/deny");
 									}
 									joinRequests.put(((Player) sender).getDisplayName(), args[1]);
 								}
@@ -125,8 +133,10 @@ public class SetFaction implements CommandExecutor{
 									@Override
 									public void run() {
 										// remove player from the list
-										joinRequests.remove(((Player)sender).getDisplayName());
-										sender.sendMessage(ChatColor.RED + "The faction did not accept you in time!");
+										if(joinRequests.containsKey(((Player) sender).getDisplayName())) {
+											joinRequests.remove(((Player)sender).getDisplayName());
+											sender.sendMessage(ChatColor.RED + "The faction did not accept you in time!");
+										}
 									}
 									
 								}.runTaskLater(plugin, 600);
