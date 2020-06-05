@@ -40,7 +40,7 @@ public class Messaging implements CommandExecutor{
 				boolean sentMessage = false;
 				String msg = "";
 				for(int i=1; i<args.length; i++) {
-					msg += args[i];
+					msg += args[i] + " ";
 				}
 				
 				//MSG
@@ -49,8 +49,8 @@ public class Messaging implements CommandExecutor{
 					for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 						if(p.getDisplayName().equalsIgnoreCase(args[0])) {
 							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 10, 1);
-							p.sendMessage("<" + ((Player) sender).getDisplayName() + ">[MSG] " + ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + msg);
-							sender.sendMessage("<" + ((Player) sender).getDisplayName() + ">[MSG] " + ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + msg);
+							p.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
+							sender.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
 							lastMessaged.put(((Player) sender).getDisplayName(), p.getDisplayName());
 							;
 							sentMessage = true;
@@ -66,8 +66,8 @@ public class Messaging implements CommandExecutor{
 					for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 						if(p.getDisplayName().equalsIgnoreCase(args[0])) {
 							p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 10, 1);
-							p.sendMessage("<" + ((Player) sender).getDisplayName() + ">[MSG] " + ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + msg);
-							sender.sendMessage("<" + ((Player) sender).getDisplayName() + ">[MSG] " + ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + msg);
+							p.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
+							sender.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
 							lastMessaged.put(((Player) sender).getDisplayName(), p.getDisplayName());
 							lastMessaged.put(p.getDisplayName(), ((Player) sender).getDisplayName());
 							sentMessage = true;
@@ -101,7 +101,6 @@ public class Messaging implements CommandExecutor{
 		String color = ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + name + ".chatcolor"));
 		
 		//Loop through online players. If player.faction matches, then send message
-		sender.sendMessage("<" + name + ">[FACTION]" + color +  msg);
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			if(config.getString("PlayerSettings." + p.getDisplayName() + ".faction").equalsIgnoreCase(senderFaction)) {
 				p.sendMessage("<" + name + ">[FACTION] " + color + msg);

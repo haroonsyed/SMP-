@@ -89,7 +89,7 @@ public class SetFaction implements CommandExecutor{
 					else if(args[0].equalsIgnoreCase("choose")) {
 						//Return to default
 						if(args[1].equalsIgnoreCase("default")) {
-							plugin.getConfig().set("PlayerSettings." + args[1] + ".faction", joinRequests.get(args[1]));
+							plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName() + ".faction", "default");
 							sender.sendMessage(ChatColor.GREEN + "Back to default faction!");
 							plugin.saveConfig();
 						}
@@ -104,7 +104,7 @@ public class SetFaction implements CommandExecutor{
 							//Check if the faction is already there
 							boolean factionExists = false;
 							for(String playerSetting : plugin.getConfig().getConfigurationSection("PlayerSettings").getKeys(false)) {
-								if(args[1].equalsIgnoreCase(plugin.getConfig().getString(playerSetting + ".faction"))) {
+								if(args[1].equalsIgnoreCase(plugin.getConfig().getString("PlayerSettings." + playerSetting + ".faction"))) {
 									factionExists = true;
 								}
 							}

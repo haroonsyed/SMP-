@@ -39,6 +39,7 @@ public class ChatListener implements Listener {
 			Messaging messaging = new Messaging();
 			messaging.messageFaction(name, msg);
 			
+			event.setCancelled(true);
 		}
 	}
 	
