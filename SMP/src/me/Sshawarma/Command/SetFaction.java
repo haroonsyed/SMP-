@@ -18,7 +18,7 @@ public class SetFaction implements CommandExecutor{
 	
 	Plugin plugin = Main.getPlugin(Main.class);
 	//Requests to join a faction are stored here
-	static HashMap<String, String> joinRequests;
+	static HashMap<String, String> joinRequests = new HashMap<String, String>();
 	
 	//POTENTIAL ISSUE WHERE FACTIONS CAN EXIST AFTER BECOMING EMPTY, BECOMING IMPOSSIBLE TO JOIN
 
