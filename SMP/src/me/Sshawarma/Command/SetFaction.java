@@ -88,8 +88,10 @@ public class SetFaction implements CommandExecutor{
 					}
 					else if(args[0].equalsIgnoreCase("choose")) {
 						//Spam timer
-						if(joinRequests.get(((Player)sender).getDisplayName()).equalsIgnoreCase(args[1])) {
-							sender.sendMessage(ChatColor.RED + "Request already sent!");
+						if(joinRequests.containsKey(((Player)sender).getDisplayName())) {
+							if(joinRequests.get(((Player)sender).getDisplayName()).equalsIgnoreCase(args[1])) {
+								sender.sendMessage(ChatColor.RED + "Request already sent!");
+							}
 						}
 						//Check that player is not already in said faction
 						else if(!args[1].equals(plugin.getConfig().get("PlayerSettings." + ((Player)sender) + ".faction"))){
