@@ -65,8 +65,8 @@ public class SetFaction implements CommandExecutor{
 								plugin.getConfig().set("PlayerSettings." + args[1] + ".faction", joinRequests.get(args[1]));
 								plugin.saveConfig();
 								if(Bukkit.getPlayer(args[1]) != null) {
-									Bukkit.getPlayer(args[1]).playSound(Bukkit.getPlayer(args[0]).getLocation(), Sound.BLOCK_NOTE_BLOCK_GUITAR, 10, 1);
-									Bukkit.getPlayer(args[1]).sendMessage(ChatColor.GREEN + "You have joined the faction: " + joinRequests.get(args[0]));
+									Bukkit.getPlayer(args[1]).playSound(Bukkit.getPlayer(args[1]).getLocation(), Sound.BLOCK_NOTE_BLOCK_GUITAR, 10, 1);
+									Bukkit.getPlayer(args[1]).sendMessage(ChatColor.GREEN + "You have joined the faction: " + joinRequests.get(args[1]));
 								}
 								((Player) sender).sendMessage("Successfully added to faction!");
 								joinRequests.remove(args[1]);
@@ -78,8 +78,8 @@ public class SetFaction implements CommandExecutor{
 						if(joinRequests.containsKey(args[1])) {
 							if(plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction").equalsIgnoreCase(joinRequests.get(args[1]))) {
 								if(Bukkit.getPlayer(args[1]) != null) {
-									Bukkit.getPlayer(args[1]).playSound(Bukkit.getPlayer(args[0]).getLocation(), Sound.ENTITY_GHAST_SCREAM, 10, 1);
-									Bukkit.getPlayer(args[1]).sendMessage(ChatColor.RED + "You have been denied from the faction: " + joinRequests.get(args[0]));
+									Bukkit.getPlayer(args[1]).playSound(Bukkit.getPlayer(args[1]).getLocation(), Sound.ENTITY_GHAST_SCREAM, 10, 1);
+									Bukkit.getPlayer(args[1]).sendMessage(ChatColor.RED + "You have been denied from the faction: " + joinRequests.get(args[1]));
 								}
 								((Player) sender).sendMessage("Successfully denied to faction!");
 								joinRequests.remove(args[1]);
