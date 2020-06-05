@@ -160,8 +160,15 @@ public class SetFaction implements CommandExecutor{
 						SetColor translator = new SetColor();
 						String colorCode = translator.translateColorToCode(args[1]);
 						String faction = plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction");
-						plugin.getConfig().set("FactionSettings." + faction + ".color", colorCode);
-						plugin.saveConfig();
+						if(colorCode != "") {
+							plugin.getConfig().set("FactionSettings." + faction + ".color", colorCode);
+							plugin.saveConfig();
+							sender.sendMessage(ChatColor.GREEN + "Color set to " + ChatColor.translateAlternateColorCodes('&', colorCode) + args[1]);
+						}
+						else {
+							sender.sendMessage(ChatColor.RED + "INVALID COLOR!");
+							sender.sendMessage("Possible colors are: dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black");
+						}
 					}
 					
 				}
