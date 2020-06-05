@@ -4,6 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import me.Sshawarma.Command.FindCommand;
+import me.Sshawarma.Command.Messaging;
 import net.md_5.bungee.api.ChatColor;
 
 public class ChatListener implements Listener {
@@ -28,6 +29,16 @@ public class ChatListener implements Listener {
 				event.setCancelled(true);
 				FindCommand.setDeny(true);
 			}
+		}
+		//If faction chat
+		if(event.getMessage().charAt(0) == '@') {
+			String msg = event.getMessage().substring(1);
+			String name = event.getPlayer().getDisplayName();
+			
+			//Instantiate the messaging class and send this command to it
+			Messaging messaging = new Messaging();
+			messaging.messageFaction(name, msg);
+			
 		}
 	}
 	

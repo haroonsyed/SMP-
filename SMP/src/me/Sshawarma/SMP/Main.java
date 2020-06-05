@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.Sshawarma.Command.ChestTrustCommand;
 import me.Sshawarma.Command.FindCommand;
+import me.Sshawarma.Command.Messaging;
 import me.Sshawarma.Command.SetColor;
 import me.Sshawarma.Command.SetFaction;
 import me.Sshawarma.Events.Beds;
@@ -38,6 +39,8 @@ public class Main extends JavaPlugin{
 		this.getCommand("dischrust").setExecutor(new ChestTrustCommand());
 		this.getCommand("setFaction").setExecutor(new SetFaction());
 		this.getCommand("faction").setExecutor(new SetFaction());
+		this.getCommand("msg").setExecutor(new Messaging());
+		this.getCommand("r").setExecutor(new Messaging());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
 		
 		getConfig().options().copyDefaults(true);

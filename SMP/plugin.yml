@@ -13,6 +13,10 @@ commands:
     description: trusts another player to access your deathchest
   dischrust:
     description: removes another player access to your deathchest
+  msg:
+    description: Message player
+  r:
+    description: Reply to player
   setFaction:
      description: sets the player's faction
      usage: "Usage: /setFaction [factionName] [playerName]"
