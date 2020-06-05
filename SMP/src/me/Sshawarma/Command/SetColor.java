@@ -26,67 +26,67 @@ public class SetColor implements CommandExecutor{
 					switch(args[0].toUpperCase()) {
 						
 						case "DARK_RED":
-							plugin.getConfig().set(sender.getName() + ".color", "&4");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&4");	
 							plugin.saveConfig();
 							break;
 						case "RED":
-							plugin.getConfig().set(sender.getName() + ".color", "&c");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&c");	
 							plugin.saveConfig();
 							break;
 						case "GOLD":
-							plugin.getConfig().set(sender.getName() + ".color", "&6");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&6");	
 							plugin.saveConfig();
 							break;
 						case "YELLOW":
-							plugin.getConfig().set(sender.getName() + ".color", "&e");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&e");	
 							plugin.saveConfig();
 							break;
 						case "DARK_GREEN":
-							plugin.getConfig().set(sender.getName() + ".color", "&2");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&2");	
 							plugin.saveConfig();
 							break;
 						case "GREEN":
-							plugin.getConfig().set(sender.getName() + ".color", "&a");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&a");	
 							plugin.saveConfig();
 							break;
 						case "AQUA":
-							plugin.getConfig().set(sender.getName() + ".color", "&b");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&b");	
 							plugin.saveConfig();
 							break;
 						case "DARK_AQUA":
-							plugin.getConfig().set(sender.getName() + ".color", "&3");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&3");	
 							plugin.saveConfig();
 							break;
 						case "DARK_BLUE":
-							plugin.getConfig().set(sender.getName() + ".color", "&1");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&1");	
 							plugin.saveConfig();
 							break;
 						case "BLUE":
-							plugin.getConfig().set(sender.getName() + ".color", "&9");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&9");	
 							plugin.saveConfig();
 							break;
 						case "LIGHT_PURPLE":
-							plugin.getConfig().set(sender.getName() + ".color", "&d");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&d");	
 							plugin.saveConfig();
 							break;
 						case "DARK_PURPLE":
-							plugin.getConfig().set(sender.getName() + ".color", "&5");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&5");	
 							plugin.saveConfig();
 							break;
 						case "WHITE":
-							plugin.getConfig().set(sender.getName() + ".color", "&f");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&f");	
 							plugin.saveConfig();
 							break;
 						case "GRAY":
-							plugin.getConfig().set(sender.getName() + ".color", "&7");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&7");	
 							plugin.saveConfig();
 							break;
 						case "DARK_GRAY":
-							plugin.getConfig().set(sender.getName() + ".color", "&8");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&8");	
 							plugin.saveConfig();
 							break;
 						case "BLACK":
-							plugin.getConfig().set(sender.getName() + ".color", "&0");	
+							plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", "&0");	
 							plugin.saveConfig();
 							break;
 						default:

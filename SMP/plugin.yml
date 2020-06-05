@@ -1,5 +1,5 @@
 name: SMP
-version: 1.7.5
+version: 1.8
 author: Sshawarma
 main: me.Sshawarma.SMP.Main
 description: Simple plugin with useful SMP features.
@@ -16,3 +16,6 @@ commands:
   setFaction:
      description: sets the player's faction
      usage: "Usage: /setFaction [factionName] [playerName]"
+  faction:
+     description: used to accept or deny or choose faction
+     usage: "Usage: /faction [accept/deny/choose] [playerName/factionName]"

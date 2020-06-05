@@ -25,15 +25,20 @@ public class JoinListener implements Listener{
 		Player player = event.getPlayer();
 		
 		//If they arent already registered in config, give them the defaults
-		if(!(plugin.getConfig().contains(player.getDisplayName()))) {
-			plugin.getConfig().set(player.getDisplayName() + ".chatcolor", "&7");
-			plugin.getConfig().set(event.getPlayer().getDisplayName() + ".faction", "default");
+		if(!(plugin.getConfig().contains("PlayerSettings." + player.getDisplayName()))) {
+			plugin.getConfig().set("PlayerSettings." + player.getDisplayName() + ".chatcolor", "&7");
+			plugin.getConfig().set("PlayerSettings." + event.getPlayer().getDisplayName() + ".faction", "default");
 			plugin.saveConfig();
 			
 			player.sendMessage(ChatColor.DARK_GRAY + "---------" + ChatColor.GREEN + "Your chat color by default is: "  + ChatColor.GRAY + "GRAY" + ChatColor.DARK_GRAY + "---------");
 			player.sendMessage(ChatColor.DARK_GREEN + "If you would like to change your chatcolor, please use /chatcolor (desired color here w/o parenthesis)");
 		}
-		
+		//Creates the default faction section
+		if(!plugin.getConfig().contains("FactionSettings")) {
+			plugin.getConfig().set("FactionSettings.default.peaceful", "false");
+			plugin.getConfig().set("FactionSettings.default.friendlyFire", "true");
+			plugin.saveConfig();
+		}
 	}
 	
 	@SuppressWarnings("deprecation")

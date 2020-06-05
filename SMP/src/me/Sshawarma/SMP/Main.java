@@ -37,6 +37,7 @@ public class Main extends JavaPlugin{
 		this.getCommand("chrust").setExecutor(new ChestTrustCommand());
 		this.getCommand("dischrust").setExecutor(new ChestTrustCommand());
 		this.getCommand("setFaction").setExecutor(new SetFaction());
+		this.getCommand("faction").setExecutor(new SetFaction());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
 		
 		getConfig().options().copyDefaults(true);

@@ -22,13 +22,13 @@ public class ChatColorChanger implements Listener{
 		
 		//Pretty Obvious it  grabs config and changes chat message with colors based on OP level
 		if(!(player.isOp())) {
-			event.setFormat(ChatColor.DARK_GRAY + "<" +ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString(player.getDisplayName() + ".color")) + "" +ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_GRAY + ">"
-				+ ChatColor.RESET + ChatColor.DARK_GRAY + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString(player.getDisplayName() + ".color")) + msg);
+			event.setFormat(ChatColor.DARK_GRAY + "<" +ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + "" +ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_GRAY + ">"
+				+ ChatColor.RESET + ChatColor.DARK_GRAY + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + msg);
 		}
 		
 		else {
 			event.setFormat(ChatColor.GOLD + "<" + ChatColor.RED + "" + ChatColor.BOLD +  player.getDisplayName() + ChatColor.GOLD + ">"
-					+ChatColor.RESET + "" + ChatColor.RED  + "[ADMIN] " + ChatColor.RESET + "" + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString(player.getDisplayName() + ".color")) + msg);
+					+ChatColor.RESET + "" + ChatColor.RED  + "[ADMIN] " + ChatColor.RESET + "" + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + msg);
 		}
 		
 	}
