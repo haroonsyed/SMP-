@@ -44,8 +44,8 @@ public class SetFaction implements CommandExecutor{
 						}
 					}
 					if(factionExists == false) {
-						plugin.getConfig().set("FactionSettings." + args[1] + ".peaceful", "false");
-						plugin.getConfig().set("FactionSettings." + args[1] + ".friendlyFire", "true");
+						plugin.getConfig().set("FactionSettings." + args[0] + ".peaceful", "false");
+						plugin.getConfig().set("FactionSettings." + args[0] + ".friendlyFire", "true");
 					}
 					plugin.saveConfig();
 				}
@@ -53,7 +53,7 @@ public class SetFaction implements CommandExecutor{
 			}
 			
 		}
-		else if(sender instanceof Player) {
+		if(sender instanceof Player) {
 			//Set faction by player
 			//Accept/Deny into faction by member
 			if(cmd.getName().equalsIgnoreCase("faction")) {
@@ -88,7 +88,7 @@ public class SetFaction implements CommandExecutor{
 					}
 					else if(args[0].equalsIgnoreCase("choose")) {
 						//Spam timer
-						if(!joinRequests.get(((Player)sender).getDisplayName()).equalsIgnoreCase(args[1])) {
+						if(joinRequests.get(((Player)sender).getDisplayName()).equalsIgnoreCase(args[1])) {
 							sender.sendMessage(ChatColor.RED + "Request already sent!");
 						}
 						//Check that player is not already in said faction
