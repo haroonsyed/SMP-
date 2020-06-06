@@ -44,7 +44,7 @@ public class JoinListener implements Listener{
 		//Creates the chrusted players list
 		if(!plugin.getConfig().contains("PlayerSettings." + player.getDisplayName() + ".chrusted")) {
 			ArrayList<String> chrusted = new ArrayList<String>();
-			plugin.getConfig().set("PlayerSetting." + player.getDisplayName() + ".chrusted", chrusted);
+			plugin.getConfig().set("PlayerSettings." + player.getDisplayName() + ".chrusted", chrusted);
 			plugin.saveConfig();
 		}
 	}
