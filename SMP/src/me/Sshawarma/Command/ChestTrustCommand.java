@@ -8,19 +8,27 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
+import me.Sshawarma.SMP.Main;
 
 public class ChestTrustCommand implements CommandExecutor{
 	
-	private static HashMap<String, ArrayList<String>> trustedPlayers = new HashMap<String, ArrayList<String>>();
+	Plugin plugin = Main.getPlugin(Main.class);
+	FileConfiguration config = plugin.getConfig();
 	
-	public static ArrayList<String> getTrustedPlayers(String owner) {
-		return trustedPlayers.get(owner.toUpperCase());
+	
+	public ArrayList<String> getTrustedPlayers(String owner) {
+		return (ArrayList<String>) config.getStringList("PlayerSettings." + owner + ".chrusted");
 	}
 	
-	public static void setTrustedPlayers(String player, ArrayList<String> players) {
-		trustedPlayers.put(player, players);
+	public void setTrustedPlayers(String owner, ArrayList<String> players) {
+		config.set("PlayerSettings." + owner + ".chrusted", players);
+		plugin.saveConfig();
 	}
+	
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -28,35 +36,23 @@ public class ChestTrustCommand implements CommandExecutor{
 		if(cmd.getName().equalsIgnoreCase("chrust")) {
 			if(sender instanceof Player) {
 				if(args.length == 1) {
+					
+					//Capitalizes player name. Checks if the chrusted player is there before adding it.
+					args[0] = args[0].toUpperCase();
 					Player player = (Player) sender;
-					ArrayList<String> trusted = new ArrayList<String>();
+					ArrayList<String> trusted = (ArrayList<String>) config.getStringList("PlayerSettings." + player.getDisplayName() + ".chrusted");
 					
-					for(Entry<String, ArrayList<String>> entry : trustedPlayers.entrySet()) {
-						//player.sendMessage(entry.getKey() + "going through keys");
-						if(entry.getKey().equalsIgnoreCase(player.getDisplayName())) {
-							
-							trusted = entry.getValue();
-							if(!(trusted.contains(args[0].toUpperCase()))) {
-								player.sendMessage(ChatColor.GREEN + "Trusted player added!");
-								trusted.add(args[0].toUpperCase());
-							}
-							else {
-								player.sendMessage(ChatColor.RED + "Player already is in trusted list!");
-							}
-							
-						}
-						
+					if(trusted.contains(args[0])) {
+						player.sendMessage(ChatColor.RED + "Player already is in trusted list!");
 					}
 					
-					if(!(trustedPlayers.containsKey(player.getDisplayName().toUpperCase()))) {
-						trusted.add(args[0].toUpperCase());
-						player.sendMessage(ChatColor.GREEN + "Player added to trusted list!");
+					else {
+						trusted.add(args[0]);
+						config.set("PlayerSettings." + player.getDisplayName() + ".chrusted", trusted);
+						plugin.saveConfig();
+						player.sendMessage(ChatColor.GREEN + "Trusted player added!");
 					}
 					
-					//Remember ignorecase I suppose
-					
-					trustedPlayers.put(player.getDisplayName().toUpperCase(), trusted);
-					player.sendMessage(ChatColor.ITALIC + "Be aware that trusted players are not saved on next login/server start!");
 					player.sendMessage("Trusted are: " + trusted.toString());
 					
 				}
@@ -71,30 +67,23 @@ public class ChestTrustCommand implements CommandExecutor{
 			if(sender instanceof Player) {
 			
 				if(args.length == 1) {
+					
+					//Checks if player exists before removing it.
+					args[0] = args[0].toUpperCase();
 					Player player = (Player) sender;
-					ArrayList<String> trusted = new ArrayList<String>();
+					ArrayList<String> trusted = (ArrayList<String>) config.getStringList("PlayerSettings." + player.getDisplayName() + ".chrusted");
 					
-					for(Entry<String, ArrayList<String>> entry : trustedPlayers.entrySet()) {
-						
-						if(entry.getKey().equalsIgnoreCase(player.getDisplayName())) {
-							trusted = entry.getValue();
-							if(trusted.contains(args[0].toUpperCase())) {
-								player.sendMessage(ChatColor.GREEN + "Player removed from trusted!");
-								trusted.remove(args[0].toUpperCase());
-							}
-							else {
-								player.sendMessage(ChatColor.RED + "Player already didn't have permission!");
-							}
-
-						}
-						
+					if(trusted.contains(args[0])) {
+						trusted.remove(args[0]);
+						player.sendMessage(ChatColor.GREEN + "Player removed from trusted!");
+						config.set("PlayerSettings." + player.getDisplayName() + ".chrusted", trusted);
+						plugin.saveConfig();
 					}
 					
-					if(!(trustedPlayers.containsKey(player.getDisplayName().toUpperCase()))) {
-						player.sendMessage(ChatColor.RED + "Noone was in trusted!");
+					else {
+						player.sendMessage(ChatColor.RED + "Player already didn't have permission!");
 					}
 					
-					trustedPlayers.put(player.getDisplayName().toUpperCase(), trusted);
 					player.sendMessage("Trusted are: " + trusted.toString());
 					
 				}

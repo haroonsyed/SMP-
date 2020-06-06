@@ -1,6 +1,8 @@
 package me.Sshawarma.Events;
 
 import java.util.ArrayList;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -52,7 +54,9 @@ public class ChestAccess implements Listener{
 				Player player = event.getPlayer();
 				Chest chest = (Chest) event.getClickedBlock().getState();
 				String owner = Death.getdChestPlayers().get(chest.getBlock().getLocation());
-				String owner2 = Death.getdChestPlayers2().get(chest.getBlock().getLocation());			
+				owner = Bukkit.getServer().getPlayer(owner).getDisplayName();
+				String owner2 = Death.getdChestPlayers2().get(chest.getBlock().getLocation());
+				Bukkit.getServer().getPlayer(owner2).getDisplayName();
 				
 
 				
@@ -60,7 +64,9 @@ public class ChestAccess implements Listener{
 				
 				if(Death.getdChests().containsKey(chest.getBlock().getLocation())){
 					
-					ArrayList<String> trustedps = ChestTrustCommand.getTrustedPlayers(owner.toUpperCase());
+					ChestTrustCommand ctc = new ChestTrustCommand();
+					ArrayList<String> trustedps = ctc.getTrustedPlayers(owner);
+					
 					try {
 						if(owner.equalsIgnoreCase(player.getDisplayName())) {
 							return;
@@ -87,7 +93,8 @@ public class ChestAccess implements Listener{
 				
 				else if(Death.getdChests2().containsKey(chest.getBlock().getLocation())) {
 					
-					ArrayList<String> trustedps = ChestTrustCommand.getTrustedPlayers(owner2.toUpperCase());
+					ChestTrustCommand ctc = new ChestTrustCommand();
+					ArrayList<String> trustedps = ctc.getTrustedPlayers(owner2);
 					
 					try {
 						if(owner2.equalsIgnoreCase(player.getDisplayName())) {

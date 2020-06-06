@@ -1,5 +1,7 @@
 package me.Sshawarma.Events;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -37,6 +39,12 @@ public class JoinListener implements Listener{
 		if(!plugin.getConfig().contains("FactionSettings")) {
 			plugin.getConfig().set("FactionSettings.default.peaceful", "false");
 			plugin.getConfig().set("FactionSettings.default.friendlyFire", "true");
+			plugin.saveConfig();
+		}
+		//Creates the chrusted players list
+		if(!plugin.getConfig().contains("PlayerSettings." + player.getDisplayName() + ".chrusted")) {
+			ArrayList<String> chrusted = new ArrayList<String>();
+			plugin.getConfig().set("PlayerSetting." + player.getDisplayName() + ".chrusted", chrusted);
 			plugin.saveConfig();
 		}
 	}
