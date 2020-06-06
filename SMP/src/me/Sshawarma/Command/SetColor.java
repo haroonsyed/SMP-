@@ -26,7 +26,8 @@ public class SetColor implements CommandExecutor{
 				else if(args.length == 1) {
 					
 					String colorCode = translateColorToCode(args[0]);
-					if(!args[0].equals("")) {
+					if(!colorCode.equals("")) {
+						sender.sendMessage(ChatColor.GREEN + "Color set to " + ChatColor.translateAlternateColorCodes('&', colorCode) + args[0]);
 						plugin.getConfig().set("PlayerSettings." + sender.getName() + ".chatcolor", colorCode);	
 						plugin.saveConfig();
 					}
