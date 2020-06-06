@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+
 import me.Sshawarma.Command.ChestTrustCommand;
 import net.md_5.bungee.api.ChatColor;
 
@@ -54,18 +56,25 @@ public class ChestAccess implements Listener{
 				Player player = event.getPlayer();
 				Chest chest = (Chest) event.getClickedBlock().getState();
 				String owner = Death.getdChestPlayers().get(chest.getBlock().getLocation());
-				owner = Bukkit.getServer().getPlayer(owner).getDisplayName();
 				String owner2 = Death.getdChestPlayers2().get(chest.getBlock().getLocation());
-				Bukkit.getServer().getPlayer(owner2).getDisplayName();
 				
-
 				
-
+				String strictOwner = "";
+				String strictOwner2 = "";
+				
+				for(OfflinePlayer p : Bukkit.getServer().getOfflinePlayers()) {
+					if(p.getName().equalsIgnoreCase(owner)) {
+						strictOwner = p.getName();
+					}
+					if(p.getName().equalsIgnoreCase(owner2)) {
+						strictOwner2 = p.getName();
+					}
+				}
 				
 				if(Death.getdChests().containsKey(chest.getBlock().getLocation())){
 					
 					ChestTrustCommand ctc = new ChestTrustCommand();
-					ArrayList<String> trustedps = ctc.getTrustedPlayers(owner);
+					ArrayList<String> trustedps = ctc.getTrustedPlayers(strictOwner);
 					
 					try {
 						if(owner.equalsIgnoreCase(player.getDisplayName())) {
@@ -94,7 +103,7 @@ public class ChestAccess implements Listener{
 				else if(Death.getdChests2().containsKey(chest.getBlock().getLocation())) {
 					
 					ChestTrustCommand ctc = new ChestTrustCommand();
-					ArrayList<String> trustedps = ctc.getTrustedPlayers(owner2);
+					ArrayList<String> trustedps = ctc.getTrustedPlayers(strictOwner2);
 					
 					try {
 						if(owner2.equalsIgnoreCase(player.getDisplayName())) {
