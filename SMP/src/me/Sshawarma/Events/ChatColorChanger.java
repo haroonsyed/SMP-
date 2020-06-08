@@ -36,7 +36,7 @@ public class ChatColorChanger implements Listener{
 		}
 		
 		else {
-			event.setFormat(ChatColor.GOLD + "<" + ChatColor.RED + "" + ChatColor.BOLD +  player.getDisplayName() + ChatColor.GOLD + ">"
+			event.setFormat(ChatColor.GOLD + "<" + ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + "" + ChatColor.BOLD +  player.getDisplayName() + ChatColor.GOLD + ">"
 					+ChatColor.RESET + "" + ChatColor.RED  + "[ADMIN]" + ChatColor.RESET + "" +
 					ChatColor.translateAlternateColorCodes('&', colorCodeFac) + "[" + faction  + "] " + ChatColor.RESET + "" +
 					ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getDisplayName() + ".chatcolor")) + msg);

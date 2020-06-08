@@ -118,6 +118,7 @@ public class Death implements Listener{
 				chest2.getInventory().setContents(inven.toArray(new ItemStack[27]));
 				chest.getInventory().setContents(inven2.toArray(new ItemStack[inven2.size()]));
 				event.getDrops().clear();
+				event.setDroppedExp(player.getLevel()/2);
 				dChestPlayers2.put(chest2Loc.getBlock().getLocation(), player.getDisplayName().toUpperCase());
 			}
 			
@@ -141,7 +142,7 @@ public class Death implements Listener{
 					}
 					
 				}	
-			}.runTaskLater(plugin, 6000);
+			}.runTaskLater(plugin, 12000);
 			
 		}
 		
