@@ -64,7 +64,7 @@ public class Messaging implements CommandExecutor{
 				else if(cmd.getName().equalsIgnoreCase("r") && lastMessaged.containsKey(((Player) sender).getDisplayName())){
 					
 					String senderName = ((Player) sender).getDisplayName();
-					msg = args[0] + msg;
+					msg = args[0] + " " + msg;
 					
 					//Get last messaged from hashmap, message them, add them to sender's last messaged
 					for(Player p : Bukkit.getServer().getOnlinePlayers()) {
