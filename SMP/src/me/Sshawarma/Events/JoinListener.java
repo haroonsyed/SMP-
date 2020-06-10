@@ -53,7 +53,7 @@ public class JoinListener implements Listener{
 	@EventHandler
 	public void whiteListNotification(PlayerLoginEvent event) {
 		//If the whitelist does not contain the player...
-		if(!(Bukkit.getServer().getWhitelistedPlayers().contains(Bukkit.getServer().getOfflinePlayer(event.getPlayer().getName())))) {
+		if(!(Bukkit.getServer().getWhitelistedPlayers().contains("PlayerSettings." + Bukkit.getServer().getOfflinePlayer(event.getPlayer().getName())))) {
 			//Find op players and play a sound alerting them who the player is
 			for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 				if(p.isOp()) {
@@ -74,7 +74,7 @@ public class JoinListener implements Listener{
 	}
 	@EventHandler
 	public void setFactionSpawn(PlayerJoinEvent event) {
-		if(!event.getPlayer().hasPlayedBefore() && !plugin.getConfig().contains(event.getPlayer().getDisplayName())) {
+		if(!event.getPlayer().hasPlayedBefore() && !plugin.getConfig().contains("PlayerSettings." + event.getPlayer().getDisplayName())) {
 			Location spawn = Bukkit.getServer().getWorld("world").getSpawnLocation();
 			spawn.add(2406, 0, -697);
 			spawn.setY(event.getPlayer().getWorld().getHighestBlockYAt(spawn));
