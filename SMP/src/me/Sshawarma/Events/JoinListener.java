@@ -66,7 +66,7 @@ public class JoinListener implements Listener{
 	
 	@EventHandler
 	public void setFactionSpawn(PlayerRespawnEvent event) {
-		if(!event.isBedSpawn() && !plugin.getConfig().getString(event.getPlayer().getName() + ".faction").equals("cousins")) {
+		if(!event.isBedSpawn() && !plugin.getConfig().getString("PlayerSettings." + event.getPlayer().getName() + ".faction").equals("cousins")) {
 			Location spawn = event.getRespawnLocation().add(2406, 0, -697);
 			spawn.setY(event.getPlayer().getWorld().getHighestBlockYAt(spawn));
 			event.getPlayer().teleport(spawn);
