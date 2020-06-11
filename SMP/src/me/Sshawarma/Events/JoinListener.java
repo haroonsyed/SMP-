@@ -51,9 +51,9 @@ public class JoinListener implements Listener{
 		//Help Message
 		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 10, 1);
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=============================================");
-		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "|                                                     |");
+		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "|                                                            |");
 		player.sendMessage(ChatColor.GREEN + "  For a list of features and commands, type /help");
-		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "|                                                     |");
+		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "|                                                            |");
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=============================================");
 	}
 	
