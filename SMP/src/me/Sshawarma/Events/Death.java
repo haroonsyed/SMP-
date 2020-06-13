@@ -129,8 +129,8 @@ public class Death implements Listener{
 
 				@Override
 				public void run() {
-					Chest chest = (Chest) chestLoc.getBlock().getState();
-					chest.getInventory().clear();
+					//Chest chest = (Chest) chestLoc.getBlock().getState();
+					//chest.getInventory().clear();
 					chestLoc.getBlock().setType(Material.AIR);
 					chestLoc.getBlock().setType(oldChestBlock);
 					player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 10, 1);
@@ -138,8 +138,8 @@ public class Death implements Listener{
 					dChests.remove(chestLoc.getBlock().getLocation());
 					dChestPlayers.remove(chestLoc.getBlock().getLocation());
 					if(dChests2.containsKey(chest2Loc)) {
-						Chest chest2 = (Chest) chest2Loc.getBlock().getState();
-						chest2.getInventory().clear();
+						//Chest chest2 = (Chest) chest2Loc.getBlock().getState();
+						//chest2.getInventory().clear();
 						chest2Loc.getBlock().setType(Material.AIR);
 						chest2Loc.getBlock().setType(oldChestBlockTwo);
 						dChests2.remove(chest2Loc.getBlock().getLocation());
