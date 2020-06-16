@@ -62,7 +62,7 @@ public class SetFaction implements CommandExecutor{
 						//Check if player requested to join their clan and add them.
 						if(joinRequests.containsKey(args[1])) {
 							if(plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction").equalsIgnoreCase(joinRequests.get(args[1]))) {
-								plugin.getConfig().set("PlayerSettings." + args[1] + ".faction", joinRequests.get(args[1]));
+								plugin.getConfig().set("PlayerSettings." + args[1] + ".faction", plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction"));
 								plugin.saveConfig();
 								if(Bukkit.getPlayer(args[1]) != null) {
 									Bukkit.getPlayer(args[1]).playSound(Bukkit.getPlayer(args[1]).getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 1);
