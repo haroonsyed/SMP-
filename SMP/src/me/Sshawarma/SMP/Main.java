@@ -3,6 +3,7 @@ package me.Sshawarma.SMP;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.Sshawarma.Command.AgniKai;
 import me.Sshawarma.Command.ChestTrustCommand;
 import me.Sshawarma.Command.FindCommand;
 import me.Sshawarma.Command.Messaging;
@@ -41,6 +42,7 @@ public class Main extends JavaPlugin{
 		this.getCommand("faction").setExecutor(new SetFaction());
 		this.getCommand("msg").setExecutor(new Messaging());
 		this.getCommand("r").setExecutor(new Messaging());
+		this.getCommand("agnikai").setExecutor(new AgniKai());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
 		
 		getConfig().options().copyDefaults(true);

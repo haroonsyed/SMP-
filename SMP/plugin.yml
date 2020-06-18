@@ -1,5 +1,5 @@
 name: SMP
-version: 1.8.3
+version: 1.8.4
 author: Sshawarma
 main: me.Sshawarma.SMP.Main
 description: Simple plugin with useful SMP features.
@@ -23,3 +23,6 @@ commands:
   faction:
      description: used to accept or deny or choose faction
      usage: "Usage: /faction [accept/deny/choose] [playerName/factionName]"
+  agnikai:
+     description: "Battle with friend and foe using the elements."
+     usage: "Usage: /agnikai"
