@@ -16,7 +16,7 @@ public class AgniKai implements Listener{
 	//Checks if player died in agni kai. If so, respawn with same amount of xp and back at the agni kai area.
 	@EventHandler
 	public void onDeathInAgniKai(PlayerDeathEvent event) {
-		if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getEntity().getDisplayName().toUpperCase())) {
+		if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
 			event.setKeepLevel(true);
 			event.setKeepInventory(true);
 			event.getDrops().clear();
@@ -25,7 +25,7 @@ public class AgniKai implements Listener{
 	
 	@EventHandler
 	public void respawn(PlayerRespawnEvent event) {
-		if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getPlayer().getDisplayName().toUpperCase())) {
+		if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getPlayer().getUniqueId().toString())) {
 			Plugin plugin = Main.getPlugin(Main.class);
 			FileConfiguration config = plugin.getConfig();
 			Location loc = Bukkit.getWorld("world").getSpawnLocation();

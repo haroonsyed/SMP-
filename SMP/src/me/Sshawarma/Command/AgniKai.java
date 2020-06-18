@@ -40,7 +40,7 @@ public class AgniKai implements CommandExecutor{
 			Player player = (Player) sender;
 			
 			//Disable all commands during agni kai
-			if(!cmd.getName().equalsIgnoreCase("agnikai") && ogLocations.containsKey(player.getDisplayName().toUpperCase())) {
+			if(!cmd.getName().equalsIgnoreCase("agnikai") && ogLocations.containsKey(player.getUniqueId().toString())) {
 				player.sendMessage(ChatColor.RED + "You are currently in an Agni Kai! You may not perform commands.");
 				player.sendMessage(ChatColor.RED + "To leave agni kai perform /agnikai");
 			}
@@ -53,13 +53,13 @@ public class AgniKai implements CommandExecutor{
 					sender.sendMessage(ChatColor.RED + "No arena location set yet!");
 				}
 				
-				else if(ogLocations.containsKey(player.getDisplayName().toUpperCase())) {
-					player.teleport(ogLocations.get(player.getDisplayName().toUpperCase()));
-					ogLocations.remove(player.getDisplayName().toUpperCase());
+				else if(ogLocations.containsKey(player.getUniqueId().toString())) {
+					player.teleport(ogLocations.get(player.getUniqueId().toString()));
+					ogLocations.remove(player.getUniqueId().toString());
 				}
 				
 				else {
-					ogLocations.put(player.getDisplayName().toUpperCase(), player.getLocation());
+					ogLocations.put(player.getUniqueId().toString(), player.getLocation());
 					player.teleport(kaiLocation);
 					player.sendMessage(ChatColor.GREEN + "You are currently in an Agni Kai! You may not perform commands.");
 					player.sendMessage(ChatColor.GREEN + "To leave agni kai perform /agnikai");
