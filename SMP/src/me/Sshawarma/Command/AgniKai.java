@@ -16,18 +16,15 @@ import net.md_5.bungee.api.ChatColor;
 
 public class AgniKai implements CommandExecutor{
 	
-	//TODO: Save Inventory?!?! Levels?. Make a container for this?
 	
+	Plugin plugin = Main.getPlugin(Main.class);
+	FileConfiguration config = plugin.getConfig();
 
 	//Original Player locations before entering agni kai
-	static HashMap<String, Location> ogLocations = new HashMap<String, Location>();
+	public static HashMap<String, Location> ogLocations = new HashMap<String, Location>();
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		Plugin plugin = Main.getPlugin(Main.class);
-		FileConfiguration config = plugin.getConfig();
-		
 		//Create agnikai location. Placeholder value because null wasn't good enough.
 		Location kaiLocation = Bukkit.getWorld("world").getSpawnLocation();
 		boolean kaiLocationSet = config.contains("AgniKai.Location");
@@ -49,7 +46,6 @@ public class AgniKai implements CommandExecutor{
 			if(ogLocations.containsKey(player.getDisplayName().toUpperCase())) {
 				player.teleport(ogLocations.get(player.getDisplayName().toUpperCase()));
 				ogLocations.remove(player.getDisplayName().toUpperCase());
-				//Give back xp, whatever idk.
 			}
 			
 			else {
