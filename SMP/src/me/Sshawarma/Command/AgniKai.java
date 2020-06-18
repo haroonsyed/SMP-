@@ -37,12 +37,18 @@ public class AgniKai implements CommandExecutor{
 		
 		
 		if(sender instanceof Player && cmd.getName().equalsIgnoreCase("agnikai")) {
+			Player player = (Player) sender;
 			
+			//Disable all commands during agni kai
+			if(!cmd.getName().equalsIgnoreCase("agnikai") && ogLocations.containsKey(player.getDisplayName().toUpperCase())) {
+				player.sendMessage(ChatColor.RED + "You are currently in an Agni Kai! You may not perform commands.");
+				player.sendMessage(ChatColor.RED + "To leave agni kai perform /agnikai");
+			}
 			
 			//If player attempts to join agni kai arena
 			if(cmd.getName().equalsIgnoreCase("agnikai")) {
 				
-				Player player = (Player) sender;
+				
 				if(!kaiLocationSet) {
 					sender.sendMessage(ChatColor.RED + "No arena location set yet!");
 				}
