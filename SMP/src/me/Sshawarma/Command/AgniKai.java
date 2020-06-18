@@ -66,22 +66,18 @@ public class AgniKai implements CommandExecutor{
 				
 			}
 			
-			
-			
-			//If OP wants to set arena location.
-			//Assumes the arena is enclosed and inescapable.
-			if(sender instanceof Player) {
-				if(sender.isOp() && cmd.getName().equalsIgnoreCase("setAgniKaiLoc")) {
-					Location agniKaiLoc = ((Player) sender).getLocation();
-					config.set("AgniKai.Location.X", agniKaiLoc.getBlockX());
-					config.set("AgniKai.Location.Y", agniKaiLoc.getBlockY());
-					config.set("AgniKai.Location.Z", agniKaiLoc.getBlockZ());
-					plugin.saveConfig();
-				}
+		}
+		
+		//If OP wants to set arena location.
+		//Assumes the arena is enclosed and inescapable.
+		if(sender instanceof Player) {
+			if(sender.isOp() && cmd.getName().equalsIgnoreCase("setAgniKaiLoc")) {
+				Location agniKaiLoc = ((Player) sender).getLocation();
+				config.set("AgniKai.Location.X", agniKaiLoc.getBlockX());
+				config.set("AgniKai.Location.Y", agniKaiLoc.getBlockY());
+				config.set("AgniKai.Location.Z", agniKaiLoc.getBlockZ());
+				plugin.saveConfig();
 			}
-			
-			
-			
 		}
 		
 		return false;
