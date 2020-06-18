@@ -80,7 +80,7 @@ public class AgniKai implements CommandExecutor{
 			}
 		}
 		
-		return false;
+		return true;
 	}
 
 }
