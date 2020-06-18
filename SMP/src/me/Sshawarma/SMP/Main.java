@@ -46,6 +46,7 @@ public class Main extends JavaPlugin{
 		this.getCommand("msg").setExecutor(new Messaging());
 		this.getCommand("r").setExecutor(new Messaging());
 		this.getCommand("agnikai").setExecutor(new AgniKai());
+		this.getCommand("setAgniKaiLoc").setExecutor(new AgniKai());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
 		
 		getConfig().options().copyDefaults(true);

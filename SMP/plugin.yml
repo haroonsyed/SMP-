@@ -26,3 +26,6 @@ commands:
   agnikai:
      description: "Battle with friend and foe using the elements."
      usage: "Usage: /agnikai"
+  setAgniKaiLoc:
+     description: "Sets the arena location for agni kai"
+     usage: "Usage: /setAgniKaiLoc. Stand over block where this should happen."

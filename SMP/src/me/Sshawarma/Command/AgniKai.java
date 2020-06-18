@@ -34,25 +34,47 @@ public class AgniKai implements CommandExecutor{
 			kaiLocation.setZ(Double.parseDouble(config.getString("AgniKai.Location.Z")));
 			kaiLocation.setWorld(Bukkit.getWorld("world"));
 		}
-		else {
-			sender.sendMessage(ChatColor.RED + "No arena location set yet!");
-			return false;
-		}
+		
 		
 		if(sender instanceof Player && cmd.getName().equalsIgnoreCase("agnikai")) {
 			
-			Player player = (Player) sender;
 			
-			if(ogLocations.containsKey(player.getDisplayName().toUpperCase())) {
-				player.teleport(ogLocations.get(player.getDisplayName().toUpperCase()));
-				ogLocations.remove(player.getDisplayName().toUpperCase());
+			//If player attempts to join agni kai arena
+			if(cmd.getName().equalsIgnoreCase("agnikai")) {
+				
+				Player player = (Player) sender;
+				if(!kaiLocationSet) {
+					sender.sendMessage(ChatColor.RED + "No arena location set yet!");
+				}
+				
+				else if(ogLocations.containsKey(player.getDisplayName().toUpperCase())) {
+					player.teleport(ogLocations.get(player.getDisplayName().toUpperCase()));
+					ogLocations.remove(player.getDisplayName().toUpperCase());
+				}
+				
+				else {
+					ogLocations.put(player.getDisplayName().toUpperCase(), player.getLocation());
+					player.teleport(kaiLocation);
+					//Play music. Remove armor, whatever. Save xp amount.
+				}
+				
 			}
 			
-			else {
-				ogLocations.put(player.getDisplayName().toUpperCase(), player.getLocation());
-				player.teleport(kaiLocation);
-				//Play music. Remove armor, whatever. Save xp amount.
+			
+			
+			//If OP wants to set arena location.
+			//Assumes the arena is enclosed and inescapable.
+			if(sender instanceof Player) {
+				if(sender.isOp() && cmd.getName().equalsIgnoreCase("setAgniKaiLoc")) {
+					Location agniKaiLoc = ((Player) sender).getLocation();
+					config.set("AgniKai.Location.X", agniKaiLoc.getBlockX());
+					config.set("AgniKai.Location.Y", agniKaiLoc.getBlockY());
+					config.set("AgniKai.Location.Z", agniKaiLoc.getBlockZ());
+					plugin.saveConfig();
+				}
 			}
+			
+			
 			
 		}
 		
