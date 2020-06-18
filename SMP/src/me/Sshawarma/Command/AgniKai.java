@@ -61,6 +61,8 @@ public class AgniKai implements CommandExecutor{
 				else {
 					ogLocations.put(player.getDisplayName().toUpperCase(), player.getLocation());
 					player.teleport(kaiLocation);
+					player.sendMessage(ChatColor.GREEN + "You are currently in an Agni Kai! You may not perform commands.");
+					player.sendMessage(ChatColor.GREEN + "To leave agni kai perform /agnikai");
 					//Play music. Remove armor, whatever. Save xp amount.
 				}
 				
