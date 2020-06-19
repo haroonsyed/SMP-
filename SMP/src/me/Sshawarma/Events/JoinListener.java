@@ -47,10 +47,6 @@ public class JoinListener implements Listener{
 			plugin.getConfig().set("PlayerSettings." + player.getDisplayName() + ".chrusted", chrusted);
 			plugin.saveConfig();
 		}
-		//Creates coordinates list
-		if(!plugin.getConfig().contains("PlayerSettings." + player.getDisplayName() + ".coords")) {
-			
-		}
 		
 		//Help Message
 		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 10, 1);
