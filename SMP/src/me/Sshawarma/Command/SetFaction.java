@@ -57,6 +57,21 @@ public class SetFaction implements CommandExecutor{
 			//Set faction by player
 			//Accept/Deny into faction by member
 			if(cmd.getName().equalsIgnoreCase("faction")) {
+				
+				if(args.length == 1) {
+					if(args[0].equalsIgnoreCase("leave")) {
+						//Return to default
+						if(args[1].equalsIgnoreCase("default")) {
+							plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName() + ".faction", "default");
+							sender.sendMessage(ChatColor.GREEN + "Back to default faction!");
+							plugin.saveConfig();
+						}
+					}
+					else {
+						return false;
+					}
+				}
+				
 				if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("accept")) {
 						//Check if player requested to join their clan and add them.
@@ -86,14 +101,7 @@ public class SetFaction implements CommandExecutor{
 							}
 						}
 					}
-					else if(args[0].equalsIgnoreCase("leave")) {
-						//Return to default
-						if(args[1].equalsIgnoreCase("default")) {
-							plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName() + ".faction", "default");
-							sender.sendMessage(ChatColor.GREEN + "Back to default faction!");
-							plugin.saveConfig();
-						}
-					}
+					
 					else if(args[0].equalsIgnoreCase("choose") || args[0].equalsIgnoreCase("join")) {
 						//Return to default
 						if(args[1].equalsIgnoreCase("default")) {
@@ -171,6 +179,9 @@ public class SetFaction implements CommandExecutor{
 						}
 					}
 					
+				}
+				else {
+					return false;
 				}
 			}
 		}

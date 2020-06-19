@@ -28,6 +28,7 @@ public class CoordinateSaver implements CommandExecutor{
 				//Prevents null
 				if(!config.contains("PlayerSettings." + player.getDisplayName() + ".coords")) {
 					config.set("PlayerSettings." + player.getDisplayName() + ".coords", "");
+					plugin.saveConfig();
 				}
 				
 				if(args.length == 2) {
@@ -42,6 +43,7 @@ public class CoordinateSaver implements CommandExecutor{
 								config.set("PlayerSettings." + player.getDisplayName() + ".coords." + args[1], null);
 								player.sendMessage(ChatColor.GREEN + "Spot deleted!");
 								deleted = true;
+								plugin.saveConfig();
 							}
 						}
 						
@@ -51,12 +53,19 @@ public class CoordinateSaver implements CommandExecutor{
 						
 					}
 					
+					else {
+						return false;
+					}
+					
+				}
+				
+				else if(args.length == 3) {
 					//Save coordinate with name and color
-					else if(args[0].equalsIgnoreCase("save")){
+					if(args[0].equalsIgnoreCase("save")){
 						Location loc = player.getLocation();
 						SetColor translator = new SetColor();
-						String colorCode = translator.translateColorToCode(args[1]);
-						if(args[1].equalsIgnoreCase("")) {
+						String colorCode = translator.translateColorToCode(args[2]);
+						if(colorCode.equalsIgnoreCase("")) {
 							return false;
 						}
 						
@@ -66,6 +75,8 @@ public class CoordinateSaver implements CommandExecutor{
 						
 						config.set("PlayerSettings." + player.getDisplayName() + ".coords." + args[1] + ".Color", colorCode);
 						
+						plugin.saveConfig();
+						
 						player.sendMessage(ChatColor.GREEN + "Spot Saved!");
 						
 					}
@@ -73,7 +84,6 @@ public class CoordinateSaver implements CommandExecutor{
 					else {
 						return false;
 					}
-					
 				}
 				
 				if(args.length == 1) {
@@ -102,7 +112,14 @@ public class CoordinateSaver implements CommandExecutor{
 						}
 						
 					}
+					else {
+						return false;
+					}
 					
+				}
+				
+				else {
+					return false;
 				}
 				
 			}		
