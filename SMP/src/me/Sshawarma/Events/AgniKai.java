@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Sshawarma.SMP.Main;
 
@@ -32,7 +33,17 @@ public class AgniKai implements Listener{
 			loc.setX(config.getDouble("AgniKai.Location.X"));
 			loc.setY(config.getDouble("AgniKai.Location.Y"));
 			loc.setZ(config.getDouble("AgniKai.Location.Z"));
-			event.setRespawnLocation(loc);
+			
+			new BukkitRunnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					event.getPlayer().teleport(loc);
+				}
+				
+			}.runTaskLater(plugin, 2);
+			
 		}
 	}
 	
