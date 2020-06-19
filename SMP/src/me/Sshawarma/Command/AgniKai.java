@@ -56,6 +56,7 @@ public class AgniKai implements CommandExecutor{
 				else if(ogLocations.containsKey(player.getUniqueId().toString())) {
 					player.teleport(ogLocations.get(player.getUniqueId().toString()));
 					ogLocations.remove(player.getUniqueId().toString());
+					player.sendMessage("You have left the AgniKai Arena");
 				}
 				
 				else {

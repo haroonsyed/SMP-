@@ -34,18 +34,8 @@ public class AgniKai implements Listener{
 			loc.setY(config.getDouble("AgniKai.Location.Y"));
 			loc.setZ(config.getDouble("AgniKai.Location.Z"));
 			event.getPlayer().sendMessage("Respawning at AgniKai arena!");
+			
 			event.setRespawnLocation(loc);
-			
-			new BukkitRunnable() {
-
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					event.getPlayer().teleport(loc);
-				}
-				
-			}.runTaskLater(plugin, 4);
-			
 		}
 	}
 	

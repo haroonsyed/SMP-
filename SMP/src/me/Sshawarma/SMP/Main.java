@@ -37,6 +37,7 @@ public class Main extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new JoinListener(), this);
 		getServer().getPluginManager().registerEvents(new ChatColorChanger(), this);
 		getServer().getPluginManager().registerEvents(new FactionAttack(), this);
+		getServer().getPluginManager().registerEvents(new me.Sshawarma.Events.AgniKai(), this);
 		this.getCommand("find").setExecutor(new FindCommand());
 		this.getCommand("chatcolor").setExecutor(new SetColor());
 		this.getCommand("chrust").setExecutor(new ChestTrustCommand());
