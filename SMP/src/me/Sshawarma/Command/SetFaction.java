@@ -70,7 +70,7 @@ public class SetFaction implements CommandExecutor{
 					}
 				}
 				
-				if(args.length == 2) {
+				else if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("accept")) {
 						//Check if player requested to join their clan and add them.
 						if(joinRequests.containsKey(args[1])) {
