@@ -76,27 +76,31 @@ public class CoordinateSaver implements CommandExecutor{
 					
 				}
 				
-				//List spots with name, loc and color
-				else if(args[0].equalsIgnoreCase("list")) {
+				if(args.length == 1) {
 					
-					player.sendMessage(ChatColor.BOLD + "====================");
-					player.sendMessage(ChatColor.GOLD + "SAVED SPOTS:");
-					player.sendMessage(ChatColor.BOLD + "====================");
-					player.sendMessage("");
-					
-					for(String spot : config.getConfigurationSection("PlayerSettings." + player.getDisplayName() + ".coords").getKeys(false)) {
+					//List spots with name, loc and color
+					if(args[0].equalsIgnoreCase("list")) {
 						
-						String color = config.getString("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".Color");
-						int X = config.getInt("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".X");
-						int Y = config.getInt("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".Y");
-						int Z = config.getInt("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".Z");
-						
-						
-						player.sendMessage(ChatColor.translateAlternateColorCodes('&', color) + spot + ":");
-						player.sendMessage("	-X " + X);
-						player.sendMessage("	-Y " + Y);
-						player.sendMessage("	-Z " + Z);
+						player.sendMessage(ChatColor.BOLD + "====================");
+						player.sendMessage(ChatColor.GOLD + "SAVED SPOTS:");
+						player.sendMessage(ChatColor.BOLD + "====================");
 						player.sendMessage("");
+						
+						for(String spot : config.getConfigurationSection("PlayerSettings." + player.getDisplayName() + ".coords").getKeys(false)) {
+							
+							String color = config.getString("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".Color");
+							int X = config.getInt("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".X");
+							int Y = config.getInt("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".Y");
+							int Z = config.getInt("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".Z");
+							
+							
+							player.sendMessage(ChatColor.translateAlternateColorCodes('&', color) + spot + ":");
+							player.sendMessage("	-X " + X);
+							player.sendMessage("	-Y " + Y);
+							player.sendMessage("	-Z " + Z);
+							player.sendMessage("");
+						}
+						
 					}
 					
 				}
