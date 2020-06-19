@@ -86,7 +86,7 @@ public class CoordinateSaver implements CommandExecutor{
 					}
 				}
 				
-				if(args.length == 1) {
+				else if(args.length == 1) {
 					
 					//List spots with name, loc and color
 					if(args[0].equalsIgnoreCase("list")) {
@@ -105,9 +105,9 @@ public class CoordinateSaver implements CommandExecutor{
 							
 							
 							player.sendMessage(ChatColor.translateAlternateColorCodes('&', color) + spot + ":");
-							player.sendMessage("	-X " + X);
-							player.sendMessage("	-Y " + Y);
-							player.sendMessage("	-Z " + Z);
+							player.sendMessage(ChatColor.BOLD + "    -X: " + X);
+							player.sendMessage(ChatColor.BOLD + "    -Y: " + Y);
+							player.sendMessage(ChatColor.BOLD + "    -Z: " + Z);
 							player.sendMessage("");
 						}
 						
