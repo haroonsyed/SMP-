@@ -56,6 +56,11 @@ public class Death implements Listener{
 	public void placeChest(PlayerDeathEvent event) {
 		if(event.getEntity() instanceof Player) {
 			
+			//AgniKai Check
+			if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
+				return;
+			}
+			
 			//Variables
 			Player player = event.getEntity();
 			Location chestLoc = new Location(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockY(),player.getLocation().getBlockZ());

@@ -1,6 +1,7 @@
 package me.Sshawarma.SMP;
 
 import java.util.Iterator;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -68,7 +69,7 @@ public class Main extends JavaPlugin{
 		
 		//Sends all players out of agnikai
 		for(String p : me.Sshawarma.Command.AgniKai.ogLocations.keySet()) {
-			Bukkit.getServer().getPlayer(p).teleport(me.Sshawarma.Command.AgniKai.ogLocations.get(p));
+			Bukkit.getServer().getPlayer(UUID.fromString(p)).performCommand("agnikai");
 		}
 		
 		getServer().getConsoleSender().sendMessage(ChatColor.RED + "\n\nSMP has been disabled!\n");		
