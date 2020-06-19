@@ -61,11 +61,9 @@ public class SetFaction implements CommandExecutor{
 				if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("leave")) {
 						//Return to default
-						if(args[1].equalsIgnoreCase("default")) {
-							plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName() + ".faction", "default");
-							sender.sendMessage(ChatColor.GREEN + "Back to default faction!");
-							plugin.saveConfig();
-						}
+						plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName() + ".faction", "default");
+						sender.sendMessage(ChatColor.GREEN + "Back to default faction!");
+						plugin.saveConfig();
 					}
 					else {
 						return false;
