@@ -39,7 +39,7 @@ public class CoordinateSaver implements CommandExecutor{
 						boolean deleted = false;
 						
 						for(String spot : config.getConfigurationSection("PlayerSettings." + player.getDisplayName() + ".coords").getKeys(false)) {
-							if(spot.equalsIgnoreCase(args[1])) {
+							if(spot.equals(args[1])) {
 								config.set("PlayerSettings." + player.getDisplayName() + ".coords." + args[1], null);
 								player.sendMessage(ChatColor.GREEN + "Spot deleted!");
 								deleted = true;
@@ -48,7 +48,7 @@ public class CoordinateSaver implements CommandExecutor{
 						}
 						
 						if(!deleted) {
-							player.sendMessage(ChatColor.RED + "Could not find that spot!");
+							player.sendMessage(ChatColor.RED + "Could not find that spot! Perhaps case doesn't match?");
 						}
 						
 					}
