@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.Sshawarma.Command.AgniKai;
 import me.Sshawarma.Command.ChestTrustCommand;
+import me.Sshawarma.Command.CoordinateSaver;
 import me.Sshawarma.Command.FindCommand;
 import me.Sshawarma.Command.Messaging;
 import me.Sshawarma.Command.SetColor;
@@ -49,6 +50,7 @@ public class Main extends JavaPlugin{
 		this.getCommand("r").setExecutor(new Messaging());
 		this.getCommand("agnikai").setExecutor(new AgniKai());
 		this.getCommand("setAgniKaiLoc").setExecutor(new AgniKai());
+		this.getCommand("spot").setExecutor(new CoordinateSaver());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
 		
 		getConfig().options().copyDefaults(true);

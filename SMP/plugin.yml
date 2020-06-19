@@ -1,5 +1,5 @@
 name: SMP
-version: 1.8.4
+version: 1.8.5
 author: Sshawarma
 main: me.Sshawarma.SMP.Main
 description: Simple plugin with useful SMP features.
@@ -29,3 +29,6 @@ commands:
   setAgniKaiLoc:
      description: "Sets the arena location for agni kai"
      usage: "Usage: /setAgniKaiLoc. Stand over block where this should happen."
+  spot:
+     description: "Save important locations!"
+     usage: "Usage: /spot [save | delete | list] [name and color (save) | name (delete)]}"
