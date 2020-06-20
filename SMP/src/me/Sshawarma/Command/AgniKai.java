@@ -52,14 +52,17 @@ public class AgniKai implements CommandExecutor{
 				//Runnable for agnikai music
 				new BukkitRunnable() {
 					
-					int loopTime = 90;
+					int loopTime = 81;
 					
 					@Override
 					public void run() {
 						
 						if(loopTime > 80) {
-							loopTime++;
+							loopTime = 0;
 							player.playSound(kaiLocation, Sound.MUSIC_DISC_13, 10, 1);
+						}
+						else {
+							loopTime++;
 						}
 						if(!ogLocations.containsKey(player.getUniqueId().toString())) {
 							player.stopSound(Sound.MUSIC_DISC_13);
