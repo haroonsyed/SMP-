@@ -26,6 +26,7 @@ public class AgniKai implements Listener{
 			event.setKeepLevel(true);
 			event.setKeepInventory(true);
 			event.getDrops().clear();
+			event.setDroppedExp(0);
 			for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 				p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 0.75f);
 			}
