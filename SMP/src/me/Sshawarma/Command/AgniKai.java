@@ -39,7 +39,7 @@ public class AgniKai implements CommandExecutor{
 			kaiLocation.setWorld(Bukkit.getWorld("world"));
 			
 			//Runnable for agnikai music
-			if(music = false) {
+			if(music == false) {
 				new BukkitRunnable() {
 
 					@Override
@@ -49,6 +49,7 @@ public class AgniKai implements CommandExecutor{
 					}
 					
 				}.runTaskTimer(plugin, 1, 1950);
+				music = true;
 			}
 		}
 		
