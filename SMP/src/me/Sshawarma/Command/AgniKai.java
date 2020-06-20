@@ -48,29 +48,6 @@ public class AgniKai implements CommandExecutor{
 			if(!cmd.getName().equalsIgnoreCase("agnikai") && ogLocations.containsKey(player.getUniqueId().toString())) {
 				player.sendMessage(ChatColor.RED + "You are currently in an Agni Kai! You may not perform commands.");
 				player.sendMessage(ChatColor.RED + "To leave agni kai perform /agnikai");
-				
-				//Runnable for agnikai music
-				new BukkitRunnable() {
-					
-					int loopTime = 81;
-					
-					@Override
-					public void run() {
-						
-						if(loopTime > 80) {
-							loopTime = 0;
-							player.playSound(kaiLocation, Sound.MUSIC_DISC_13, 10, 1);
-						}
-						else {
-							loopTime++;
-						}
-						if(!ogLocations.containsKey(player.getUniqueId().toString())) {
-							player.stopSound(Sound.MUSIC_DISC_13);
-							this.cancel();
-						}
-					}
-					
-				}.runTaskTimer(plugin, 0, 20);
 			}
 			
 			//If player attempts to join agni kai arena
@@ -93,6 +70,33 @@ public class AgniKai implements CommandExecutor{
 					player.sendMessage(ChatColor.GREEN + "You are currently in an Agni Kai! You may not perform commands.");
 					player.sendMessage(ChatColor.GREEN + "To leave agni kai perform /agnikai");
 					//Play music. Remove armor, whatever. Save xp amount.
+					//Runnable for agnikai music
+					new BukkitRunnable() {
+						
+						int loopTime = 81;
+						
+						@Override
+						public void run() {
+							
+							player.sendMessage("In music");
+							
+							if(loopTime > 80) {
+								loopTime = 0;
+								player.playSound(player.getLocation(), Sound.MUSIC_DISC_13, 10, 1);//(player.getLocation(), Effect.RECORD_PLAY, Material.MUSIC_DISC_13);
+								player.sendMessage("Starting the song");
+							}
+							else {
+								loopTime++;
+								player.sendMessage("In the middle of the song");
+							}
+							if(!ogLocations.containsKey(player.getUniqueId().toString())) {
+								player.stopSound(Sound.MUSIC_DISC_13);
+								player.sendMessage("Cancelling song");
+								this.cancel();
+							}
+						}
+						
+					}.runTaskTimer(plugin, 0, 20);
 				}
 				
 			}
