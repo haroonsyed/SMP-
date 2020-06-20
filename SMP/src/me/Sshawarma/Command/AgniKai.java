@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,6 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import me.Sshawarma.SMP.Main;
 import net.md_5.bungee.api.ChatColor;
@@ -25,7 +27,6 @@ public class AgniKai implements CommandExecutor{
 
 	//Original Player locations before entering agni kai
 	public static HashMap<String, Location> ogLocations = new HashMap<String, Location>();
-	static boolean music = false;
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -37,20 +38,6 @@ public class AgniKai implements CommandExecutor{
 			kaiLocation.setY(Double.parseDouble(config.getString("AgniKai.Location.Y")));
 			kaiLocation.setZ(Double.parseDouble(config.getString("AgniKai.Location.Z")));
 			kaiLocation.setWorld(Bukkit.getWorld("world"));
-			
-			//Runnable for agnikai music
-			if(music == false) {
-				new BukkitRunnable() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						Bukkit.getWorld("world").playEffect(kaiLocation, Effect.RECORD_PLAY, Material.MUSIC_DISC_13);
-					}
-					
-				}.runTaskTimer(plugin, 1, 1950);
-				music = true;
-			}
 		}
 		
 		
@@ -61,6 +48,26 @@ public class AgniKai implements CommandExecutor{
 			if(!cmd.getName().equalsIgnoreCase("agnikai") && ogLocations.containsKey(player.getUniqueId().toString())) {
 				player.sendMessage(ChatColor.RED + "You are currently in an Agni Kai! You may not perform commands.");
 				player.sendMessage(ChatColor.RED + "To leave agni kai perform /agnikai");
+				
+				//Runnable for agnikai music
+				new BukkitRunnable() {
+					
+					int loopTime = 90;
+					
+					@Override
+					public void run() {
+						
+						if(loopTime > 80) {
+							loopTime++;
+							player.playSound(kaiLocation, Sound.MUSIC_DISC_13, 10, 1);
+						}
+						if(!ogLocations.containsKey(player.getUniqueId().toString())) {
+							player.stopSound(Sound.MUSIC_DISC_13);
+							this.cancel();
+						}
+					}
+					
+				}.runTaskTimer(plugin, 0, 20);
 			}
 			
 			//If player attempts to join agni kai arena
