@@ -71,7 +71,9 @@ public class Main extends JavaPlugin{
 		
 		//Sends all players out of agnikai
 		for(String p : me.Sshawarma.Command.AgniKai.ogLocations.keySet()) {
-			Bukkit.getServer().getPlayer(UUID.fromString(p)).performCommand("agnikai");
+			//If in agnikai teleport them out
+			UUID id = UUID.fromString(p);
+			Bukkit.getOfflinePlayer(id).getPlayer().teleport(me.Sshawarma.Command.AgniKai.ogLocations.get(id.toString()));
 		}
 		
 		getServer().getConsoleSender().sendMessage(ChatColor.RED + "\n\nSMP has been disabled!\n");		
