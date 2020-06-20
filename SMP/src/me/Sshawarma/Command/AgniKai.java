@@ -78,20 +78,15 @@ public class AgniKai implements CommandExecutor{
 						@Override
 						public void run() {
 							
-							player.sendMessage("In music");
-							
 							if(loopTime > 80) {
 								loopTime = 0;
 								player.playSound(player.getLocation(), Sound.MUSIC_DISC_13, 10, 1);//(player.getLocation(), Effect.RECORD_PLAY, Material.MUSIC_DISC_13);
-								player.sendMessage("Starting the song");
 							}
 							else {
 								loopTime++;
-								player.sendMessage("In the middle of the song");
 							}
 							if(!ogLocations.containsKey(player.getUniqueId().toString())) {
 								player.stopSound(Sound.MUSIC_DISC_13);
-								player.sendMessage("Cancelling song");
 								this.cancel();
 							}
 						}
