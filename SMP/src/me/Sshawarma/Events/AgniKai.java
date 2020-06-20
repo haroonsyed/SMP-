@@ -1,11 +1,16 @@
 package me.Sshawarma.Events;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -21,6 +26,9 @@ public class AgniKai implements Listener{
 			event.setKeepLevel(true);
 			event.setKeepInventory(true);
 			event.getDrops().clear();
+			for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+				p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 0.75f);
+			}
 		}
 	}
 	
@@ -37,6 +45,17 @@ public class AgniKai implements Listener{
 			
 			event.setRespawnLocation(loc);
 		}
+	}
+	
+	@EventHandler
+	public void tpOut(PlayerQuitEvent event) {
+		//If in agnikai teleport them out
+		UUID id = event.getPlayer().getUniqueId();
+		if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(id.toString())) {
+			Bukkit.getOfflinePlayer(id).getPlayer().teleport(me.Sshawarma.Command.AgniKai.ogLocations.get(id.toString()));
+			me.Sshawarma.Command.AgniKai.ogLocations.remove(id.toString());
+		}
+		
 	}
 	
 }
