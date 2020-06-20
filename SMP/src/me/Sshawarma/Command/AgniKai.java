@@ -73,12 +73,12 @@ public class AgniKai implements CommandExecutor{
 					//Runnable for agnikai music
 					new BukkitRunnable() {
 						
-						int loopTime = 81;
+						int loopTime = 41;
 						
 						@Override
 						public void run() {
 							
-							if(loopTime > 80) {
+							if(loopTime > 40) {
 								loopTime = 0;
 								player.playSound(player.getLocation(), Sound.MUSIC_DISC_13, 10, 1);//(player.getLocation(), Effect.RECORD_PLAY, Material.MUSIC_DISC_13);
 							}
@@ -91,7 +91,7 @@ public class AgniKai implements CommandExecutor{
 							}
 						}
 						
-					}.runTaskTimer(plugin, 0, 20);
+					}.runTaskTimer(plugin, 0, 40);
 				}
 				
 			}
