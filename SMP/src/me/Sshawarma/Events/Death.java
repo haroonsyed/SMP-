@@ -56,6 +56,9 @@ public class Death implements Listener{
 	public void placeChest(PlayerDeathEvent event) {
 		if(event.getEntity() instanceof Player) {
 			
+			//Exp
+			int xp = event.getEntity().getLevel();
+			
 			//AgniKai Check
 			if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
 				return;
@@ -128,6 +131,9 @@ public class Death implements Listener{
 				event.setDroppedExp(player.getLevel()/2);
 				dChestPlayers2.put(chest2Loc.getBlock().getLocation(), player.getDisplayName().toUpperCase());
 			}
+			
+			event.getEntity().setLevel(xp/2);
+			event.setKeepLevel(true);
 			
 			//runnable to remove chest
 			new BukkitRunnable() {
