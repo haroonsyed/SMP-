@@ -60,6 +60,7 @@ public class AgniKai implements Listener{
 	}
 	
 	//Stops players from dropping items
+	@EventHandler
 	public void stopTrades(PlayerDropItemEvent event) {
 		Player p = event.getPlayer();
 		if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(p.getUniqueId().toString())) {
