@@ -1,6 +1,7 @@
 package me.Sshawarma.Command;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -97,16 +98,17 @@ public class Messaging implements CommandExecutor{
 	}
 	
 	//Called from ChatListener when player uses @
-	public void messageFaction(String UUID, String msg) {
+	public void messageFaction(String StringUUID, String msg) {
 		
 		FileConfiguration config = plugin.getConfig();
-		String senderFaction = config.getString("PlayerSettings." + UUID + ".faction");
-		String color = ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + UUID + ".chatcolor"));
+		String senderFaction = config.getString("PlayerSettings." + StringUUID + ".faction");
+		String color = ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + StringUUID + ".chatcolor"));
+		String sender = Bukkit.getPlayer(UUID.fromString(StringUUID)).getDisplayName();
 		
 		//Loop through online players. If player.faction matches, then send message
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			if(config.getString("PlayerSettings." + p.getUniqueId().toString() + ".faction").equalsIgnoreCase(senderFaction)) {
-				p.sendMessage(ChatColor.YELLOW + "<" + p.getDisplayName() + ">[FACTION] " + color + msg);
+				p.sendMessage(ChatColor.YELLOW + "<" + sender + ">[FACTION] " + color + msg);
 			}
 		}
 		
