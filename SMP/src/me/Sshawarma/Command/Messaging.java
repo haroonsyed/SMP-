@@ -99,7 +99,6 @@ public class Messaging implements CommandExecutor{
 	//Called from ChatListener when player uses @
 	public void messageFaction(String name, String msg) {
 		
-		Player sender = Bukkit.getServer().getPlayer(name);
 		FileConfiguration config = plugin.getConfig();
 		String senderFaction = config.getString("PlayerSettings." + name + ".faction");
 		String color = ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + name + ".chatcolor"));

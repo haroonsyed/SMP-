@@ -1,9 +1,6 @@
 package me.Sshawarma.Command;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

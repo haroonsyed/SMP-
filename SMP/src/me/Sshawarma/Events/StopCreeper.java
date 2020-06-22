@@ -32,48 +32,14 @@ public class StopCreeper implements Listener{
 	}
 	
 	@EventHandler
-	public void stopChestExplode(EntityExplodeEvent event) {
-		//THE ISSUE WITH loc IS THAT IT IS LOCATION OF PLAYERDEATH, which is adding decimal stuff, NOT BLOCK, which is perfect integer.
-		for(Block b : event.blockList()) {
-			
-		}
-	}
-	
-	@EventHandler
 	public void creeperStop(EntityExplodeEvent event) {
 		
 		//If command enables protection and entity is a creeper
 		if(event.getEntityType() == EntityType.CREEPER && protection == true) {
 			
-			//Iterates through each block and records material and location
-			int i=0;
-			for(Block b : new ArrayList<Block>(event.blockList())) {
-				
-				Location loc = b.getLocation();
-				Material mat = b.getType();
-
-				if(b.getType() == Material.CHEST) {
-					event.blockList().remove(i);
-					i--;
-				}
-				
-				if(mat!= Material.NETHER_PORTAL || mat != Material.CHEST) {
-					
-					new BukkitRunnable() {
-
-						@Override
-						public void run() {
-							Bukkit.getServer().getWorld("world").getBlockAt(loc).setType(mat);		
-						}
-						
-					}.runTaskLater(plugin, 200);
-				}
-				
-				i++;
-			}
-			for(Block b : event.blockList()) {
-				b.setType(event.getEntity().getLocation().add(0, 1, 0).getBlock().getType());
-			}
+			//Optimize cpu usage. Not as cool but I don't wanna bother with decreased performance.
+			event.blockList().clear();
+			
 		}
 	}
 }

@@ -1,12 +1,10 @@
 package me.Sshawarma.SMP;
 
-import java.util.Iterator;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import me.Sshawarma.Command.AgniKai;
 import me.Sshawarma.Command.ChestTrustCommand;
 import me.Sshawarma.Command.CoordinateSaver;
