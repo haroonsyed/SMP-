@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +15,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.Sshawarma.SMP.Main;
+import me.Sshawarma.Util.Utils;
 import net.md_5.bungee.api.ChatColor;
 
 public class JoinListener implements Listener{
@@ -24,12 +26,19 @@ public class JoinListener implements Listener{
 	public void giveDefaults(PlayerJoinEvent event) {
 		
 		Plugin plugin = Main.getPlugin(Main.class);
+		FileConfiguration config = plugin.getConfig();
 		Player player = event.getPlayer();
 		
+		//UUID Migrator
+		if(!config.contains("PlayerSettings." + player.getUniqueId().toString()) && config.contains("PlayerSettings." + player.getDisplayName())) {
+			Utils util = new Utils();
+			util.migrateConfigToUUID(player.getDisplayName());
+		}
+		
 		//If they arent already registered in config, give them the defaults
-		if(!(plugin.getConfig().contains("PlayerSettings." + player.getDisplayName()))) {
-			plugin.getConfig().set("PlayerSettings." + player.getDisplayName() + ".chatcolor", "&7");
-			plugin.getConfig().set("PlayerSettings." + event.getPlayer().getDisplayName() + ".faction", "default");
+		if(!(plugin.getConfig().contains("PlayerSettings." + player.getUniqueId().toString()))) {
+			plugin.getConfig().set("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor", "&7");
+			plugin.getConfig().set("PlayerSettings." + event.getPlayer().getUniqueId().toString() + ".faction", "default");
 			plugin.saveConfig();
 			
 			player.sendMessage(ChatColor.DARK_GRAY + "---------" + ChatColor.GREEN + "Your chat color by default is: "  + ChatColor.GRAY + "GRAY" + ChatColor.DARK_GRAY + "---------");
@@ -42,9 +51,9 @@ public class JoinListener implements Listener{
 			plugin.saveConfig();
 		}
 		//Creates the chrusted players list
-		if(!plugin.getConfig().contains("PlayerSettings." + player.getDisplayName() + ".chrusted")) {
+		if(!plugin.getConfig().contains("PlayerSettings." + player.getUniqueId().toString() + ".chrusted")) {
 			ArrayList<String> chrusted = new ArrayList<String>();
-			plugin.getConfig().set("PlayerSettings." + player.getDisplayName() + ".chrusted", chrusted);
+			plugin.getConfig().set("PlayerSettings." + player.getUniqueId().toString() + ".chrusted", chrusted);
 			plugin.saveConfig();
 		}
 		
@@ -55,6 +64,7 @@ public class JoinListener implements Listener{
 		player.sendMessage(ChatColor.GREEN + "  For a list of features and commands, type /help");
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "|                                                            |");
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=============================================");
+		
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -74,7 +84,7 @@ public class JoinListener implements Listener{
 	
 	@EventHandler
 	public void setFactionSpawn(PlayerRespawnEvent event) {
-		if(!event.isBedSpawn() && !plugin.getConfig().getString("PlayerSettings." + event.getPlayer().getName() + ".faction").equals("cousins")) {
+		if(!event.isBedSpawn() && !plugin.getConfig().getString("PlayerSettings." + event.getPlayer().getUniqueId().toString() + ".faction").equals("cousins")) {
 			Location spawn = event.getRespawnLocation().add(2406, 0, -697);
 			spawn.setY(event.getPlayer().getWorld().getHighestBlockYAt(spawn));
 			event.getPlayer().teleport(spawn);
@@ -82,7 +92,7 @@ public class JoinListener implements Listener{
 	}
 	@EventHandler
 	public void setFactionSpawn(PlayerJoinEvent event) {
-		if(!event.getPlayer().hasPlayedBefore() && !plugin.getConfig().contains("PlayerSettings." + event.getPlayer().getDisplayName())) {
+		if(!event.getPlayer().hasPlayedBefore() && !plugin.getConfig().contains("PlayerSettings." + event.getPlayer().getUniqueId().toString())) {
 			Location spawn = Bukkit.getServer().getWorld("world").getSpawnLocation();
 			spawn.add(2406, 0, -697);
 			spawn.setY(event.getPlayer().getWorld().getHighestBlockYAt(spawn));

@@ -2,6 +2,7 @@ package me.Sshawarma.Events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -24,8 +25,8 @@ public class Death implements Listener{
 	//Keep track of active chests with location and whether to delete
 	private static HashMap<Location, Material> dChests = new HashMap<Location, Material>();
 	private static HashMap<Location, Material> dChests2 = new HashMap<Location, Material>();
-	private static HashMap<Location, String> dChestPlayers = new HashMap<Location, String>();
-	private static HashMap<Location, String> dChestPlayers2 = new HashMap<Location, String>();
+	private static HashMap<Location, UUID> dChestPlayers = new HashMap<Location, UUID>();
+	private static HashMap<Location, UUID> dChestPlayers2 = new HashMap<Location, UUID>();
 	
 	public static HashMap<Location, Material> getdChests() {
 		return dChests;
@@ -43,11 +44,11 @@ public class Death implements Listener{
 		dChests2.put(loc.getBlock().getLocation(), mat);
 	}
 	
-	public static HashMap<Location, String> getdChestPlayers(){
+	public static HashMap<Location, UUID> getdChestPlayers(){
 		return dChestPlayers;
 	}
 	
-	public static HashMap<Location, String> getdChestPlayers2(){
+	public static HashMap<Location, UUID> getdChestPlayers2(){
 		return dChestPlayers2;
 	}
 	
@@ -73,7 +74,7 @@ public class Death implements Listener{
 			Material oldChestBlockTwo = chest2Loc.getBlock().getType();
 			
 			dChests.put(chestLoc.getBlock().getLocation(), chestLoc.getBlock().getType());
-			dChestPlayers.put(chestLoc.getBlock().getLocation(), player.getDisplayName().toUpperCase());
+			dChestPlayers.put(chestLoc.getBlock().getLocation(), player.getUniqueId());
 			
 			//Moves standard death message to before coordinate message
 			for (Player onlinePlayers : Bukkit.getOnlinePlayers()){
@@ -128,7 +129,7 @@ public class Death implements Listener{
 				chest.getInventory().setContents(inven2.toArray(new ItemStack[inven2.size()]));
 				event.getDrops().clear();
 				event.setDroppedExp(player.getLevel()/2);
-				dChestPlayers2.put(chest2Loc.getBlock().getLocation(), player.getDisplayName().toUpperCase());
+				dChestPlayers2.put(chest2Loc.getBlock().getLocation(), player.getUniqueId());
 			}
 			
 			event.getEntity().setLevel(xp/2);

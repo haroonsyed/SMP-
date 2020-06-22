@@ -3,6 +3,7 @@ package me.Sshawarma.Command;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,8 +20,6 @@ public class SetFaction implements CommandExecutor{
 	Plugin plugin = Main.getPlugin(Main.class);
 	//Requests to join a faction are stored here
 	static HashMap<String, String> joinRequests = new HashMap<String, String>();
-	
-	//POTENTIAL ISSUE WHERE FACTIONS CAN EXIST AFTER BECOMING EMPTY, BECOMING IMPOSSIBLE TO JOIN
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -35,11 +34,13 @@ public class SetFaction implements CommandExecutor{
 				}
 				
 				else {
-					plugin.getConfig().set("PlayerSettings." + args[1]+ ".faction", args[0]);
+					//Get UUID of player
+					OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+					plugin.getConfig().set("PlayerSettings." + player.getUniqueId().toString() + ".faction", args[0]);
 					//If the faction is being created, give it default settings
 					boolean factionExists = false;
 					for(String playerSetting : plugin.getConfig().getConfigurationSection("PlayerSettings").getKeys(false)) {
-						if(args[1].equalsIgnoreCase(plugin.getConfig().getString(playerSetting + ".faction"))) {
+						if(args[0].equalsIgnoreCase(plugin.getConfig().getString(playerSetting + ".faction"))) {
 							factionExists = true;
 						}
 					}
@@ -61,7 +62,7 @@ public class SetFaction implements CommandExecutor{
 				if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("leave")) {
 						//Return to default
-						plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName() + ".faction", "default");
+						plugin.getConfig().set("PlayerSettings." + ((Player) sender).getUniqueId().toString() + ".faction", "default");
 						sender.sendMessage(ChatColor.GREEN + "Back to default faction!");
 						plugin.saveConfig();
 					}
@@ -74,8 +75,10 @@ public class SetFaction implements CommandExecutor{
 					if(args[0].equalsIgnoreCase("accept")) {
 						//Check if player requested to join their clan and add them.
 						if(joinRequests.containsKey(args[1])) {
-							if(plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction").equalsIgnoreCase(joinRequests.get(args[1]))) {
-								plugin.getConfig().set("PlayerSettings." + args[1] + ".faction", plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction"));
+							if(plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getUniqueId().toString() + ".faction").equalsIgnoreCase(joinRequests.get(args[1]))) {
+								//Get UUID of player
+								OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+								plugin.getConfig().set("PlayerSettings." + player.getUniqueId().toString() + ".faction", plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getUniqueId().toString() + ".faction"));
 								plugin.saveConfig();
 								if(Bukkit.getPlayer(args[1]) != null) {
 									Bukkit.getPlayer(args[1]).playSound(Bukkit.getPlayer(args[1]).getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 1);
@@ -89,7 +92,7 @@ public class SetFaction implements CommandExecutor{
 					else if(args[0].equalsIgnoreCase("deny")) {
 						//Check if player requested to join their clan and deny them.
 						if(joinRequests.containsKey(args[1])) {
-							if(plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction").equalsIgnoreCase(joinRequests.get(args[1]))) {
+							if(plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getUniqueId().toString() + ".faction").equalsIgnoreCase(joinRequests.get(args[1]))) {
 								if(Bukkit.getPlayer(args[1]) != null) {
 									Bukkit.getPlayer(args[1]).playSound(Bukkit.getPlayer(args[1]).getLocation(), Sound.ENTITY_GHAST_SCREAM, 10, 1);
 									Bukkit.getPlayer(args[1]).sendMessage(ChatColor.RED + "You have been denied from the faction: " + joinRequests.get(args[1]));
@@ -103,7 +106,7 @@ public class SetFaction implements CommandExecutor{
 					else if(args[0].equalsIgnoreCase("choose") || args[0].equalsIgnoreCase("join")) {
 						//Return to default
 						if(args[1].equalsIgnoreCase("default")) {
-							plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName() + ".faction", "default");
+							plugin.getConfig().set("PlayerSettings." + ((Player) sender).getUniqueId().toString() + ".faction", "default");
 							sender.sendMessage(ChatColor.GREEN + "Back to default faction!");
 							plugin.saveConfig();
 						}
@@ -114,7 +117,7 @@ public class SetFaction implements CommandExecutor{
 							}
 						}
 						//Check that player is not already in said faction
-						else if(!args[1].equalsIgnoreCase(plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction"))){
+						else if(!args[1].equalsIgnoreCase(plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getUniqueId().toString() + ".faction"))){
 							//Check if the faction is already there
 							boolean factionExists = false;
 							for(String playerSetting : plugin.getConfig().getConfigurationSection("PlayerSettings").getKeys(false)) {
@@ -127,7 +130,7 @@ public class SetFaction implements CommandExecutor{
 							if(factionExists) {
 								//Goes thorugh online players in faction and asks to join new player
 								for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-									if(plugin.getConfig().getString("PlayerSettings." + p.getDisplayName() + ".faction").equalsIgnoreCase(args[1])) {
+									if(plugin.getConfig().getString("PlayerSettings." + p.getUniqueId().toString() + ".faction").equalsIgnoreCase(args[1])) {
 										p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 10, 1);
 										p.sendMessage(ChatColor.AQUA + "Player " + ((Player) sender).getDisplayName() + " would like to join the faction!");
 										p.sendMessage(ChatColor.GOLD + ""+  ChatColor.BOLD + "Perform the command /faction accept/deny playername to accept/deny");
@@ -151,7 +154,7 @@ public class SetFaction implements CommandExecutor{
 							//Else create the faction and make this person a part of it
 							else {
 								sender.sendMessage(ChatColor.GREEN + "Success! You are now in " + args[1] + " faction!");
-								plugin.getConfig().set("PlayerSettings." + ((Player) sender).getDisplayName()+ ".faction", args[1]);
+								plugin.getConfig().set("PlayerSettings." + ((Player) sender).getUniqueId().toString()+ ".faction", args[1]);
 								plugin.getConfig().set("FactionSettings." + args[1] + ".peaceful", "false");
 								plugin.getConfig().set("FactionSettings." + args[1] + ".friendlyFire", "true");
 								plugin.saveConfig();
@@ -165,7 +168,7 @@ public class SetFaction implements CommandExecutor{
 					else if(args[0].equalsIgnoreCase("color")) {
 						SetColor translator = new SetColor();
 						String colorCode = translator.translateColorToCode(args[1]);
-						String faction = plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getDisplayName() + ".faction");
+						String faction = plugin.getConfig().getString("PlayerSettings." + ((Player)sender).getUniqueId().toString() + ".faction");
 						if(colorCode != "") {
 							plugin.getConfig().set("FactionSettings." + faction + ".color", colorCode);
 							plugin.saveConfig();

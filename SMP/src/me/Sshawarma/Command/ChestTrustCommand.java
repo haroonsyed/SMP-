@@ -1,6 +1,9 @@
 package me.Sshawarma.Command;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,13 +20,16 @@ public class ChestTrustCommand implements CommandExecutor{
 	FileConfiguration config = plugin.getConfig();
 	
 	
-	public ArrayList<String> getTrustedPlayers(String owner) {
-		return (ArrayList<String>) config.getStringList("PlayerSettings." + owner + ".chrusted");
-	}
-	
-	public void setTrustedPlayers(String owner, ArrayList<String> players) {
-		config.set("PlayerSettings." + owner + ".chrusted", players);
-		plugin.saveConfig();
+	public ArrayList<UUID> getTrustedPlayers(UUID owner) {
+		
+		ArrayList<UUID> chrusted = new ArrayList<UUID>();
+		ArrayList<String> chrustedString = (ArrayList<String>) config.getStringList("PlayerSettings." + owner.toString() + ".chrusted");
+		
+		for(String str : chrustedString) {
+			chrusted.add(UUID.fromString(str));
+		}
+		
+		return chrusted; 
 	}
 	
 	
@@ -37,15 +43,23 @@ public class ChestTrustCommand implements CommandExecutor{
 					//Capitalizes player name. Checks if the chrusted player is there before adding it.
 					args[0] = args[0].toUpperCase();
 					Player player = (Player) sender;
-					ArrayList<String> trusted = (ArrayList<String>) config.getStringList("PlayerSettings." + player.getDisplayName() + ".chrusted");
+					ArrayList<String> trustedID = (ArrayList<String>) config.getStringList("PlayerSettings." + player.getUniqueId().toString() + ".chrusted");
+					ArrayList<String> trusted = new ArrayList<String>();
+					for(String str : trustedID) {
+						trusted.add(Bukkit.getOfflinePlayer(UUID.fromString(str)).getName().toUpperCase());
+					}
+					
 					
 					if(trusted.contains(args[0])) {
 						player.sendMessage(ChatColor.RED + "Player already is in trusted list!");
 					}
 					
 					else {
+						//Get ID of player
+						UUID id = Bukkit.getOfflinePlayer(args[0]).getUniqueId();
+						trustedID.add(id.toString());
 						trusted.add(args[0]);
-						config.set("PlayerSettings." + player.getDisplayName() + ".chrusted", trusted);
+						config.set("PlayerSettings." + player.getUniqueId().toString() + ".chrusted", trustedID);
 						plugin.saveConfig();
 						player.sendMessage(ChatColor.GREEN + "Trusted player added!");
 					}
@@ -68,12 +82,19 @@ public class ChestTrustCommand implements CommandExecutor{
 					//Checks if player exists before removing it.
 					args[0] = args[0].toUpperCase();
 					Player player = (Player) sender;
-					ArrayList<String> trusted = (ArrayList<String>) config.getStringList("PlayerSettings." + player.getDisplayName() + ".chrusted");
+					ArrayList<String> trustedID = (ArrayList<String>) config.getStringList("PlayerSettings." + player.getUniqueId().toString() + ".chrusted");
+					ArrayList<String> trusted = new ArrayList<String>();
+					for(String str : trustedID) {
+						trusted.add(Bukkit.getOfflinePlayer(UUID.fromString(str)).getName().toUpperCase());
+					}
 					
 					if(trusted.contains(args[0])) {
+						//Get ID of player
+						UUID id = Bukkit.getOfflinePlayer(args[0]).getUniqueId();
+						trustedID.remove(id.toString());
 						trusted.remove(args[0]);
 						player.sendMessage(ChatColor.GREEN + "Player removed from trusted!");
-						config.set("PlayerSettings." + player.getDisplayName() + ".chrusted", trusted);
+						config.set("PlayerSettings." + player.getDisplayName() + ".chrusted", trustedID);
 						plugin.saveConfig();
 					}
 					

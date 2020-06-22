@@ -33,11 +33,11 @@ public class ChatListener implements Listener {
 		//If faction chat
 		else if(event.getMessage().charAt(0) == '@') {
 			String msg = event.getMessage().substring(1);
-			String name = event.getPlayer().getDisplayName();
+			String id = event.getPlayer().getUniqueId().toString();
 			
 			//Instantiate the messaging class and send this command to it
 			Messaging messaging = new Messaging();
-			messaging.messageFaction(name, msg);
+			messaging.messageFaction(id, msg);
 			
 			event.setCancelled(true);
 		}

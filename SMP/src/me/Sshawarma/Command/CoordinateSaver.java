@@ -26,8 +26,8 @@ public class CoordinateSaver implements CommandExecutor{
 			if(cmd.getName().equalsIgnoreCase("spot")) {
 				
 				//Prevents null
-				if(!config.contains("PlayerSettings." + player.getDisplayName() + ".coords")) {
-					config.set("PlayerSettings." + player.getDisplayName() + ".coords", "");
+				if(!config.contains("PlayerSettings." + player.getUniqueId().toString() + ".coords")) {
+					config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords", "");
 					plugin.saveConfig();
 				}
 				
@@ -38,9 +38,9 @@ public class CoordinateSaver implements CommandExecutor{
 						
 						boolean deleted = false;
 						
-						for(String spot : config.getConfigurationSection("PlayerSettings." + player.getDisplayName() + ".coords").getKeys(false)) {
+						for(String spot : config.getConfigurationSection("PlayerSettings." + player.getUniqueId().toString() + ".coords").getKeys(false)) {
 							if(spot.equals(args[1])) {
-								config.set("PlayerSettings." + player.getDisplayName() + ".coords." + args[1], null);
+								config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords." + args[1], null);
 								player.sendMessage(ChatColor.GREEN + "Spot deleted!");
 								deleted = true;
 								plugin.saveConfig();
@@ -69,11 +69,11 @@ public class CoordinateSaver implements CommandExecutor{
 							return false;
 						}
 						
-						config.set("PlayerSettings." + player.getDisplayName() + ".coords." + args[1] + ".X", loc.getBlockX());
-						config.set("PlayerSettings." + player.getDisplayName() + ".coords." + args[1] + ".Y", loc.getBlockY());
-						config.set("PlayerSettings." + player.getDisplayName() + ".coords." + args[1] + ".Z", loc.getBlockZ());
+						config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords." + args[1] + ".X", loc.getBlockX());
+						config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords." + args[1] + ".Y", loc.getBlockY());
+						config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords." + args[1] + ".Z", loc.getBlockZ());
 						
-						config.set("PlayerSettings." + player.getDisplayName() + ".coords." + args[1] + ".Color", colorCode);
+						config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords." + args[1] + ".Color", colorCode);
 						
 						plugin.saveConfig();
 						
@@ -96,12 +96,17 @@ public class CoordinateSaver implements CommandExecutor{
 						player.sendMessage(ChatColor.BOLD + "====================");
 						player.sendMessage("");
 						
-						for(String spot : config.getConfigurationSection("PlayerSettings." + player.getDisplayName() + ".coords").getKeys(false)) {
+						//Null fix
+						if(!config.contains("PlayerSettings." + player.getUniqueId().toString() + ".coords")) {
+							return false;
+						}
+						
+						for(String spot : config.getConfigurationSection("PlayerSettings." + player.getUniqueId().toString() + ".coords").getKeys(false)) {
 							
-							String color = config.getString("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".Color");
-							int X = config.getInt("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".X");
-							int Y = config.getInt("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".Y");
-							int Z = config.getInt("PlayerSettings." + player.getDisplayName() + ".coords." + spot + ".Z");
+							String color = config.getString("PlayerSettings." + player.getUniqueId().toString() + ".coords." + spot + ".Color");
+							int X = config.getInt("PlayerSettings." + player.getUniqueId().toString() + ".coords." + spot + ".X");
+							int Y = config.getInt("PlayerSettings." + player.getUniqueId().toString() + ".coords." + spot + ".Y");
+							int Z = config.getInt("PlayerSettings." + player.getUniqueId().toString() + ".coords." + spot + ".Z");
 							
 							
 							player.sendMessage(ChatColor.translateAlternateColorCodes('&', color) + spot + ":");

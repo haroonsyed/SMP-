@@ -1,6 +1,7 @@
 package me.Sshawarma.Events;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -52,35 +53,23 @@ public class ChestAccess implements Listener{
 			if(event.getClickedBlock().getType() == Material.CHEST) {
 				Player player = event.getPlayer();
 				Chest chest = (Chest) event.getClickedBlock().getState();
-				String owner = Death.getdChestPlayers().get(chest.getBlock().getLocation());
-				String owner2 = Death.getdChestPlayers2().get(chest.getBlock().getLocation());
+				UUID strictOwner = Death.getdChestPlayers().get(chest.getBlock().getLocation());
+				UUID strictOwner2 = Death.getdChestPlayers2().get(chest.getBlock().getLocation());
 				
-				
-				String strictOwner = "";
-				String strictOwner2 = "";
-				
-				for(OfflinePlayer p : Bukkit.getServer().getOfflinePlayers()) {
-					if(p.getName().equalsIgnoreCase(owner)) {
-						strictOwner = p.getName();
-					}
-					if(p.getName().equalsIgnoreCase(owner2)) {
-						strictOwner2 = p.getName();
-					}
-				}
 				
 				if(Death.getdChests().containsKey(chest.getBlock().getLocation())){
 					
 					ChestTrustCommand ctc = new ChestTrustCommand();
-					ArrayList<String> trustedps = ctc.getTrustedPlayers(strictOwner);
+					ArrayList<UUID> trustedps = ctc.getTrustedPlayers(strictOwner);
 					
 					try {
-						if(owner.equalsIgnoreCase(player.getDisplayName())) {
+						if(strictOwner.equals(player.getUniqueId())) {
 							return;
 						
 						}
 						
-						else if(trustedps.contains(player.getDisplayName().toUpperCase())){
-							player.sendMessage(ChatColor.AQUA + "Chest Owner: " + owner);
+						else if(trustedps.contains(player.getUniqueId())){
+							player.sendMessage(ChatColor.AQUA + "Chest Owner: " + Bukkit.getOfflinePlayer(strictOwner).getName());
 							return;
 							
 						}
@@ -100,16 +89,16 @@ public class ChestAccess implements Listener{
 				else if(Death.getdChests2().containsKey(chest.getBlock().getLocation())) {
 					
 					ChestTrustCommand ctc = new ChestTrustCommand();
-					ArrayList<String> trustedps = ctc.getTrustedPlayers(strictOwner2);
+					ArrayList<UUID> trustedps = ctc.getTrustedPlayers(strictOwner2);
 					
 					try {
-						if(owner2.equalsIgnoreCase(player.getDisplayName())) {
+						if(strictOwner2.equals(player.getUniqueId())) {
 							return;
 						
 						}
 						
-						else if(trustedps.contains(player.getDisplayName().toUpperCase())) {
-							player.sendMessage(ChatColor.AQUA + "Chest Owner: " + owner2);
+						else if(trustedps.contains(player.getUniqueId())) {
+							player.sendMessage(ChatColor.AQUA + "Chest Owner: " + Bukkit.getOfflinePlayer(strictOwner2).getName());
 							return;
 							
 						}
