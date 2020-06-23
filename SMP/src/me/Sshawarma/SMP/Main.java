@@ -8,7 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.Sshawarma.Command.AgniKai;
 import me.Sshawarma.Command.ChestTrustCommand;
 import me.Sshawarma.Command.CoordinateSaver;
-import me.Sshawarma.Command.FactionWar;
 import me.Sshawarma.Command.FindCommand;
 import me.Sshawarma.Command.Messaging;
 import me.Sshawarma.Command.SetColor;
@@ -22,7 +21,6 @@ import me.Sshawarma.Events.JoinListener;
 import me.Sshawarma.Events.PKManager;
 import me.Sshawarma.Events.ChestAccess;
 import me.Sshawarma.Events.StopCreeper;
-import me.Sshawarma.Events.WarManager;
 import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin{
@@ -51,16 +49,7 @@ public class Main extends JavaPlugin{
 		this.getCommand("agnikai").setExecutor(new AgniKai());
 		this.getCommand("setAgniKaiLoc").setExecutor(new AgniKai());
 		this.getCommand("spot").setExecutor(new CoordinateSaver());
-		//this.getCommand("war").setExecutor(new FactionWar());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
-		//new WarManager().runTaskTimer(Main.getPlugin(Main.class), 1, 1200);
-		
-		/*
-		 *   war:
-     description: "Declare war on other factions, enter war-mode for three hours!"
-     usage: "Usage: /war start"
-		 * 
-		 */
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
