@@ -57,6 +57,13 @@ public class JoinListener implements Listener{
 			plugin.saveConfig();
 		}
 		
+		//Create default for war if it doesn't exist
+		String faction = config.getString("PlayerSetting." + player.getUniqueId().toString() + ".faction");
+		if(!config.contains("FactionSettings." + faction + ".war")) {
+			config.set("FactionSettings." + faction + ".war", false);
+			plugin.saveConfig();
+		}
+		
 		//Help Message
 		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 10, 1);
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=============================================");

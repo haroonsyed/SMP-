@@ -1,5 +1,5 @@
 name: SMP
-version: 1.9.0
+version: 1.9.1
 author: Sshawarma
 main: me.Sshawarma.SMP.Main
 description: Simple plugin with useful SMP features.
@@ -32,3 +32,6 @@ commands:
   spot:
      description: "Save important locations!"
      usage: "Usage: /spot [save | delete | list] [name and color (save) | name (delete)]}"
+  war:
+     description: "Declare war on other factions, enter war-mode for three hours!"
+     usage: "Usage: /war start"
