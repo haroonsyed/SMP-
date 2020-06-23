@@ -51,9 +51,16 @@ public class Main extends JavaPlugin{
 		this.getCommand("agnikai").setExecutor(new AgniKai());
 		this.getCommand("setAgniKaiLoc").setExecutor(new AgniKai());
 		this.getCommand("spot").setExecutor(new CoordinateSaver());
-		this.getCommand("war").setExecutor(new FactionWar());
+		//this.getCommand("war").setExecutor(new FactionWar());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
-		new WarManager().runTaskTimer(Main.getPlugin(Main.class), 1, 1200);
+		//new WarManager().runTaskTimer(Main.getPlugin(Main.class), 1, 1200);
+		
+		/*
+		 *   war:
+     description: "Declare war on other factions, enter war-mode for three hours!"
+     usage: "Usage: /war start"
+		 * 
+		 */
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
