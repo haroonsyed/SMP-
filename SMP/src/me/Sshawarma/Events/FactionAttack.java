@@ -1,5 +1,8 @@
 package me.Sshawarma.Events;
 
+import java.util.HashMap;
+
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,8 +27,12 @@ public class FactionAttack implements Listener{
 			FileConfiguration config = plugin.getConfig();
 			//If the two are from different factions, check if one is peaceful. If so, then cancel the attack.
 			if(!faction1.equalsIgnoreCase(faction2) && (config.getString("FactionSettings." + faction1 + ".peaceful").equals("true") || config.getString("FactionSettings." + faction2 + ".peaceful").equals("true"))){
-				event.setCancelled(true);
-				event.getDamager().sendMessage(ChatColor.DARK_RED + "Player is in peaceful faction: " + faction2 + "! Your's is: " + faction1 + ".");
+				//AgniKai check. If one is in agnikai then both are, so just check one.
+				HashMap<String, Location> agniKaiPlayers = me.Sshawarma.Command.AgniKai.ogLocations;
+				if(!agniKaiPlayers.containsKey(event.getDamager().getUniqueId().toString())) {
+					event.setCancelled(true);
+					event.getDamager().sendMessage(ChatColor.DARK_RED + "Player is in peaceful faction: " + faction2 + "! Your's is: " + faction1 + ".");
+				}
 			}
 			//If friendly fire is turned off
 			if(faction1.equalsIgnoreCase(faction2) && config.getString("FactionSettings." + faction1 + ".friendlyFire").equalsIgnoreCase("false")) {
