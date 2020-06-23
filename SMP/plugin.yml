@@ -32,3 +32,6 @@ commands:
   spot:
      description: "Save important locations!"
      usage: "Usage: /spot [save | delete | list] [name and color (save) | name (delete)]}"
+  war:
+     description: "Declare war on other factions, enter war-mode for three hours!"
+     usage: "Usage: /war start"

@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.Sshawarma.Command.AgniKai;
 import me.Sshawarma.Command.ChestTrustCommand;
 import me.Sshawarma.Command.CoordinateSaver;
+import me.Sshawarma.Command.FactionWar;
 import me.Sshawarma.Command.FindCommand;
 import me.Sshawarma.Command.Messaging;
 import me.Sshawarma.Command.SetColor;
@@ -21,6 +22,8 @@ import me.Sshawarma.Events.JoinListener;
 import me.Sshawarma.Events.PKManager;
 import me.Sshawarma.Events.ChestAccess;
 import me.Sshawarma.Events.StopCreeper;
+import me.Sshawarma.Events.WarListener;
+import me.Sshawarma.Events.WarManager;
 import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin{
@@ -38,6 +41,7 @@ public class Main extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new ChatColorChanger(), this);
 		getServer().getPluginManager().registerEvents(new FactionAttack(), this);
 		getServer().getPluginManager().registerEvents(new me.Sshawarma.Events.AgniKai(), this);
+		getServer().getPluginManager().registerEvents(new WarListener(), this);
 		this.getCommand("find").setExecutor(new FindCommand());
 		this.getCommand("chatcolor").setExecutor(new SetColor());
 		this.getCommand("chrust").setExecutor(new ChestTrustCommand());
@@ -49,7 +53,9 @@ public class Main extends JavaPlugin{
 		this.getCommand("agnikai").setExecutor(new AgniKai());
 		this.getCommand("setAgniKaiLoc").setExecutor(new AgniKai());
 		this.getCommand("spot").setExecutor(new CoordinateSaver());
+		this.getCommand("war").setExecutor(new FactionWar());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
+		new WarManager().runTaskTimer(Main.getPlugin(Main.class), 1, 1200);
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();

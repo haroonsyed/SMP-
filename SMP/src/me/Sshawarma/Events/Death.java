@@ -68,7 +68,7 @@ public class Death implements Listener{
 			if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
 				return;
 			}
-			else if(config.getBoolean("FactionSetting." + faction + ".war") == true) {
+			else if(config.getBoolean("FactionSettings." + faction + ".war") == true) {
 				return;
 			}
 			
