@@ -12,6 +12,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
 import me.Sshawarma.SMP.Main;
 import net.md_5.bungee.api.ChatColor;
 
@@ -26,6 +28,7 @@ public class FactionWar implements CommandExecutor{
 	/*TODO:
 	 *		-Save trusted list instead of only allowing factions
 	 * 		-Loot Event
+	 * 		-Track players that already voted *forehead*
 	 */
 	
 	
@@ -82,6 +85,16 @@ public class FactionWar implements CommandExecutor{
 						}
 						else {
 							voteTracker.put(faction, 1);
+							//Start timer to timeout the vote
+							new BukkitRunnable() {
+
+								@Override
+								public void run() {
+									// remove the map from voting to start it again
+									voteTracker.remove(faction);
+								}
+								
+							}.runTaskLater(plugin, 2400);
 						}
 						
 						//Check if war declaration is met

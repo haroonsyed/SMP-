@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Chest;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -59,8 +60,15 @@ public class Death implements Listener{
 			//Exp
 			int xp = event.getEntity().getLevel();
 			
-			//AgniKai Check
+			Plugin plugin = Main.getPlugin(Main.class);
+			FileConfiguration config = plugin.getConfig();
+			String faction = config.getString("PlayerSettings." + event.getEntity().getUniqueId().toString() + ".faction");
+			
+			//AgniKai Check and War Check
 			if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
+				return;
+			}
+			else if(config.getBoolean("FactionSetting." + faction + ".war") == true) {
 				return;
 			}
 			

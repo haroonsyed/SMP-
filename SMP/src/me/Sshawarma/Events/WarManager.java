@@ -27,6 +27,8 @@ public class WarManager extends BukkitRunnable {
 			if(config.getBoolean("FactionSettings." + faction + ".war") && (System.currentTimeMillis() >= (config.getLong("FactionSettings." +faction + ".war.startTime") + 10800000))) {
 				//Reset
 				
+				config.set("FactionSettings." + faction + ".war", false);
+				
 				ArrayList<UUID> factionPlayers = new ArrayList<UUID>();
 				//Get all players in the faction
 				for(String p : config.getConfigurationSection("PlayerSettings").getKeys(false)) {
