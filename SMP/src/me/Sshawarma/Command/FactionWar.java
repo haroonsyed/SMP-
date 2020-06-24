@@ -57,6 +57,11 @@ public class FactionWar implements CommandExecutor{
 						//Get list of all players in the same faction (UUID)
 						String faction = config.getString("PlayerSetting." + player.getUniqueId().toString() + ".faction");
 						
+						if(faction.equals("default")) {
+							sender.sendMessage(ChatColor.RED + "You are in default faction! They cannot be involved in wars.");
+							return false;
+						}
+						
 						//Cancel if warmode is already on
 						if(config.getBoolean("FactionSettings." + faction + ".war") == true) {
 							sender.sendMessage(ChatColor.RED + "War in progress already!");
