@@ -31,14 +31,14 @@ public class ChatColorChanger implements Listener{
 		//Concatenating like this is a nightmare though.
 		if(!(player.isOp())) {
 			event.setFormat(ChatColor.DARK_GRAY + "<" +ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor")) + "" +ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_GRAY + ">"
-				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', colorCodeFac) + "[" + faction  + "] "+  ChatColor.RESET + ""
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', colorCodeFac) + "[" + faction  + "] "+ "" +  ChatColor.RESET + ""
 				+ ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor")) + msg);
 		}
 		
 		else {
 			event.setFormat(ChatColor.GOLD + "<" + ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor")) + "" + ChatColor.BOLD +  player.getDisplayName() + ChatColor.GOLD + ">"
 					+ChatColor.RESET + "" + ChatColor.RED  + "[ADMIN]" + ChatColor.RESET + "" +
-					ChatColor.translateAlternateColorCodes('&', colorCodeFac) + "[" + faction  + "] " + ChatColor.RESET + "" +
+					ChatColor.translateAlternateColorCodes('&', colorCodeFac) + "[" + faction  + "] " + "" + ChatColor.RESET + "" +
 					ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor")) + msg);
 		}
 		
