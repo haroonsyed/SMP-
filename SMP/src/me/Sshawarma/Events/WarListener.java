@@ -11,10 +11,14 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.Sshawarma.SMP.Main;
+import me.ryanhamshire.GriefPrevention.DataStore;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
 
 public class WarListener implements Listener{
 	
+	Plugin plugin = Main.getPlugin(Main.class);
+	FileConfiguration config = plugin.getConfig();
+	DataStore datastore = null;
 		
 	@EventHandler
 	public void isWarModeAllowed(PlayerMoveEvent event) {
@@ -28,10 +32,10 @@ public class WarListener implements Listener{
 		
 		//Else do all this
 		Player player = event.getPlayer();
-		Plugin plugin = Main.getPlugin(Main.class);
-		FileConfiguration config = plugin.getConfig();
+		datastore = GriefPrevention.instance.dataStore;
+
 		boolean isWarringFaction = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + event.getPlayer().getUniqueId().toString() + ".faction") + ".war.isWarring");
-		boolean ignoringClaims = GriefPrevention.instance.dataStore.getPlayerData(player.getUniqueId()).ignoreClaims;
+		boolean ignoringClaims = datastore.getPlayerData(player.getUniqueId()).ignoreClaims;
 		
 		//Check if warmode is on
 		if(!isWarringFaction) {
@@ -39,7 +43,7 @@ public class WarListener implements Listener{
 		}
 		
 		//Check if player is not in a claim
-		if(GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null) == null) {
+		if(datastore.getClaimAt(player.getLocation(), true, null) == null) {
 			
 			if(isWarringFaction && ignoringClaims == true) {
 				//Only runs once because he wont have permission after
@@ -51,14 +55,12 @@ public class WarListener implements Listener{
 		}
 		
 		
-		
-		String ownerName = GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null).getOwnerName();
-		UUID owner = Bukkit.getOfflinePlayer(ownerName).getUniqueId();
+		UUID owner = datastore.getClaimAt(player.getLocation(), true, null).ownerID;
 		boolean isInWarringTerritory = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + owner.toString() + ".faction") + ".war.isWarring");
 		boolean haveAccess = false;
 		
-		//Error here, fix
-		if(GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null).allowAccess(player) == null) {
+		//Sees if player can build in claim normally
+		if(datastore.getClaimAt(player.getLocation(), true, null).allowAccess(player) == null) {
 					haveAccess = true;
 		}
 		
