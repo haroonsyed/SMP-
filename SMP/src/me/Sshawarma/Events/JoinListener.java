@@ -59,8 +59,8 @@ public class JoinListener implements Listener{
 		
 		//Create default for war if it doesn't exist
 		String faction = config.getString("PlayerSettings." + player.getUniqueId().toString() + ".faction");
-		if(!config.contains("FactionSettings." + faction + ".war")) {
-			config.set("FactionSettings." + faction + ".war", false);
+		if(!config.contains("FactionSettings." + faction + ".war.isWarring")) {
+			config.set("FactionSettings." + faction + ".war.isWarring", false);
 			plugin.saveConfig();
 		}
 		

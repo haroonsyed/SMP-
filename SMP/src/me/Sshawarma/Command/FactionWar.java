@@ -63,7 +63,7 @@ public class FactionWar implements CommandExecutor{
 						}
 						
 						//Cancel if warmode is already on
-						if(config.getBoolean("FactionSettings." + faction + ".war") == true) {
+						if(config.getBoolean("FactionSettings." + faction + ".war.isWarring") == true) {
 							sender.sendMessage(ChatColor.RED + "War in progress already!");
 							return false;
 						}
@@ -106,7 +106,7 @@ public class FactionWar implements CommandExecutor{
 								public void run() {
 									// remove the map from voting to start it again
 									voteTracker.remove(faction);
-									boolean isWarringFaction = config.getBoolean("FactionSettings." + faction + ".war");
+									boolean isWarringFaction = config.getBoolean("FactionSettings." + faction + ".war.isWarring");
 									for(String p : membersList) {
 										voters.remove(UUID.fromString(p));
 										OfflinePlayer member = Bukkit.getServer().getOfflinePlayer(UUID.fromString(p));
@@ -129,7 +129,7 @@ public class FactionWar implements CommandExecutor{
 						//Check if war declaration is met
 						if(votesNeeded-currentVotes <= 0) {
 							//Put in war state and set time started
-							config.set("FactionSettings." + faction + ".war", true);
+							config.set("FactionSettings." + faction + ".war.isWarring", true);
 							config.set("FactionSettings." + faction + ".war.startTime", System.currentTimeMillis());
 							plugin.saveConfig();
 							
@@ -153,7 +153,7 @@ public class FactionWar implements CommandExecutor{
 							reciever.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + (votesNeeded-currentVotes) + " votes needed to initiate war!");
 							
 							//Notify if war has begun
-							if(config.getBoolean("FactionSettings." + faction + ".war") == true) {
+							if(config.getBoolean("FactionSettings." + faction + ".war.isWarring") == true) {
 								reciever.playSound(reciever.getLocation(), Sound.ENTITY_WOLF_HOWL, 10, 1);
 								reciever.sendMessage(ChatColor.MAGIC + "" + ChatColor.BOLD + "Warmode entered.");
 								reciever.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Warmode entered.");

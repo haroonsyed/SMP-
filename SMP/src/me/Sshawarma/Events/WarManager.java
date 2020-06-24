@@ -26,11 +26,11 @@ public class WarManager extends BukkitRunnable {
 		for(String faction : config.getConfigurationSection("FactionSettings").getKeys(false)) {
 			
 			//Big number is 3 hours, reset back to non-war state
-			if(config.getBoolean("FactionSettings." + faction + ".war") && (System.currentTimeMillis() >= (config.getLong("FactionSettings." +faction + ".war.startTime") + 10800000))) {
+			if(config.getBoolean("FactionSettings." + faction + ".war.isWarring") && (System.currentTimeMillis() >= (config.getLong("FactionSettings." +faction + ".war.startTime") + 10800000))) {
 				
 				
 				//Reset Config to Non-War Mode
-				config.set("FactionSettings." + faction + ".war", false);
+				config.set("FactionSettings." + faction + ".war.isWarring", false);
 				
 				ArrayList<UUID> factionPlayers = new ArrayList<UUID>();
 				//Get all players in the faction

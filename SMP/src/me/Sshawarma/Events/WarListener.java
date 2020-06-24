@@ -30,7 +30,7 @@ public class WarListener implements Listener{
 		Player player = event.getPlayer();
 		Plugin plugin = Main.getPlugin(Main.class);
 		FileConfiguration config = plugin.getConfig();
-		boolean isWarringFaction = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + event.getPlayer().getUniqueId().toString() + ".faction") + ".war");
+		boolean isWarringFaction = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + event.getPlayer().getUniqueId().toString() + ".faction") + ".war.isWarring");
 		
 		//Check if warmode is on
 		if(!isWarringFaction) {
@@ -40,7 +40,7 @@ public class WarListener implements Listener{
 		String haveAccess = GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null).allowAccess(player);
 		String ownerName = GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null).getOwnerName();
 		UUID owner = Bukkit.getOfflinePlayer(ownerName).getUniqueId();
-		boolean isInWarringTerritory = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + owner.toString() + ".faction") + ".war");
+		boolean isInWarringTerritory = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + owner.toString() + ".faction") + ".war.isWarring");
 		
 		
 		if(isInWarringTerritory && isWarringFaction && haveAccess != null) {
