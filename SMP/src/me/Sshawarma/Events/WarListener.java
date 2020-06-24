@@ -37,13 +37,18 @@ public class WarListener implements Listener{
 			return;
 		}
 		
-		String haveAccess = GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null).allowAccess(player);
+		boolean haveAccess = false;
+		
+		if(GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null).allowAccess(player) == null) {
+			haveAccess = true;
+		}
+		
 		String ownerName = GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null).getOwnerName();
 		UUID owner = Bukkit.getOfflinePlayer(ownerName).getUniqueId();
 		boolean isInWarringTerritory = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + owner.toString() + ".faction") + ".war.isWarring");
 		
-		
-		if(isInWarringTerritory && isWarringFaction && haveAccess != null) {
+		//USE FROM AND TO
+		if(isInWarringTerritory && isWarringFaction && haveAccess == false) {
 			player.sendMessage("You are in warring faction's territory" + " OWNER: " + Bukkit.getOfflinePlayer(owner).getName());
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getDisplayName() + " permission set griefprevention.ignoreclaims true");
 			player.performCommand("ignoreclaims");
