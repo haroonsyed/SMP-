@@ -102,10 +102,11 @@ public class FactionWar implements CommandExecutor{
 								public void run() {
 									// remove the map from voting to start it again
 									voteTracker.remove(faction);
+									boolean isWarringFaction = config.getBoolean("FactionSettings." + faction + ".war");
 									for(String p : membersList) {
 										voters.remove(UUID.fromString(p));
 										OfflinePlayer member = Bukkit.getServer().getOfflinePlayer(UUID.fromString(p));
-										if(member.isOnline()) {
+										if(member.isOnline() && !isWarringFaction) {
 											member.getPlayer().sendMessage(ChatColor.BOLD + "Not enough votes in the past 2 minutes to start a war.");
 											member.getPlayer().sendMessage(ChatColor.GREEN + "You can now vote again for war.");
 										}
