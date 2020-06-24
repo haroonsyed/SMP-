@@ -94,7 +94,11 @@ public class FactionWar implements CommandExecutor{
 
 						//Initialize votetracker
 						if(!voteTracker.containsKey(faction)) {
+							
+							//Update votes
 							voteTracker.put(faction, 1);
+							currentVotes++;
+							
 							//Start timer to timeout the vote
 							new BukkitRunnable() {
 
