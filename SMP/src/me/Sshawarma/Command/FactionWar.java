@@ -55,7 +55,7 @@ public class FactionWar implements CommandExecutor{
 					if(args[0].equalsIgnoreCase("start")) {
 						
 						//Get list of all players in the same faction (UUID)
-						String faction = config.getString("PlayerSetting." + player.getUniqueId().toString() + ".faction");
+						String faction = config.getString("PlayerSettings." + player.getUniqueId().toString() + ".faction");
 						
 						if(faction.equals("default")) {
 							sender.sendMessage(ChatColor.RED + "You are in default faction! They cannot be involved in wars.");
@@ -89,14 +89,11 @@ public class FactionWar implements CommandExecutor{
 						
 						//Votes needed equals half a faction
 						int votesNeeded = (int) Math.ceil(membersList.size()/2.0f);
-						int currentVotes = voteTracker.get(faction) + 1;
+						int currentVotes = 0;
 						voters.add(player.getUniqueId());
-						
-						//Increment votetracker
-						if(voteTracker.containsKey(faction)) {
-							voteTracker.put(faction, currentVotes);
-						}
-						else {
+
+						//Initialize votetracker
+						if(!voteTracker.containsKey(faction)) {
 							voteTracker.put(faction, 1);
 							//Start timer to timeout the vote
 							new BukkitRunnable() {
@@ -107,11 +104,21 @@ public class FactionWar implements CommandExecutor{
 									voteTracker.remove(faction);
 									for(String p : membersList) {
 										voters.remove(UUID.fromString(p));
-										Bukkit.getServer().getPlayer(UUID.fromString(p)).sendMessage(ChatColor.GREEN + "You can now vote again for war.");
+										OfflinePlayer member = Bukkit.getServer().getOfflinePlayer(UUID.fromString(p));
+										if(member.isOnline()) {
+											member.getPlayer().sendMessage(ChatColor.BOLD + "Not enough votes in the past 2 minutes to start a war.");
+											member.getPlayer().sendMessage(ChatColor.GREEN + "You can now vote again for war.");
+										}
+										
 									}
 								}
 								
 							}.runTaskLater(plugin, 2400);
+						}
+						
+						else {
+							currentVotes = voteTracker.get(faction) + 1;
+							voteTracker.put(faction, currentVotes);
 						}
 						
 						//Check if war declaration is met
@@ -127,7 +134,7 @@ public class FactionWar implements CommandExecutor{
 						for(String p : membersList) {
 							
 							OfflinePlayer member = Bukkit.getOfflinePlayer(UUID.fromString(p));
-							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + member.getName() + " permission set griefprevention.claims false");
+							
 							
 							if(!member.isOnline()) {
 								continue;
@@ -146,6 +153,7 @@ public class FactionWar implements CommandExecutor{
 								reciever.sendMessage(ChatColor.MAGIC + "" + ChatColor.BOLD + "Warmode entered.");
 								reciever.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Warmode entered.");
 								reciever.sendMessage(ChatColor.MAGIC + "" + ChatColor.BOLD + "Warmode entered.");
+								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + member.getName() + " permission set griefprevention.claims false");
 							}
 							
 						}
