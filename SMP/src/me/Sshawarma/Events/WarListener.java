@@ -18,16 +18,30 @@ public class WarListener implements Listener{
 		
 	@EventHandler
 	public void isWarModeAllowed(PlayerMoveEvent event) {
+		
+		//Check player has moved.
+		if(event.getTo().getBlockX() == event.getFrom().getBlockX() && event.getTo().getBlockY() == event.getFrom().getBlockY() && event.getTo().getBlockZ() == event.getFrom().getBlockZ()) {
+			return;
+		}
+		
+
+		
+		//Else do all this
 		Player player = event.getPlayer();
 		Plugin plugin = Main.getPlugin(Main.class);
 		FileConfiguration config = plugin.getConfig();
+		boolean isWarringFaction = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + event.getPlayer().getUniqueId().toString() + ".faction") + ".war");
 		
+		//Check if warmode is on
+		if(!isWarringFaction) {
+			return;
+		}
 		
 		String haveAccess = GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null).allowAccess(player);
 		String ownerName = GriefPrevention.instance.dataStore.getClaimAt(player.getLocation(), true, null).getOwnerName();
 		UUID owner = Bukkit.getOfflinePlayer(ownerName).getUniqueId();
 		boolean isInWarringTerritory = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + owner.toString() + ".faction") + ".war");
-		boolean isWarringFaction = config.getBoolean("FactionSettings." + config.getString(player.getUniqueId().toString()) + ".war");
+		
 		
 		if(isInWarringTerritory && isWarringFaction && haveAccess != null) {
 			player.sendMessage("You are in warring faction's territory" + " OWNER: " + Bukkit.getOfflinePlayer(owner).getName());
