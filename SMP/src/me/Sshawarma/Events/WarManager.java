@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -12,6 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Sshawarma.SMP.Main;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
+import net.md_5.bungee.api.ChatColor;
 
 public class WarManager extends BukkitRunnable {
 	
@@ -26,8 +28,7 @@ public class WarManager extends BukkitRunnable {
 		for(String faction : config.getConfigurationSection("FactionSettings").getKeys(false)) {
 			
 			//Big number is 3 hours, reset back to non-war state
-			if(config.getBoolean("FactionSettings." + faction + ".war.isWarring") && (System.currentTimeMillis() >= (config.getLong("FactionSettings." +faction + ".war.startTime") + 10800000))) {
-				
+			if(config.getBoolean("FactionSettings." + faction + ".war.isWarring") && (System.currentTimeMillis() >= (config.getLong("FactionSettings." +faction + ".war.startTime") + 3600000))) {			
 				
 				//Reset Config to Non-War Mode
 				config.set("FactionSettings." + faction + ".war.isWarring", false);
@@ -53,6 +54,12 @@ public class WarManager extends BukkitRunnable {
 							Bukkit.getServer().getPlayer(p).performCommand("ignoreclaims");
 						}
 						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + member.getName() + " permission set griefprevention.ignoreclaims false");
+					}
+					
+					//Notify
+					if(member.isOnline()) {
+						member.getPlayer().sendMessage(ChatColor.RED + "[WAR] You are no longer in war mode!");
+						member.getPlayer().playSound(member.getPlayer().getLocation(), Sound.ENTITY_WITHER_DEATH, 10, 0.5f);
 					}
 				}
 				
