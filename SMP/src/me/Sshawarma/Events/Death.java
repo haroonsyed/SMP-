@@ -59,6 +59,8 @@ public class Death implements Listener{
 			
 			//Exp
 			int xp = event.getEntity().getLevel();
+			event.getEntity().setLevel(xp/2);
+			event.setKeepLevel(true);
 			
 			Plugin plugin = Main.getPlugin(Main.class);
 			FileConfiguration config = plugin.getConfig();
@@ -139,9 +141,6 @@ public class Death implements Listener{
 				event.setDroppedExp(player.getLevel()/2);
 				dChestPlayers2.put(chest2Loc.getBlock().getLocation(), player.getUniqueId());
 			}
-			
-			event.getEntity().setLevel(xp/2);
-			event.setKeepLevel(true);
 			
 			//runnable to remove chest
 			new BukkitRunnable() {
