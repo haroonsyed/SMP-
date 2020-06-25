@@ -135,6 +135,14 @@ public class FactionWar implements CommandExecutor{
 							
 						}
 						
+						//Notify server if war started
+						for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+							if(!membersList.contains(p.getUniqueId().toString())) {
+								p.sendMessage(ChatColor.RED + "[WAR] A faction has entered war mode! Be ready for anything.");
+								p.playSound(p.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 10, 0.5f);
+							}
+						}
+						
 						//Notify players 
 						for(String p : membersList) {
 							
