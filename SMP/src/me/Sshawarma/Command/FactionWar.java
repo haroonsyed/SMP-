@@ -88,7 +88,7 @@ public class FactionWar implements CommandExecutor{
 						}
 						
 						//Votes needed equals half a faction
-						int votesNeeded = (int) Math.ceil(membersList.size()*0.75f);
+						int votesNeeded = (int) Math.ceil(membersList.size()*0.66f);
 						int currentVotes = 0;
 						voters.add(player.getUniqueId());
 
