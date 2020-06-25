@@ -56,6 +56,12 @@ public class WarListener implements Listener{
 		
 		
 		UUID owner = datastore.getClaimAt(player.getLocation(), true, null).ownerID;
+		
+		//Admin Claims
+		if(owner == null) {
+			return;
+		}
+		
 		boolean isInWarringTerritory = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + owner.toString() + ".faction") + ".war.isWarring");
 		boolean haveAccess = false;
 		
