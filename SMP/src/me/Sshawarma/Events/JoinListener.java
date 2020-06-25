@@ -64,6 +64,11 @@ public class JoinListener implements Listener{
 			plugin.saveConfig();
 		}
 		
+		//Disable annoying not. in war mode
+		if(player.isOp()) {
+			player.performCommand("lp log notify off");
+		}
+		
 		//Help Message
 		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 10, 1);
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=============================================");

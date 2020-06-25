@@ -59,25 +59,25 @@ public class FactionWar implements CommandExecutor{
 						
 						if(faction.equals("default")) {
 							sender.sendMessage(ChatColor.RED + "You are in default faction! They cannot be involved in wars.");
-							return false;
+							return true;
 						}
 						
 						//Cancel if warmode is already on
 						if(config.getBoolean("FactionSettings." + faction + ".war.isWarring") == true) {
 							sender.sendMessage(ChatColor.RED + "War in progress already!");
-							return false;
+							return true;
 						}
 						
 						if(config.contains("FactionSettings." + faction + ".war.startTime")) {
 							if((System.currentTimeMillis()-config.getLong("FactionSettings." + faction + ".war.startTime")) < 259200000) {
 								sender.sendMessage(ChatColor.RED + "A war occured too recently, try again after the cooldown!");
-								return false;
+								return true;
 							}
 						}
 						
 						if(voters.contains(player.getUniqueId())) {
 							sender.sendMessage(ChatColor.RED + "You already voted!");
-							return false;
+							return true;
 						}
 						
 						ArrayList<String> membersList = new ArrayList<String>();
@@ -174,7 +174,7 @@ public class FactionWar implements CommandExecutor{
 		}
 		
 		
-		return false;
+		return true;
 	}
 
 }

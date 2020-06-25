@@ -9,10 +9,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Sshawarma.SMP.Main;
 import me.ryanhamshire.GriefPrevention.DataStore;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
+import net.md_5.bungee.api.ChatColor;
 
 public class WarListener implements Listener{
 	
@@ -33,7 +35,7 @@ public class WarListener implements Listener{
 		//Else do all this
 		Player player = event.getPlayer();
 		datastore = GriefPrevention.instance.dataStore;
-
+		
 		boolean isWarringFaction = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + event.getPlayer().getUniqueId().toString() + ".faction") + ".war.isWarring");
 		boolean ignoringClaims = datastore.getPlayerData(player.getUniqueId()).ignoreClaims;
 		
@@ -62,19 +64,33 @@ public class WarListener implements Listener{
 			return;
 		}
 		
-		boolean isInWarringTerritory = config.getBoolean("FactionSettings." + config.getString("PlayerSettings." + owner.toString() + ".faction") + ".war.isWarring");
+		String ownerFaction = config.getString("PlayerSettings." + owner.toString() + ".faction");
+		String oFChatColor = config.getString("FactionSettings." + ownerFaction + ".color");
+		boolean isInWarringTerritory = config.getBoolean("FactionSettings." + ownerFaction + ".war.isWarring");
 		boolean haveAccess = false;
 		
 		//Sees if player can build in claim normally
 		if(datastore.getClaimAt(player.getLocation(), true, null).allowAccess(player) == null) {
 					haveAccess = true;
+					//Do nothing if they already have access
+					return;
 		}
 		
 		//USE FROM AND TO to track when the enter.
 		if(isInWarringTerritory && isWarringFaction && haveAccess == false && ignoringClaims == false) {
-			player.sendMessage("You are in warring faction's territory" + " OWNER: " + Bukkit.getOfflinePlayer(owner).getName());
+			player.sendMessage(ChatColor.RED + "[WAR]" + ChatColor.ITALIC + "You are in warring faction's territory " + ChatColor.RESET + ""  + ChatColor.translateAlternateColorCodes('&', oFChatColor) + "" + ChatColor.BOLD + ownerFaction);
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getDisplayName() + " permission set griefprevention.ignoreclaims true");
-			player.performCommand("ignoreclaims");
+			//since lp performs asynch, this must be delayed
+			new BukkitRunnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					player.performCommand("ignoreclaims");
+				}
+				
+			}.runTaskLater(plugin, 1);
+			
 		}
 	}
 	

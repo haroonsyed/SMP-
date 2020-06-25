@@ -46,6 +46,7 @@ public class WarManager extends BukkitRunnable {
 					//Manage permissions or whatever for each player here.
 					OfflinePlayer member = Bukkit.getOfflinePlayer(p);
 					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + member.getName() + " permission set griefprevention.claims true");
+					
 					//Make sure that ignorclaims is in offmode
 					if(GriefPrevention.instance.dataStore.getPlayerData(p).ignoreClaims) {
 						if(Bukkit.getOfflinePlayer(p).isOnline()) {
