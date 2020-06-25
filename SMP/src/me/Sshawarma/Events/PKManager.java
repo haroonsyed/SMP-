@@ -18,7 +18,7 @@ public class PKManager extends BukkitRunnable{
 	public void run() {
 		if(pm.isPluginEnabled("ProjectKorra")) {
 			if(Bukkit.getServer().getWorld("world").getTime() > 13000 && Bukkit.getServer().getWorld("world").getTime() < 23000 && !lastChanged.equals("night")) {
-				pm.getPlugin("ProjectKorra").getConfig().set("Abilities.Water.Bloodbending.Range", 7);
+				pm.getPlugin("ProjectKorra").getConfig().set("Abilities.Water.Bloodbending.Range", 10);
 				pm.getPlugin("ProjectKorra").getConfig().set("Abilities.Water.Bloodbending.Duration", 6000);
 				pm.getPlugin("ProjectKorra").getConfig().set("Abilities.Water.Bloodbending.Cooldown", 3000);
 				pm.getPlugin("ProjectKorra").saveConfig();
@@ -27,7 +27,7 @@ public class PKManager extends BukkitRunnable{
 				lastChanged = "night";
 			}
 			else if((Bukkit.getServer().getWorld("world").getTime() < 13000 || Bukkit.getServer().getWorld("world").getTime() > 23000) && !lastChanged.equals("day")){
-				pm.getPlugin("ProjectKorra").getConfig().set("Abilities.Water.Bloodbending.Range", 3);
+				pm.getPlugin("ProjectKorra").getConfig().set("Abilities.Water.Bloodbending.Range", 5);
 				pm.getPlugin("ProjectKorra").getConfig().set("Abilities.Water.Bloodbending.Duration", 3000);
 				pm.getPlugin("ProjectKorra").getConfig().set("Abilities.Water.Bloodbending.Cooldown", 10000);
 				pm.getPlugin("ProjectKorra").saveConfig();
