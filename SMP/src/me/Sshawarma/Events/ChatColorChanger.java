@@ -13,12 +13,12 @@ import me.Sshawarma.SMP.Main;
 public class ChatColorChanger implements Listener{
 	
 	Plugin plugin = Main.getPlugin(Main.class);
+	FileConfiguration config = plugin.getConfig();
 	
 	@EventHandler
 	public void changeColor(AsyncPlayerChatEvent event) {
 		String msg = event.getMessage();
 		Player player = event.getPlayer();
-		FileConfiguration config = plugin.getConfig();
 		String faction = config.getString("PlayerSettings." + player.getUniqueId().toString()+ ".faction");
 		String colorCodeFac = config.getString("FactionSettings." + faction + ".color");
 		

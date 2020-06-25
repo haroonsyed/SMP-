@@ -39,7 +39,6 @@ public class JoinListener implements Listener{
 		if(!(plugin.getConfig().contains("PlayerSettings." + player.getUniqueId().toString()))) {
 			plugin.getConfig().set("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor", "&7");
 			plugin.getConfig().set("PlayerSettings." + event.getPlayer().getUniqueId().toString() + ".faction", "default");
-			plugin.saveConfig();
 			
 			player.sendMessage(ChatColor.DARK_GRAY + "---------" + ChatColor.GREEN + "Your chat color by default is: "  + ChatColor.GRAY + "GRAY" + ChatColor.DARK_GRAY + "---------");
 			player.sendMessage(ChatColor.DARK_GREEN + "If you would like to change your chatcolor, please use /chatcolor (desired color here w/o parenthesis)");
@@ -48,20 +47,17 @@ public class JoinListener implements Listener{
 		if(!plugin.getConfig().contains("FactionSettings")) {
 			plugin.getConfig().set("FactionSettings.default.peaceful", "false");
 			plugin.getConfig().set("FactionSettings.default.friendlyFire", "true");
-			plugin.saveConfig();
 		}
 		//Creates the chrusted players list
 		if(!plugin.getConfig().contains("PlayerSettings." + player.getUniqueId().toString() + ".chrusted")) {
 			ArrayList<String> chrusted = new ArrayList<String>();
 			plugin.getConfig().set("PlayerSettings." + player.getUniqueId().toString() + ".chrusted", chrusted);
-			plugin.saveConfig();
 		}
 		
 		//Create default for war if it doesn't exist
 		String faction = config.getString("PlayerSettings." + player.getUniqueId().toString() + ".faction");
 		if(!config.contains("FactionSettings." + faction + ".war.isWarring")) {
 			config.set("FactionSettings." + faction + ".war.isWarring", false);
-			plugin.saveConfig();
 		}
 		
 		//Disable annoying not. in war mode
@@ -71,19 +67,21 @@ public class JoinListener implements Listener{
 		
 		//Help Message
 		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 10, 1);
-		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=============================================");
+		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=========================================");
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "|                                                            |");
 		player.sendMessage(ChatColor.GREEN + "  For a list of features and commands, type /help");
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "|                                                            |");
-		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=============================================");
+		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=========================================");
 		
+		
+		plugin.saveConfig();
 	}
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void whiteListNotification(PlayerLoginEvent event) {
 		//If the whitelist does not contain the player...
-		if(!(Bukkit.getServer().getWhitelistedPlayers().contains(Bukkit.getServer().getOfflinePlayer(event.getPlayer().getName())))) {
+		if(!(Bukkit.getServer().getWhitelistedPlayers().contains(Bukkit.getOfflinePlayer(event.getPlayer().getUniqueId())))) {
 			//Find op players and play a sound alerting them who the player is
 			for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 				if(p.isOp()) {

@@ -13,13 +13,15 @@ import net.md_5.bungee.api.ChatColor;
 
 public class CoordinateSaver implements CommandExecutor{
 
+	Plugin plugin = Main.getPlugin(Main.class);
+	FileConfiguration config = plugin.getConfig();
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(sender instanceof Player) {
 			
-			Plugin plugin = Main.getPlugin(Main.class);
-			FileConfiguration config = plugin.getConfig();
+			
 			Player player = (Player) sender;
 			
 			

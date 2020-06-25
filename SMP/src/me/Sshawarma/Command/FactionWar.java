@@ -37,6 +37,8 @@ public class FactionWar implements CommandExecutor{
 	//String is faction name, int is number of votes
 	HashMap<String, Integer> voteTracker = new HashMap<String, Integer>();
 	ArrayList<UUID> voters = new ArrayList<UUID>();
+	Plugin plugin = Main.getPlugin(Main.class);
+	FileConfiguration config = plugin.getConfig();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -44,8 +46,6 @@ public class FactionWar implements CommandExecutor{
 		if(sender instanceof Player) {
 			
 			Player player = (Player) sender;
-			Plugin plugin = Main.getPlugin(Main.class);
-			FileConfiguration config = plugin.getConfig();
 			
 			if(cmd.getName().equalsIgnoreCase("war")) {
 				

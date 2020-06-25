@@ -19,6 +19,9 @@ import net.md_5.bungee.api.ChatColor;
 
 public class AgniKai implements Listener{
 	
+	Plugin plugin = Main.getPlugin(Main.class);
+	FileConfiguration config = plugin.getConfig();
+	
 	//Checks if player died in agni kai. If so, respawn with same amount of xp and back at the agni kai area.
 	@EventHandler
 	public void onDeathInAgniKai(PlayerDeathEvent event) {
@@ -36,8 +39,7 @@ public class AgniKai implements Listener{
 	@EventHandler
 	public void respawn(PlayerRespawnEvent event) {
 		if(me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getPlayer().getUniqueId().toString())) {
-			Plugin plugin = Main.getPlugin(Main.class);
-			FileConfiguration config = plugin.getConfig();
+			
 			Location loc = Bukkit.getWorld("world").getSpawnLocation();
 			loc.setX(config.getDouble("AgniKai.Location.X"));
 			loc.setY(config.getDouble("AgniKai.Location.Y"));
