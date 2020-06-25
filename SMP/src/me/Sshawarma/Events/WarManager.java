@@ -63,6 +63,7 @@ public class WarManager extends BukkitRunnable {
 					}
 				}
 				
+				plugin.saveDefaultConfig();
 				
 			}
 		
