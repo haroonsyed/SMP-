@@ -21,25 +21,27 @@ public class ChatColorChanger implements Listener{
 		Player player = event.getPlayer();
 		String faction = config.getString("PlayerSettings." + player.getUniqueId().toString()+ ".faction");
 		String colorCodeFac = config.getString("FactionSettings." + faction + ".color");
+		String colorCodePl  = config.getString("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor");
 		
 		//Factioncolor
 		if(!config.contains("FactionSettings." + faction + ".color")) {
 			config.set("FactionSettings." + faction + ".color", "&f");
+			plugin.saveConfig();
 		}		
 		
 		//Pretty Obvious it  grabs config and changes chat message with colors based on OP level
 		//Concatenating like this is a nightmare though.
 		if(!(player.isOp())) {
-			event.setFormat(ChatColor.DARK_GRAY + "<" +ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor")) + "" +ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_GRAY + ">"
+			event.setFormat(ChatColor.DARK_GRAY + "<" +ChatColor.translateAlternateColorCodes('&', colorCodePl) + "" +ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_GRAY + ">"
 				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', colorCodeFac) + "[" + faction  + "] "+ "" +  ChatColor.RESET + ""
-				+ ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor")) + msg);
+				+ ChatColor.translateAlternateColorCodes('&', colorCodePl) + msg);
 		}
 		
 		else {
-			event.setFormat(ChatColor.GOLD + "<" + ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor")) + "" + ChatColor.BOLD +  player.getDisplayName() + ChatColor.GOLD + ">"
+			event.setFormat(ChatColor.GOLD + "<" + ChatColor.translateAlternateColorCodes('&', colorCodePl) + "" + ChatColor.BOLD +  player.getDisplayName() + ChatColor.GOLD + ">"
 					+ChatColor.RESET + "" + ChatColor.RED  + "[ADMIN]" + ChatColor.RESET + "" +
 					ChatColor.translateAlternateColorCodes('&', colorCodeFac) + "[" + faction  + "] " + "" + ChatColor.RESET + "" +
-					ChatColor.translateAlternateColorCodes('&', config.getString("PlayerSettings." + player.getUniqueId().toString() + ".chatcolor")) + msg);
+					ChatColor.translateAlternateColorCodes('&', colorCodePl) + msg);
 		}
 		
 	}
