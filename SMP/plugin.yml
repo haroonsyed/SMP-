@@ -1,5 +1,5 @@
 name: SMP
-version: 2.0.3
+version: 2.0.4
 depend: [GriefPrevention]
 author: Sshawarma
 main: me.Sshawarma.SMP.Main
