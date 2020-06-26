@@ -1,18 +1,20 @@
 package me.Sshawarma.Events;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import me.Sshawarma.Command.ChestTrustCommand;
@@ -20,6 +22,27 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ChestAccess implements Listener{
 	
+	@EventHandler
+	public void stopChestExplosion(BlockExplodeEvent event) {
+		
+		Location chestLoc = Bukkit.getServer().getWorld("world").getSpawnLocation();
+		
+		//Prevent concurrent modification with an iterator
+		Iterator<Block> it = event.blockList().iterator();
+		
+		while(it.hasNext()) {
+			
+			Block b = it.next();
+			
+			chestLoc = b.getLocation();
+			
+			if(Death.getdChests().containsKey(chestLoc) || Death.getdChests2().containsKey(chestLoc)) {
+				it.remove();;
+			}
+			
+		}
+		
+	}
 	
 	@EventHandler
 	public void stopChestBreak(BlockDamageEvent event) {
