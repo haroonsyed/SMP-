@@ -60,6 +60,11 @@ public class AgniKai implements CommandExecutor{
 					player.sendMessage("You have left the AgniKai Arena");
 				}
 				
+				//Worldedit dependency
+				else if(!Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+					player.sendMessage(ChatColor.DARK_RED + "AgniKai Disabled until WorldEdit is installed.");
+				}
+				
 				else {
 					ogLocations.put(player.getUniqueId().toString(), player.getLocation());
 					player.teleport(kaiLocation);
