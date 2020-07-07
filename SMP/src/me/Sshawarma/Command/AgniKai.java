@@ -61,7 +61,7 @@ public class AgniKai implements CommandExecutor{
 				}
 				
 				//Worldedit dependency
-				else if(!Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+				else if(Bukkit.getPluginManager().getPlugin("WorldEdit") != null) {
 					player.sendMessage(ChatColor.DARK_RED + "AgniKai Disabled until WorldEdit is installed.");
 				}
 				
