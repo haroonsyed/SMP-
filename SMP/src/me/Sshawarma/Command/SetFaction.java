@@ -39,7 +39,7 @@ public class SetFaction implements CommandExecutor{
 					plugin.getConfig().set("PlayerSettings." + player.getUniqueId().toString() + ".faction", args[0]);
 					//If the faction is being created, give it default settings
 					boolean factionExists = false;
-					for(String playerSetting : plugin.getConfig().getConfigurationSection("PlayerSettings").getKeys(false)) {
+					for(String playerSetting : plugin.getConfig().getConfigurationSection("PlayerSettings." + player.getUniqueId().toString() + ".faction").getKeys(false)) {
 						if(args[0].equalsIgnoreCase(plugin.getConfig().getString(playerSetting + ".faction"))) {
 							factionExists = true;
 						}

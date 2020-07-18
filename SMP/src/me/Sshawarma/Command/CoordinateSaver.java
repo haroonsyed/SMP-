@@ -68,6 +68,8 @@ public class CoordinateSaver implements CommandExecutor{
 						SetColor translator = new SetColor();
 						String colorCode = translator.translateColorToCode(args[2]);
 						if(colorCode.equalsIgnoreCase("")) {
+							sender.sendMessage(ChatColor.RED + "INVALID COLOR!");
+							sender.sendMessage("Possible colors are: dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black");
 							return false;
 						}
 						
@@ -99,9 +101,13 @@ public class CoordinateSaver implements CommandExecutor{
 						player.sendMessage("");
 						
 						//Null fix
-						if(!config.contains("PlayerSettings." + player.getUniqueId().toString() + ".coords")) {
+						if(config.getConfigurationSection("PlayerSetting." + player.getUniqueId().toString() + ".coords").getKeys(false).size() == 0) {
+							sender.sendMessage("No spots saved!");
 							return false;
 						}
+						//if(!config.contains("PlayerSettings." + player.getUniqueId().toString() + ".coords")) {
+							//return false;
+						//}
 						
 						for(String spot : config.getConfigurationSection("PlayerSettings." + player.getUniqueId().toString() + ".coords").getKeys(false)) {
 							
