@@ -119,7 +119,7 @@ public class CoordinateSaver implements CommandExecutor{
 						player.sendMessage("");
 						
 						//Null fix
-						if(config.getConfigurationSection("PlayerSetting." + player.getUniqueId().toString() + ".coords").getKeys(false).size() == 0) {
+						if(config.getConfigurationSection("PlayerSettings." + player.getUniqueId().toString() + ".coords").getKeys(false).size() == 0) {
 							sender.sendMessage("No spots saved!");
 							return false;
 						}
