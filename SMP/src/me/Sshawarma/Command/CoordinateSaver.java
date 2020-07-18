@@ -35,6 +35,24 @@ public class CoordinateSaver implements CommandExecutor{
 				
 				if(args.length == 2) {
 					
+					//Save with no color
+					if(args[0].equalsIgnoreCase("save")){
+						Location loc = player.getLocation();
+						SetColor translator = new SetColor();
+						String colorCode = translator.translateColorToCode("white");
+						
+						config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords." + args[1] + ".X", loc.getBlockX());
+						config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords." + args[1] + ".Y", loc.getBlockY());
+						config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords." + args[1] + ".Z", loc.getBlockZ());
+						
+						config.set("PlayerSettings." + player.getUniqueId().toString() + ".coords." + args[1] + ".Color", colorCode);
+						
+						plugin.saveConfig();
+						
+						player.sendMessage(ChatColor.GREEN + "Spot Saved!");
+					
+					}
+					
 					//Delete coordinate
 					if(args[0].equalsIgnoreCase("delete")) {
 						
@@ -132,6 +150,7 @@ public class CoordinateSaver implements CommandExecutor{
 				}
 				
 				else {
+					sender.sendMessage("Too many/incorrect arguments. Name must not contain spaces?");
 					return false;
 				}
 				
