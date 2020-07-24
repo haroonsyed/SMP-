@@ -57,7 +57,7 @@ public class Main extends JavaPlugin{
 		this.getCommand("war").setExecutor(new FactionWar());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
 		new WarManager().runTaskTimer(Main.getPlugin(Main.class), 1, 1200);
-		new AFKListener().runTaskTimer(Main.getPlugin(Main.class), 1, 1200);
+		new AFKListener().runTaskTimer(Main.getPlugin(Main.class), 1, 1200 * 5); //1200 is a minute
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
