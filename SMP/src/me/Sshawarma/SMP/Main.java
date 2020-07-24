@@ -13,6 +13,7 @@ import me.Sshawarma.Command.FindCommand;
 import me.Sshawarma.Command.Messaging;
 import me.Sshawarma.Command.SetColor;
 import me.Sshawarma.Command.SetFaction;
+import me.Sshawarma.Events.AFKListener;
 import me.Sshawarma.Events.Beds;
 import me.Sshawarma.Events.ChatColorChanger;
 import me.Sshawarma.Events.ChatListener;
@@ -56,6 +57,7 @@ public class Main extends JavaPlugin{
 		this.getCommand("war").setExecutor(new FactionWar());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
 		new WarManager().runTaskTimer(Main.getPlugin(Main.class), 1, 1200);
+		new AFKListener().runTaskTimer(Main.getPlugin(Main.class), 1, 1200);
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
