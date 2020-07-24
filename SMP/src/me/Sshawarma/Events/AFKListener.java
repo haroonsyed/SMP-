@@ -46,7 +46,7 @@ public class AFKListener extends BukkitRunnable{
 			
 			Map.Entry<UUID, Block> data = it.next();
 			if(!Bukkit.getOfflinePlayer(data.getKey()).isOnline()) {
-				lastLocations.remove(data.getKey());
+				it.remove();
 			}
 			
 		}
