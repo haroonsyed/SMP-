@@ -1,5 +1,6 @@
 package me.Sshawarma.Events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -40,6 +41,10 @@ public class ChatListener implements Listener {
 			messaging.messageFaction(id, msg);
 			
 			event.setCancelled(true);
+		}
+		else if(event.getMessage().contains("afk") || event.getMessage().contains("AFK")) {
+			AFKListener afk = new AFKListener();
+			Bukkit.broadcastMessage(afk.getAFK().toString());
 		}
 		
 	}

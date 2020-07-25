@@ -1,5 +1,6 @@
 package me.Sshawarma.Events;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,13 +18,30 @@ public class AFKListener extends BukkitRunnable{
 	
 	private HashMap<UUID, Location> lastLocations = new HashMap<UUID, Location>();
 	
+	public ArrayList<String> getAFK(){
+		
+		ArrayList<String> afk = new ArrayList<String>();
+		
+		Iterator<Entry<UUID, Location>> it = lastLocations.entrySet().iterator();
+		while(it.hasNext()) {
+			Map.Entry<UUID, Location> data = it.next();
+			afk.add(Bukkit.getOfflinePlayer(data.getKey()).getName());
+		}
+		
+		return afk;
+		
+	}
+	
 	@Override
 	public void run() {
-		
+		//If locations matches last known location, print they are AFK
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			
 			if(lastLocations.containsKey(p.getUniqueId())) {
-				if(lastLocations.get(p.getUniqueId()) == p.getLocation().getBlock().getLocation()) {
+				
+				Location lastLoc = lastLocations.get(p.getUniqueId());
+				
+				if(lastLoc.getBlockX() == p.getLocation().getBlockX() && lastLoc.getBlockX() == p.getLocation().getBlockY() && lastLoc.getBlockZ() == p.getLocation().getBlockZ()) {
 					Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "" + ChatColor.ITALIC + "[ServerInfo]: Player " + p.getDisplayName() + " is AFK!");
 				}
 				else {
