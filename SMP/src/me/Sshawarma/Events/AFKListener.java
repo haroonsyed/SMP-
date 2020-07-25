@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -15,7 +15,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class AFKListener extends BukkitRunnable{
 	
-	private HashMap<UUID, Block> lastLocations = new HashMap<UUID, Block>();
+	private HashMap<UUID, Location> lastLocations = new HashMap<UUID, Location>();
 	
 	@Override
 	public void run() {
@@ -23,15 +23,15 @@ public class AFKListener extends BukkitRunnable{
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			
 			if(lastLocations.containsKey(p.getUniqueId())) {
-				if(lastLocations.get(p.getUniqueId()) == p.getLocation().getBlock()) {
+				if(lastLocations.get(p.getUniqueId()) == p.getLocation().getBlock().getLocation()) {
 					Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "" + ChatColor.ITALIC + "[ServerInfo]: Player " + p.getDisplayName() + " is AFK!");
 				}
 				else {
-					lastLocations.put(p.getUniqueId(), p.getLocation().getBlock());
+					lastLocations.put(p.getUniqueId(), p.getLocation().getBlock().getLocation());
 				}
 			}
 			else {
-				lastLocations.put(p.getUniqueId(), p.getLocation().getBlock());
+				lastLocations.put(p.getUniqueId(), p.getLocation().getBlock().getLocation());
 			}
 			
 		}
@@ -40,11 +40,11 @@ public class AFKListener extends BukkitRunnable{
 		//Removes offline players
 		
 		
-		Iterator<Entry<UUID, Block>> it = lastLocations.entrySet().iterator();
+		Iterator<Entry<UUID, Location>> it = lastLocations.entrySet().iterator();
 		
 		while(it.hasNext()) {
 			
-			Map.Entry<UUID, Block> data = it.next();
+			Map.Entry<UUID, Location> data = it.next();
 			if(!Bukkit.getOfflinePlayer(data.getKey()).isOnline()) {
 				it.remove();
 			}
