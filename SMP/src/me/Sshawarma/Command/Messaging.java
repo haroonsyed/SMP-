@@ -37,8 +37,6 @@ public class Messaging implements CommandExecutor{
 			
 			if((cmd.getName().equalsIgnoreCase("msg") || cmd.getName().equalsIgnoreCase("r")) && args.length > 0) {
 				
-				//Make the message
-				boolean sentMessage = false;
 				String msg = "";
 				for(int i=1; i<args.length; i++) {
 					msg += args[i] + " ";
@@ -54,8 +52,6 @@ public class Messaging implements CommandExecutor{
 							sender.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
 							lastMessaged.put(((Player) sender).getDisplayName(), p.getDisplayName());
 							lastMessaged.put(p.getDisplayName(), ((Player) sender).getDisplayName());
-							
-							sentMessage = true;
 						}
 					}
 				}
@@ -75,7 +71,6 @@ public class Messaging implements CommandExecutor{
 							sender.sendMessage(ChatColor.ITALIC + "" + ChatColor.LIGHT_PURPLE + "<" + ((Player) sender).getDisplayName() + "> [MSG] " + ChatColor.GRAY + msg);
 							lastMessaged.put(((Player) sender).getDisplayName(), p.getDisplayName());
 							lastMessaged.put(p.getDisplayName(), ((Player) sender).getDisplayName());
-							sentMessage = true;
 						}
 					}
 				}

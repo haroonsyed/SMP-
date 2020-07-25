@@ -26,6 +26,7 @@ public class AFKListener extends BukkitRunnable{
 		while(it.hasNext()) {
 			Map.Entry<UUID, Location> data = it.next();
 			afk.add(Bukkit.getOfflinePlayer(data.getKey()).getName());
+			afk.add(data.getValue().getBlockX() + " " + data.getValue().getBlockY() + " "+ data.getValue().getBlockZ());
 		}
 		
 		return afk;
@@ -34,6 +35,7 @@ public class AFKListener extends BukkitRunnable{
 	
 	@Override
 	public void run() {
+		
 		//If locations matches last known location, print they are AFK
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			
@@ -41,15 +43,15 @@ public class AFKListener extends BukkitRunnable{
 				
 				Location lastLoc = lastLocations.get(p.getUniqueId());
 				
-				if(lastLoc.getBlockX() == p.getLocation().getBlockX() && lastLoc.getBlockX() == p.getLocation().getBlockY() && lastLoc.getBlockZ() == p.getLocation().getBlockZ()) {
-					Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "" + ChatColor.ITALIC + "[ServerInfo]: Player " + p.getDisplayName() + " is AFK!");
+				if(lastLoc.equals(p.getLocation())) {
+					Bukkit.broadcastMessage(ChatColor.YELLOW + "" + ChatColor.ITALIC + "[ServerInfo]: Player " + p.getDisplayName() + " is AFK!");
 				}
 				else {
-					lastLocations.put(p.getUniqueId(), p.getLocation().getBlock().getLocation());
+					lastLocations.put(p.getUniqueId(), p.getLocation());
 				}
 			}
 			else {
-				lastLocations.put(p.getUniqueId(), p.getLocation().getBlock().getLocation());
+				lastLocations.put(p.getUniqueId(), p.getLocation());
 			}
 			
 		}
