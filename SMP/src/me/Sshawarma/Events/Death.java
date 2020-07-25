@@ -58,9 +58,12 @@ public class Death implements Listener{
 		if(event.getEntity() instanceof Player) {
 			
 			//Exp
-			int xp = event.getEntity().getLevel();
-			event.getEntity().setLevel(xp/2);
-			event.setKeepLevel(true);
+			if(!me.Sshawarma.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
+				int xp = event.getEntity().getLevel();
+				event.getEntity().setLevel(xp/2);
+				event.setKeepLevel(true);
+			}
+			
 			
 			Plugin plugin = Main.getPlugin(Main.class);
 			FileConfiguration config = plugin.getConfig();
