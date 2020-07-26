@@ -17,26 +17,26 @@ import net.md_5.bungee.api.ChatColor;
 public class AFKListener extends BukkitRunnable{
 	
 	private HashMap<UUID, Location> lastLocations = new HashMap<UUID, Location>();
+	private ArrayList<String> afk = new ArrayList<String>();
 	
-	public ArrayList<String> getAFK(){
+	public String getAFKMessage(){
 		
-		ArrayList<String> afk = new ArrayList<String>();
+		String afkMessage = "";
 		
-		Iterator<Entry<UUID, Location>> it = lastLocations.entrySet().iterator();
-		while(it.hasNext()) {
-			Map.Entry<UUID, Location> data = it.next();
-			afk.add(Bukkit.getOfflinePlayer(data.getKey()).getName());
-			afk.add(data.getValue().getBlockX() + " " + data.getValue().getBlockY() + " "+ data.getValue().getBlockZ());
+		for(String p : afk) {
+			afkMessage += (ChatColor.YELLOW + "" + ChatColor.ITALIC + "[ServerInfo]: Player " + p + " is AFK!\n");
 		}
 		
-		return afk;
+		return afkMessage;
 		
 	}
 	
 	@Override
 	public void run() {
 		
-		//If locations matches last known location, print they are AFK
+
+
+		//If locations matches last known location, add them to afk
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			
 			if(lastLocations.containsKey(p.getUniqueId())) {
@@ -44,7 +44,7 @@ public class AFKListener extends BukkitRunnable{
 				Location lastLoc = lastLocations.get(p.getUniqueId());
 				
 				if(lastLoc.equals(p.getLocation())) {
-					Bukkit.broadcastMessage(ChatColor.YELLOW + "" + ChatColor.ITALIC + "[ServerInfo]: Player " + p.getDisplayName() + " is AFK!");
+					
 				}
 				else {
 					lastLocations.put(p.getUniqueId(), p.getLocation());
@@ -56,9 +56,10 @@ public class AFKListener extends BukkitRunnable{
 			
 		}
 		
-		//Called every minute or so, so two for loops does not hit efficiency
-		//Removes offline players
+		Bukkit.broadcastMessage(getAFKMessage());
 		
+		
+		//Removes offline players
 		
 		Iterator<Entry<UUID, Location>> it = lastLocations.entrySet().iterator();
 		

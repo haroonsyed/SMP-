@@ -20,7 +20,13 @@ import net.md_5.bungee.api.ChatColor;
 
 public class JoinListener implements Listener{
 	
+	Main main;
 	Plugin plugin = Main.getPlugin(Main.class);
+	
+	public JoinListener(Main main) {
+		this.main = main;
+	}
+	
 	
 	@EventHandler
 	public void giveDefaults(PlayerJoinEvent event) {
@@ -73,11 +79,13 @@ public class JoinListener implements Listener{
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "|                                                            |");
 		player.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "=========================================");
 		
+		//AFK Message
+		player.sendMessage(main.getAFKListener().getAFKMessage());
+		
 		
 		plugin.saveConfig();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void whiteListNotification(PlayerLoginEvent event) {
 		//If the whitelist does not contain the player...

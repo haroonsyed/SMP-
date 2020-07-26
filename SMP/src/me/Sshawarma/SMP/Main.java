@@ -29,18 +29,21 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin{
 	
+	//Class holders
 	private AFKListener afkListener;
+	private JoinListener joinListener;
 	
 	//First real plugin woooo!
 	@Override
 	public void onEnable(){
 		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "\n\nSMP has been enabled!\n");
 		getServer().getPluginManager().registerEvents(new Beds(), this);
-		getServer().getPluginManager().registerEvents(new ChatListener(), this);
+		getServer().getPluginManager().registerEvents(new ChatListener(this), this);
 		getServer().getPluginManager().registerEvents(new Death(), this);
 		getServer().getPluginManager().registerEvents(new ChestAccess(), this);
 		getServer().getPluginManager().registerEvents(new StopCreeper(), this);
-		getServer().getPluginManager().registerEvents(new JoinListener(), this);
+		joinListener = new JoinListener(this);
+		getServer().getPluginManager().registerEvents(joinListener, this);
 		getServer().getPluginManager().registerEvents(new ChatColorChanger(), this);
 		getServer().getPluginManager().registerEvents(new FactionAttack(), this);
 		getServer().getPluginManager().registerEvents(new me.Sshawarma.Events.AgniKai(), this);
@@ -59,9 +62,10 @@ public class Main extends JavaPlugin{
 		this.getCommand("war").setExecutor(new FactionWar());
 		new PKManager().runTaskTimer(Main.getPlugin(Main.class), 1, 100);
 		new WarManager().runTaskTimer(Main.getPlugin(Main.class), 1, 1200);
-		
-		afkListener = new AFKListener();
+		//Both in one line to keep intialization localized 
+		afkListener = new AFKListener(); 
 		afkListener.runTaskTimer(Main.getPlugin(Main.class), 1, 1200 * 3); //1200 is a minute
+		
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
@@ -87,6 +91,10 @@ public class Main extends JavaPlugin{
 		}
 		
 		getServer().getConsoleSender().sendMessage(ChatColor.RED + "\n\nSMP has been disabled!\n");		
+	}
+	
+	public AFKListener getAFKListener() {
+		return afkListener;
 	}
 	
 }

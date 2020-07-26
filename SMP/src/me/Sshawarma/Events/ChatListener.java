@@ -5,11 +5,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import me.Sshawarma.Command.FindCommand;
 import me.Sshawarma.Command.Messaging;
+import me.Sshawarma.SMP.Main;
 import net.md_5.bungee.api.ChatColor;
 
 public class ChatListener implements Listener {
 	
-
+	Main main;
+	
+	public ChatListener(Main main) {
+		this.main = main;
+	}
 	
 	
 	@EventHandler
@@ -43,6 +48,7 @@ public class ChatListener implements Listener {
 		}
 		else if(event.getMessage().contains("afk") || event.getMessage().contains("AFK")) {
 			//Learn dependency Injection to get the main class's object of AFK.
+			event.getPlayer().sendMessage(main.getAFKListener().getAFKMessage());
 		}
 		
 	}
