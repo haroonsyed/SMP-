@@ -21,11 +21,7 @@ public class AFKListener extends BukkitRunnable{
 	
 	public String getAFKMessage(){
 		
-		String afkMessage = "";
-		
-		for(String p : afk) {
-			afkMessage += (ChatColor.YELLOW + "" + ChatColor.ITALIC + "[ServerInfo]: Player " + p + " is AFK!\n");
-		}
+		String afkMessage = ChatColor.YELLOW + "" + ChatColor.ITALIC + "[ServerInfo]: AFKPLAYERS are " + afk.toString();
 		
 		return afkMessage;
 		
@@ -44,7 +40,7 @@ public class AFKListener extends BukkitRunnable{
 				Location lastLoc = lastLocations.get(p.getUniqueId());
 				
 				if(lastLoc.equals(p.getLocation())) {
-					
+					afk.add(p.getDisplayName());
 				}
 				else {
 					lastLocations.put(p.getUniqueId(), p.getLocation());
@@ -56,9 +52,11 @@ public class AFKListener extends BukkitRunnable{
 			
 		}
 		
-		Bukkit.broadcastMessage(getAFKMessage());
+		if(afk.size() > 0) {
+			Bukkit.broadcastMessage(getAFKMessage());
+		}
 		
-		
+
 		//Removes offline players
 		
 		Iterator<Entry<UUID, Location>> it = lastLocations.entrySet().iterator();

@@ -3,6 +3,8 @@ package me.Sshawarma.Events;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
 import me.Sshawarma.Command.FindCommand;
 import me.Sshawarma.Command.Messaging;
 import me.Sshawarma.SMP.Main;
@@ -48,7 +50,15 @@ public class ChatListener implements Listener {
 		}
 		else if(event.getMessage().contains("afk") || event.getMessage().contains("AFK")) {
 			//Learn dependency Injection to get the main class's object of AFK.
-			event.getPlayer().sendMessage(main.getAFKListener().getAFKMessage());
+			
+			new BukkitRunnable() {
+				
+				public void run() {
+					event.getPlayer().sendMessage(main.getAFKListener().getAFKMessage());
+				}
+				
+			}.runTaskLater(Main.getPlugin(Main.class), 1);
+			
 		}
 		
 	}
