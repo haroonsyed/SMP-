@@ -15,5 +15,7 @@ a config to save data, location saver, and more.
 Although most of these systems are simple on their own, each one required different research, approaches, and data structures to complete. My time spent making this 
 was a big contributer to the easy time I had in programming one and two of college.
 
+I have fond memories of developing this, and installing it will give a good idea of what my server was like.
+
 Dependencies include:
 Grief prevention, projectkorra
