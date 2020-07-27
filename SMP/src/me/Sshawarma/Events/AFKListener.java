@@ -39,10 +39,13 @@ public class AFKListener extends BukkitRunnable{
 				
 				Location lastLoc = lastLocations.get(p.getUniqueId());
 				
-				if(lastLoc.equals(p.getLocation())) {
+				if(lastLoc.equals(p.getLocation()) && !afk.contains(p.getDisplayName())) {
 					afk.add(p.getDisplayName());
 				}
 				else {
+					if(afk.contains(p.getDisplayName())) {
+						afk.remove(p.getDisplayName());
+					}
 					lastLocations.put(p.getUniqueId(), p.getLocation());
 				}
 			}
