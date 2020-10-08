@@ -6,6 +6,13 @@ Containing some of the earliest code I have written, it contains all the basic m
 However, it also show cases my growth, including learning dependency injection, inheritance, polymorphism, collection types, hashmap, file IO, git itself, learning other's APIs,
 and more.
 
+# TECHNOLOGIES USED:
+  - LAMP STACK ON LINUX
+  - CLOUDFLARE AS DOMAIN NAME REGISTRAR
+  - WORDPRESS SITE RUNNING ON LAMP STACK, WITH CUSTOM WRITTEN PLUGINS
+  - SSL CERTIFICATION, GENERATION, VERIFICATION, WITH LOCAL SERVER
+  - JAVA PROGRAMMING
+
 The endeavour started off as a challenge to copy the functionality of somebody else's SMP plugin and customize it to my needs. All I needed to do was make a
 teleport/find player command and a sleep notifier. It gradually increased to tenfold the original size. Its functionality includes a chat system, 
 basic faction system, fight arenas, griefprevention api hooks(war system), projectkorra hooks(make waterbending stronger at night), a chest to hold items on death
