@@ -12,6 +12,8 @@ and more.
   - WORDPRESS SITE RUNNING ON LAMP STACK, WITH CUSTOM WRITTEN PLUGINS
   - SSL CERTIFICATION, GENERATION, VERIFICATION, WITH LOCAL SERVER
   - JAVA PROGRAMMING
+  - Maven for dependency handling
+  - Spigot API
 
 The endeavour started off as a challenge to copy the functionality of somebody else's SMP plugin and customize it to my needs. All I needed to do was make a
 teleport/find player command and a sleep notifier. It gradually increased to tenfold the original size. Its functionality includes a chat system, 
