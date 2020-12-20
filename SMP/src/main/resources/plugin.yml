@@ -1,0 +1,38 @@
+name: SMP
+version: ${project.version}
+depend: [GriefPrevention]
+author: Sshawarma
+main: main.java.me.Sshawarma.SMP.Main.Main
+description: Simple plugin with useful SMP features.
+api-version: 1.15
+commands:
+  find:
+    description: asks target for coordinates
+  chatcolor:
+    description: changes chatcolor
+  chrust:
+    description: trusts another player to access your deathchest
+  dischrust:
+    description: removes another player access to your deathchest
+  msg:
+    description: Message player
+  r:
+    description: Reply to player
+  setFaction:
+     description: sets the player's faction
+     usage: "Usage: /setFaction [factionName] [playerName]"
+  faction:
+     description: used to accept or deny or choose faction
+     usage: "Usage: /faction [accept/deny/choose] [playerName/factionName]"
+  agnikai:
+     description: "Battle with friend and foe using the elements."
+     usage: "Usage: /agnikai"
+  setAgniKaiLoc:
+     description: "Sets the arena location for agni kai"
+     usage: "Usage: /setAgniKaiLoc. Stand over block where this should happen."
+  spot:
+     description: "Save important locations!"
+     usage: "Usage: /spot [save | delete | list] [name and color (save) | name (delete)]}"
+  war:
+     description: "Declare war on other factions, enter war-mode for three hours!"
+     usage: "Usage: /war start"
