@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Command;
+package me.Sshawarma.SMP.Command;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import main.java.me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Main.Main;
 import net.md_5.bungee.api.ChatColor;
 
 public class CoordinateSaver implements CommandExecutor{

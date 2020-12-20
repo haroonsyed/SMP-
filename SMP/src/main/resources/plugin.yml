@@ -2,7 +2,7 @@ name: SMP
 version: ${project.version}
 depend: [GriefPrevention]
 author: Sshawarma
-main: main.java.me.Sshawarma.SMP.Main.Main
+main: me.Sshawarma.SMP.Main.Main
 description: Simple plugin with useful SMP features.
 api-version: 1.15
 commands:

@@ -1,30 +1,30 @@
-package main.java.me.Sshawarma.SMP.Main;
+package me.Sshawarma.SMP.Main;
 
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
-import main.java.me.Sshawarma.SMP.Command.AgniKai;
-import main.java.me.Sshawarma.SMP.Command.ChestTrustCommand;
-import main.java.me.Sshawarma.SMP.Command.CoordinateSaver;
-import main.java.me.Sshawarma.SMP.Command.FactionWar;
-import main.java.me.Sshawarma.SMP.Command.FindCommand;
-import main.java.me.Sshawarma.SMP.Command.Messaging;
-import main.java.me.Sshawarma.SMP.Command.SetColor;
-import main.java.me.Sshawarma.SMP.Command.SetFaction;
-import main.java.me.Sshawarma.SMP.Events.AFKListener;
-import main.java.me.Sshawarma.SMP.Events.Beds;
-import main.java.me.Sshawarma.SMP.Events.ChatColorChanger;
-import main.java.me.Sshawarma.SMP.Events.ChatListener;
-import main.java.me.Sshawarma.SMP.Events.Death;
-import main.java.me.Sshawarma.SMP.Events.FactionAttack;
-import main.java.me.Sshawarma.SMP.Events.JoinListener;
-import main.java.me.Sshawarma.SMP.Events.PKManager;
-import main.java.me.Sshawarma.SMP.Events.ChestAccess;
-import main.java.me.Sshawarma.SMP.Events.StopCreeper;
-import main.java.me.Sshawarma.SMP.Events.WarListener;
-import main.java.me.Sshawarma.SMP.Events.WarManager;
+import me.Sshawarma.SMP.Command.AgniKai;
+import me.Sshawarma.SMP.Command.ChestTrustCommand;
+import me.Sshawarma.SMP.Command.CoordinateSaver;
+import me.Sshawarma.SMP.Command.FactionWar;
+import me.Sshawarma.SMP.Command.FindCommand;
+import me.Sshawarma.SMP.Command.Messaging;
+import me.Sshawarma.SMP.Command.SetColor;
+import me.Sshawarma.SMP.Command.SetFaction;
+import me.Sshawarma.SMP.Events.AFKListener;
+import me.Sshawarma.SMP.Events.Beds;
+import me.Sshawarma.SMP.Events.ChatColorChanger;
+import me.Sshawarma.SMP.Events.ChatListener;
+import me.Sshawarma.SMP.Events.Death;
+import me.Sshawarma.SMP.Events.FactionAttack;
+import me.Sshawarma.SMP.Events.JoinListener;
+import me.Sshawarma.SMP.Events.PKManager;
+import me.Sshawarma.SMP.Events.ChestAccess;
+import me.Sshawarma.SMP.Events.StopCreeper;
+import me.Sshawarma.SMP.Events.WarListener;
+import me.Sshawarma.SMP.Events.WarManager;
 import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin{
@@ -46,7 +46,7 @@ public class Main extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(joinListener, this);
 		getServer().getPluginManager().registerEvents(new ChatColorChanger(), this);
 		getServer().getPluginManager().registerEvents(new FactionAttack(), this);
-		getServer().getPluginManager().registerEvents(new main.java.me.Sshawarma.SMP.Events.AgniKai(), this);
+		getServer().getPluginManager().registerEvents(new me.Sshawarma.SMP.Events.AgniKai(), this);
 		getServer().getPluginManager().registerEvents(new WarListener(), this);
 		this.getCommand("find").setExecutor(new FindCommand());
 		this.getCommand("chatcolor").setExecutor(new SetColor());
@@ -84,10 +84,10 @@ public class Main extends JavaPlugin{
 		}
 		
 		//Sends all players out of agnikai
-		for(String p : main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.keySet()) {
+		for(String p : me.Sshawarma.SMP.Command.AgniKai.ogLocations.keySet()) {
 			//If in agnikai teleport them out
 			UUID id = UUID.fromString(p);
-			Bukkit.getOfflinePlayer(id).getPlayer().teleport(main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.get(id.toString()));
+			Bukkit.getOfflinePlayer(id).getPlayer().teleport(me.Sshawarma.SMP.Command.AgniKai.ogLocations.get(id.toString()));
 		}
 		
 		getServer().getConsoleSender().sendMessage(ChatColor.RED + "\n\nSMP has been disabled!\n");		

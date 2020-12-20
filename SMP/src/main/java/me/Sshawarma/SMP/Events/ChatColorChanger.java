@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Events;
+package me.Sshawarma.SMP.Events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
 
-import main.java.me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Main.Main;
 
 public class ChatColorChanger implements Listener{
 	

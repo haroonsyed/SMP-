@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Events;
+package me.Sshawarma.SMP.Events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import main.java.me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Main.Main;
 import net.md_5.bungee.api.ChatColor;
 
 public class Death implements Listener{
@@ -58,7 +58,7 @@ public class Death implements Listener{
 		if(event.getEntity() instanceof Player) {
 			
 			//Exp
-			if(!main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
+			if(!me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
 				int xp = event.getEntity().getLevel();
 				event.getEntity().setLevel(xp/2);
 				event.setKeepLevel(true);
@@ -70,7 +70,7 @@ public class Death implements Listener{
 			String faction = config.getString("PlayerSettings." + event.getEntity().getUniqueId().toString() + ".faction");
 			
 			//AgniKai Check and War Check
-			if(main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
+			if(me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
 				return;
 			}
 			else if(config.getBoolean("FactionSettings." + faction + ".war.isWarring") == true) {

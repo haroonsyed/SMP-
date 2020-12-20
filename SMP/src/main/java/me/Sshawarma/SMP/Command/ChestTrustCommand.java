@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Command;
+package me.Sshawarma.SMP.Command;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -12,7 +12,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import main.java.me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Main.Main;
 
 public class ChestTrustCommand implements CommandExecutor{
 	

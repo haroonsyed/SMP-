@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Events;
+package me.Sshawarma.SMP.Events;
 
 import java.util.ArrayList;
 
@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
 
-import main.java.me.Sshawarma.SMP.Main.Main;
-import main.java.me.Sshawarma.SMP.Util.Utils;
+import me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Util.Utils;
 import net.md_5.bungee.api.ChatColor;
 
 public class JoinListener implements Listener{

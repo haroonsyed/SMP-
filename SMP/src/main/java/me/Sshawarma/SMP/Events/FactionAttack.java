@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Events;
+package me.Sshawarma.SMP.Events;
 
 import java.util.HashMap;
 
@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.plugin.Plugin;
 
-import main.java.me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Main.Main;
 import net.md_5.bungee.api.ChatColor;
 
 public class FactionAttack implements Listener{
@@ -29,7 +29,7 @@ public class FactionAttack implements Listener{
 			//If the two are from different factions, check if one is peaceful. If so, then cancel the attack.
 			if(!faction1.equalsIgnoreCase(faction2) && (config.getString("FactionSettings." + faction1 + ".peaceful").equals("true") || config.getString("FactionSettings." + faction2 + ".peaceful").equals("true"))){
 				//AgniKai check. If one is in agnikai then both are, so just check one.
-				HashMap<String, Location> agniKaiPlayers = main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations;
+				HashMap<String, Location> agniKaiPlayers = me.Sshawarma.SMP.Command.AgniKai.ogLocations;
 				if(!agniKaiPlayers.containsKey(event.getDamager().getUniqueId().toString())) {
 					event.setCancelled(true);
 					event.getDamager().sendMessage(ChatColor.DARK_RED + "Player is in peaceful faction: " + faction2 + "! Your's is: " + faction1 + ".");

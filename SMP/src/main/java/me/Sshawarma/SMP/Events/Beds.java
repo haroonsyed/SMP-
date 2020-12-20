@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Events;
+package me.Sshawarma.SMP.Events;
 
 import java.util.HashMap;
 
@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import main.java.me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Main.Main;
 import net.md_5.bungee.api.ChatColor;
 
 public class Beds implements Listener{

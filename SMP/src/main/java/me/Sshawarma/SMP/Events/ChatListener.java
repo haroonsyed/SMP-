@@ -1,13 +1,13 @@
-package main.java.me.Sshawarma.SMP.Events;
+package me.Sshawarma.SMP.Events;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import main.java.me.Sshawarma.SMP.Command.FindCommand;
-import main.java.me.Sshawarma.SMP.Command.Messaging;
-import main.java.me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Command.FindCommand;
+import me.Sshawarma.SMP.Command.Messaging;
+import me.Sshawarma.SMP.Main.Main;
 import net.md_5.bungee.api.ChatColor;
 
 public class ChatListener implements Listener {

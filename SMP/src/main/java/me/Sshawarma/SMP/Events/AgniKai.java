@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Events;
+package me.Sshawarma.SMP.Events;
 
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
-import main.java.me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Main.Main;
 import net.md_5.bungee.api.ChatColor;
 
 public class AgniKai implements Listener{
@@ -25,7 +25,7 @@ public class AgniKai implements Listener{
 	//Checks if player died in agni kai. If so, respawn with same amount of xp and back at the agni kai area.
 	@EventHandler
 	public void onDeathInAgniKai(PlayerDeathEvent event) {
-		if(main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
+		if(me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(event.getEntity().getUniqueId().toString())) {
 			event.setKeepLevel(true);
 			event.setKeepInventory(true);
 			event.getDrops().clear();
@@ -38,7 +38,7 @@ public class AgniKai implements Listener{
 	
 	@EventHandler
 	public void respawn(PlayerRespawnEvent event) {
-		if(main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(event.getPlayer().getUniqueId().toString())) {
+		if(me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(event.getPlayer().getUniqueId().toString())) {
 			
 			Location loc = Bukkit.getWorld("world").getSpawnLocation();
 			loc.setX(config.getDouble("AgniKai.Location.X"));
@@ -54,9 +54,9 @@ public class AgniKai implements Listener{
 	public void tpOut(PlayerQuitEvent event) {
 		//If in agnikai teleport them out
 		UUID id = event.getPlayer().getUniqueId();
-		if(main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(id.toString())) {
-			Bukkit.getOfflinePlayer(id).getPlayer().teleport(main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.get(id.toString()));
-			main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.remove(id.toString());
+		if(me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(id.toString())) {
+			Bukkit.getOfflinePlayer(id).getPlayer().teleport(me.Sshawarma.SMP.Command.AgniKai.ogLocations.get(id.toString()));
+			me.Sshawarma.SMP.Command.AgniKai.ogLocations.remove(id.toString());
 		}
 		
 	}
@@ -65,7 +65,7 @@ public class AgniKai implements Listener{
 	@EventHandler
 	public void stopTrades(PlayerDropItemEvent event) {
 		Player p = event.getPlayer();
-		if(main.java.me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(p.getUniqueId().toString())) {
+		if(me.Sshawarma.SMP.Command.AgniKai.ogLocations.containsKey(p.getUniqueId().toString())) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + "No trading items in the arena!");
 		}

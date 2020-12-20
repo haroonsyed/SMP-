@@ -5,7 +5,9 @@
   <version>2.2.5</version>
   <name>SMP</name>
   <build>
-    <sourceDirectory>src/main</sourceDirectory>
+
+    <sourceDirectory>src/main/java</sourceDirectory>
+
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -52,6 +54,7 @@
 	    <groupId>com.github.TechFortress</groupId>
 	    <artifactId>GriefPrevention</artifactId>
 	    <version>16.17.0</version>
+        <scope>provided</scope>
 	</dependency>
 	
   </dependencies>

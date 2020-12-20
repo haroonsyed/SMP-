@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Util;
+package me.Sshawarma.SMP.Util;
 
 import java.util.Map;
 import java.util.UUID;
@@ -8,7 +8,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
-import main.java.me.Sshawarma.SMP.Main.Main;
+import me.Sshawarma.SMP.Main.Main;
 
 public class Utils {
 	

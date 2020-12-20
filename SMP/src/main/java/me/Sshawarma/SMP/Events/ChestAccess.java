@@ -1,4 +1,4 @@
-package main.java.me.Sshawarma.SMP.Events;
+package me.Sshawarma.SMP.Events;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,7 +17,7 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import main.java.me.Sshawarma.SMP.Command.ChestTrustCommand;
+import me.Sshawarma.SMP.Command.ChestTrustCommand;
 import net.md_5.bungee.api.ChatColor;
 
 public class ChestAccess implements Listener{
