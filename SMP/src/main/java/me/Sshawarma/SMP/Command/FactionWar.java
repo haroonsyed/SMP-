@@ -21,10 +21,7 @@ import net.md_5.bungee.api.ChatColor;
 public class FactionWar implements CommandExecutor{
 	
 	//OMG I AM AN IDIOT
-	//STATIC SHOULD NEVER BE USED, THE DATA IS ONLY DELETED ON SERVER END FOR CLASSES
-	//KEEP DATA HERE AT CLASS LEVEL AND USE GETTER SETTER. 
-	//BIG FACEPALM. I WILL CORRECT THIS GOING FORWARD.
-	//I'll keep the old code as a reminder of bad practice. But going forward no more static. Geez, I knew better.
+	//STATIC SHOULD NEVER BE USED, USE A MANAGER CLASS
 	
 	/*TODO:
 	 *	

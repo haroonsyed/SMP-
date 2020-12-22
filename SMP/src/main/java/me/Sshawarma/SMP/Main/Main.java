@@ -29,7 +29,8 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin{
 	
-	//Class holders
+	//Package these into a data interface with a manager class, as well as any other data
+	//This will clean up main and ensure OOP principles are enforced.
 	private AFKListener afkListener;
 	private JoinListener joinListener;
 	
